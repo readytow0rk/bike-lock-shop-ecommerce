@@ -4,98 +4,98 @@ HOW TO ADD FOOD IMAGES
 Drop your food photos into this folder using the filename below.
 The website will automatically show your photo instead of the emoji.
 
-Supported formats: .jpg  .jpeg  .png  .webp
+Use .webp format for best quality and speed.
 
 --- SOUPS ---
-s1.jpg   Chicken Borsch
-s2.jpg   Chicken Broth
-s3.jpg   Beef Broth
-s4.jpg   Kids' Chicken Star Soup
-s5.jpg   Courgette Cream Soup
-s6.jpg   Fish & Broccoli Soup
-s7.jpg   Wild Mushroom Cream Soup
-s8.jpg   Goulash Soup
-s9.jpg   Meat Solyanka
-s10.jpg  Tom Yam with Chicken
+s1.webp   Chicken Borsch
+s2.webp   Chicken Broth
+s3.webp   Beef Broth
+s4.webp   Kids' Chicken Star Soup
+s5.webp   Courgette Cream Soup
+s6.webp   Fish & Broccoli Soup
+s7.webp   Wild Mushroom Cream Soup
+s8.webp   Goulash Soup
+s9.webp   Meat Solyanka
+s10.webp  Tom Yam with Chicken
 
 --- MAIN COURSES ---
-m1.jpg   Chicken Bowl
-m2.jpg   Pasta with Bacon & Broccoli
-m3.jpg   Chicken Pilaf
-m4.jpg   Mac & Cheese
-m5.jpg   Pasta Alfredo
-m6.jpg   Georgian Turkey
-m7.jpg   Ajapsandali with Beef
-m8.jpg   Homemade Meatballs
-m9.jpg   Chicken & Cheese Rissoles
-m10.jpg  Pollock in Batter
-m11.jpg  Meatballs in Cream Sauce
-m12.jpg  Classic Beef Stroganoff
-m13.jpg  Braised Pork in Satsebeli
-m14.jpg  Chicken Kiev
+m1.webp   Chicken Bowl
+m2.webp   Pasta with Bacon & Broccoli
+m3.webp   Chicken Pilaf
+m4.webp   Mac & Cheese
+m5.webp   Pasta Alfredo
+m6.webp   Georgian Turkey
+m7.webp   Ajapsandali with Beef
+m8.webp   Homemade Meatballs
+m9.webp   Chicken & Cheese Rissoles
+m10.webp  Pollock in Batter
+m11.webp  Meatballs in Cream Sauce
+m12.webp  Classic Beef Stroganoff
+m13.webp  Braised Pork in Satsebeli
+m14.webp  Chicken Kiev
 
 --- SIDES ---
-sd1.jpg  Mashed Potatoes
-sd2.jpg  Boiled Pasta
-sd3.jpg  Garlic Roast Potatoes
-sd4.jpg  Rice with Egg
-sd5.jpg  Aubergine with Tomatoes
-sd6.jpg  Quinoa with Curry
-sd7.jpg  Steamed Vegetables
-sd8.jpg  Bulgur with Mushrooms
+sd1.webp  Mashed Potatoes
+sd2.webp  Boiled Pasta
+sd3.webp  Garlic Roast Potatoes
+sd4.webp  Rice with Egg
+sd5.webp  Aubergine with Tomatoes
+sd6.webp  Quinoa with Curry
+sd7.webp  Steamed Vegetables
+sd8.webp  Bulgur with Mushrooms
 
 --- BREAKFASTS ---
-b1.jpg   Butter Pancakes
-b2.jpg   Cottage Cheese Pancakes
-b3.jpg   Ham & Cheese Pancakes
-b4.jpg   Chicken & Cheese Pancakes
-b5.jpg   Scrambled Eggs with Broccoli
-b6.jpg   Tomato Omelette
-b7.jpg   Ham Omelette
-b8.jpg   Cheese Omelette
-b9.jpg   Shakshuka
-b10.jpg  Semolina Porridge
-b11.jpg  Buckwheat Porridge with Milk
-b12.jpg  Oat Porridge on Coconut Milk
-b13.jpg  Rice Porridge with Raisins
-b14.jpg  Buckwheat with Broccoli & Parmesan
-b15.jpg  Classic Syrniki
-b16.jpg  Coconut Syrniki
-b17.jpg  Cottage Cheese Bake
+b1.webp   Butter Pancakes
+b2.webp   Cottage Cheese Pancakes
+b3.webp   Ham & Cheese Pancakes
+b4.webp   Chicken & Cheese Pancakes
+b5.webp   Scrambled Eggs with Broccoli
+b6.webp   Tomato Omelette
+b7.webp   Ham Omelette
+b8.webp   Cheese Omelette
+b9.webp   Shakshuka
+b10.webp  Semolina Porridge
+b11.webp  Buckwheat Porridge with Milk
+b12.webp  Oat Porridge on Coconut Milk
+b13.webp  Rice Porridge with Raisins
+b14.webp  Buckwheat with Broccoli & Parmesan
+b15.webp  Classic Syrniki
+b16.webp  Coconut Syrniki
+b17.webp  Cottage Cheese Bake
 
 --- SALADS ---
-sl1.jpg  Coleslaw
-sl2.jpg  Courgette & Chicken Salad
-sl3.jpg  Chicken Caesar Salad
-sl4.jpg  Greek Salad
-sl5.jpg  Vinaigrette
+sl1.webp  Coleslaw
+sl2.webp  Courgette & Chicken Salad
+sl3.webp  Chicken Caesar Salad
+sl4.webp  Greek Salad
+sl5.webp  Vinaigrette
 
 --- SANDWICHES ---
-sw1.jpg  Club Sandwich
-sw2.jpg  Croque Monsieur
-sw3.jpg  Avocado & Egg Toast
+sw1.webp  Club Sandwich
+sw2.webp  Croque Monsieur
+sw3.webp  Avocado & Egg Toast
 
 --- BAKING & DESSERTS ---
-bk1.jpg  Honey Cake (Medovik)
-bk2.jpg  Apple Strudel
-bk3.jpg  Chocolate Lava Cake
-bk4.jpg  Cinnamon Rolls
-bk5.jpg  Pirozhki with Potato
-bk6.jpg  Cheesecake Slice
+bk1.webp  Honey Cake (Medovik)
+bk2.webp  Apple Strudel
+bk3.webp  Chocolate Lava Cake
+bk4.webp  Cinnamon Rolls
+bk5.webp  Pirozhki with Potato
+bk6.webp  Cheesecake Slice
 
 --- DRINKS ---
-dr1.jpg  Dried Fruit Compote
-dr2.jpg  Cherry Fruit Drink (Mors)
-dr3.jpg  Redcurrant Mors
-dr4.jpg  Fresh Lemonade
+dr1.webp  Dried Fruit Compote
+dr2.webp  Cherry Fruit Drink (Mors)
+dr3.webp  Redcurrant Mors
+dr4.webp  Fresh Lemonade
 
 --- KIDS ---
-k1.jpg   Kids' Pasta with Tomato Sauce
-k2.jpg   Kids' Chicken Meatballs
-k3.jpg   Kids' Semolina Porridge
-k4.jpg   Kids' Banana Pancakes
+k1.webp   Kids' Pasta with Tomato Sauce
+k2.webp   Kids' Chicken Meatballs
+k3.webp   Kids' Semolina Porridge
+k4.webp   Kids' Banana Pancakes
 
 --- NEW ITEMS ---
-n1.jpg   Shakshuka Bake
-n2.jpg   Salmon Pasta in Cream
-n3.jpg   Korean Glazed Chicken
+n1.webp   Shakshuka Bake
+n2.webp   Salmon Pasta in Cream
+n3.webp   Korean Glazed Chicken
