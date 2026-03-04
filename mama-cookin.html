@@ -403,9 +403,8 @@ footer{background:var(--dark);color:#666;padding:42px 40px;text-align:center}
       <div id="coStep3" style="display:none">
         <div class="psum" id="paySummary"></div>
         <div class="fg">
-          <label class="fl" id="co-l-card">💳 Card Details</label>
-          <div id="card-element" style="padding:13px 14px;border:1.5px solid var(--border);border-radius:10px;background:white"></div>
-          <div id="card-errors" style="color:#c0392b;font-size:.77rem;margin-top:5px"></div>
+          <label class="fl" id="co-l-card">💳 Payment Method</label>
+          <div id="payment-element" style="min-height:60px"></div>
         </div>
         <div class="fg">
           <label class="fl" id="co-l-promo">Promo Code</label>
@@ -756,7 +755,7 @@ const UI={
     co_time_note:'Courier calls ahead. Latest: 10:15 PM',
     co_notes_lbl:'📝 Special Instructions (optional)',co_notes_ph:'Allergies, gate code, leave at door...',
     co_back:'← Back',co_pay_btn:'Payment →',
-    co_card_lbl:'💳 Card Details',co_promo_lbl:'Promo Code',co_apply:'Apply',
+    co_card_lbl:'💳 Payment Method',co_promo_lbl:'Promo Code',co_apply:'Apply',
     co_stripe:'🔒 Payments encrypted and processed securely via Stripe.',co_place:'🍽️ Place Order',
     co_succ_h:'Order Confirmed!',
     co_succ_p1:'Your home-cooked food is scheduled for <strong id="succDate"></strong>. Our courier will call before arriving.',
@@ -799,7 +798,7 @@ const UI={
     co_time_note:'Курьер позвонит заранее. Последний слот: 22:15',
     co_notes_lbl:'📝 Особые пожелания (необязательно)',co_notes_ph:'Аллергии, код домофона, оставить у двери...',
     co_back:'← Назад',co_pay_btn:'Оплата →',
-    co_card_lbl:'💳 Данные карты',co_promo_lbl:'Промокод',co_apply:'Применить',
+    co_card_lbl:'💳 Способ оплаты',co_promo_lbl:'Промокод',co_apply:'Применить',
     co_stripe:'🔒 Платежи зашифрованы и обрабатываются через Stripe.',co_place:'🍽️ Оформить заказ',
     co_succ_h:'Заказ подтверждён!',
     co_succ_p1:'Ваша домашняя еда запланирована на <strong id="succDate"></strong>. Курьер позвонит перед приездом.',
@@ -842,7 +841,7 @@ const UI={
     co_time_note:'Кур\'єр зателефонує заздалегідь. Останній слот: 22:15',
     co_notes_lbl:'📝 Особливі побажання (необов\'язково)',co_notes_ph:'Алергії, код домофону, залишити біля дверей...',
     co_back:'← Назад',co_pay_btn:'Оплата →',
-    co_card_lbl:'💳 Дані картки',co_promo_lbl:'Промокод',co_apply:'Застосувати',
+    co_card_lbl:'💳 Спосіб оплати',co_promo_lbl:'Промокод',co_apply:'Застосувати',
     co_stripe:'🔒 Платежі зашифровані та обробляються через Stripe.',co_place:'🍽️ Оформити замовлення',
     co_succ_h:'Замовлення підтверджено!',
     co_succ_p1:'Ваша домашня їжа запланована на <strong id="succDate"></strong>. Кур\'єр зателефонує перед приїздом.',
@@ -1168,7 +1167,7 @@ function toggleCart(){
 }
 
 // ─── CHECKOUT ────────────────────────────────────────────────────────────────
-let stripe,cardEl;
+let stripe,stripeElements,pmClientSecret;
 function openCheckout(){
   const t=UI[currentLang];
   if(cart.length===0){showNotif(t.notif_add);return;}
@@ -1179,13 +1178,7 @@ function openCheckout(){
 }
 function closeCheckout(){ document.getElementById('coOverlay').classList.remove('open'); }
 function initStripe(){
-  if(!stripe){
-    stripe=Stripe('pk_live_51T6aG7AYAdBa4MYxE2JmRVj9odK3dPdsXFYBuVeE2JuBuOjCDb5afSfGXlSNllb2iH5Q6Wzqf9pQAh8vB8i2oWql00Un3gJ7qC');
-    const els=stripe.elements();
-    cardEl=els.create('card',{style:{base:{fontFamily:'Jost,sans-serif',fontSize:'16px',color:'#2D2010','::placeholder':{color:'#aaa'}}}});
-    cardEl.mount('#card-element');
-    cardEl.on('change',e=>{ document.getElementById('card-errors').textContent=e.error?e.error.message:''; });
-  }
+  if(!stripe) stripe=Stripe('pk_live_51T6aG7AYAdBa4MYxE2JmRVj9odK3dPdsXFYBuVeE2JuBuOjCDb5afSfGXlSNllb2iH5Q6Wzqf9pQAh8vB8i2oWql00Un3gJ7qC');
 }
 function buildDateGrid(){
   const grid=document.getElementById('dateGrid'), today=new Date();
@@ -1232,10 +1225,34 @@ function coStep2(){
   }
   goCoStep(2);
 }
-function coStep3(){
+async function coStep3(){
   if(!selDate){showNotif(UI[currentLang].notif_date);return;}
   if(!selTime_){showNotif(UI[currentLang].notif_time);return;}
   buildPaySum(); goCoStep(3);
+  stripeElements=null; pmClientSecret=null;
+  await initPaymentElement();
+}
+async function initPaymentElement(){
+  const payEl=document.getElementById('payment-element');
+  payEl.innerHTML='<div style="text-align:center;padding:20px;color:var(--lt)">⏳ Loading payment options…</div>';
+  try{
+    const resp=await fetch('/.netlify/functions/create-payment-intent',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({amount:getGrand()})
+    });
+    if(!resp.ok) throw new Error('Server error '+resp.status);
+    const data=await resp.json();
+    if(data.error) throw new Error(data.error);
+    pmClientSecret=data.clientSecret;
+    stripeElements=stripe.elements({
+      appearance:{theme:'stripe',variables:{colorPrimary:'#C4623A',fontFamily:'Jost,sans-serif',borderRadius:'10px'}},
+      clientSecret:pmClientSecret
+    });
+    payEl.innerHTML='';
+    stripeElements.create('payment',{layout:'tabs'}).mount('#payment-element');
+  }catch(e){
+    payEl.innerHTML=`<div style="color:#c0392b;padding:10px;font-size:.85rem">⚠️ ${e.message||'Could not load payment options. Please try again.'}</div>`;
+  }
 }
 function buildPaySum(){
   const t=UI[currentLang],fee=getDelFee(),disc=getDisc();
@@ -1254,10 +1271,8 @@ function applyPromo(){
 }
 async function processPayment(){
   const btn=document.getElementById('payBtn');
-  const errEl=document.getElementById('card-errors');
-  btn.textContent='⏳ Processing…'; btn.disabled=true; errEl.textContent='';
+  btn.textContent='⏳ Processing…'; btn.disabled=true;
 
-  // Collect order details (needed for email regardless of payment method)
   const isDelivery=deliveryMode==='delivery';
   const name=isDelivery
     ?(document.getElementById('fn').value+' '+document.getElementById('ln').value).trim()
@@ -1273,7 +1288,6 @@ async function processPayment(){
   }).join('\n');
   const disc=getDisc();
 
-  // Helper: send order email
   async function sendEmail(paymentInfo){
     const message=
       `🛒 NEW ORDER — £${getGrand().toFixed(2)}\n\n`+
@@ -1293,7 +1307,6 @@ async function processPayment(){
     }catch(e){console.error('EmailJS error:',e);}
   }
 
-  // Helper: show order success screen
   function showSuccess(){
     btn.textContent='🍽️ Place Order'; btn.disabled=false;
     [1,2,3].forEach(i=>document.getElementById('coStep'+i).style.display='none');
@@ -1304,37 +1317,28 @@ async function processPayment(){
     updateCart(); renderMenuGrid();
   }
 
-  // ── REAL PAYMENT via Netlify backend ──────────────────────────────────────
-  // Works when site is hosted on Netlify. Falls back to card-validation-only locally.
-  if(window.location.protocol!=='file:'){
-    let clientSecret;
-    try{
-      const resp=await fetch('/api/create-payment-intent',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({amount:getGrand()})
-      });
-      const data=await resp.json();
-      if(data.error) throw new Error(data.error);
-      clientSecret=data.clientSecret;
-    }catch(e){
-      errEl.textContent='Payment setup failed: '+e.message;
-      btn.textContent='🍽️ Place Order'; btn.disabled=false;
-      return;
-    }
-    const {error,paymentIntent}=await stripe.confirmCardPayment(clientSecret,{
-      payment_method:{card:cardEl,billing_details:{name}}
-    });
-    if(error){ errEl.textContent=error.message; btn.textContent='🍽️ Place Order'; btn.disabled=false; return; }
-    await sendEmail(`Stripe Payment: ${paymentIntent.id} ✅ PAID`);
-    showSuccess();
+  if(!stripeElements){
+    showNotif('Payment not ready — please wait a moment and try again.');
+    btn.textContent='🍽️ Place Order'; btn.disabled=false;
     return;
   }
 
-  // ── LOCAL / fallback: validate card only (no actual charge) ───────────────
-  const {paymentMethod,error}=await stripe.createPaymentMethod({type:'card',card:cardEl});
-  if(error){ errEl.textContent=error.message; btn.textContent='🍽️ Place Order'; btn.disabled=false; return; }
-  await sendEmail(`Stripe PM: ${paymentMethod.id}\n(Deploy to Netlify for real charging)`);
+  const {error,paymentIntent}=await stripe.confirmPayment({
+    elements:stripeElements,
+    confirmParams:{
+      return_url:window.location.href,
+      payment_method_data:{billing_details:{name,phone}}
+    },
+    redirect:'if_required'
+  });
+
+  if(error){
+    showNotif(error.message);
+    btn.textContent='🍽️ Place Order'; btn.disabled=false;
+    return;
+  }
+
+  await sendEmail(`Stripe Payment: ${paymentIntent.id} ✅ PAID`);
   showSuccess();
 }
 
