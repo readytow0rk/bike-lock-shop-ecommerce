@@ -213,7 +213,39 @@ footer{background:var(--dark);color:#666;padding:42px 40px;text-align:center}
 .lbtn{background:none;border:1.5px solid rgba(255,255,255,.22);color:#999;border-radius:6px;padding:4px 9px;cursor:pointer;font-family:'Jost',sans-serif;font-size:.72rem;font-weight:700;transition:all .2s;letter-spacing:.05em}
 .lbtn.lact{background:var(--terracotta);color:white;border-color:var(--terracotta)}
 .lbtn:hover:not(.lact){color:var(--warm);border-color:rgba(255,255,255,.4)}
-@media(max-width:768px){nav{padding:0 14px}.navl{display:none}.wrap{padding:0 18px}.hero{padding:65px 18px}.frow{grid-template-columns:1fr}.dgrid{grid-template-columns:repeat(3,1fr)}.cobody,.cohdr{padding:16px}.dopts{grid-template-columns:1fr}.bbody{max-height:52vh}.bopts{grid-template-columns:1fr 1fr}}
+/* HAMBURGER BUTTON */
+.hbg{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:8px;border:none;background:none;margin-left:auto}
+.hbg span{display:block;width:23px;height:2px;background:var(--warm);border-radius:2px;transition:all .3s}
+.hbg.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hbg.open span:nth-child(2){opacity:0}
+.hbg.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+/* MOBILE NAV DROPDOWN */
+.navl.mopen{display:flex!important;flex-direction:column;position:fixed;top:62px;left:0;right:0;background:var(--dark);z-index:99;padding:8px 0 16px;gap:0;border-top:1px solid rgba(255,255,255,.1);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.navl.mopen li a{display:block;padding:13px 24px;font-size:.92rem;letter-spacing:.04em}
+@media(max-width:768px){
+  nav{padding:0 14px;gap:8px}
+  .navl{display:none}
+  .hbg{display:flex}
+  .ncart{padding:8px 13px;font-size:.78rem;gap:5px}
+  .wrap{padding:0 18px}
+  .hero{padding:65px 18px}
+  .frow{grid-template-columns:1fr}
+  .dgrid{grid-template-columns:repeat(3,1fr)}
+  .cobody,.cohdr{padding:14px 16px}
+  .dopts{grid-template-columns:1fr}
+  .comod{border-radius:16px}
+  .bbody{max-height:55vh;padding:14px 16px}
+  .bopts{grid-template-columns:1fr}
+  .bopt{padding:13px 14px;font-size:.9rem}
+  .bopt-name{font-size:.9rem;line-height:1.4}
+  .bsec-title{font-size:1.05rem;margin-bottom:12px}
+  .bhdr{padding:16px 20px}
+  .bhdr h2{font-size:1.2rem}
+  .bpbar{padding:11px 20px}
+  .bftr{padding:13px 20px;gap:9px}
+  .badd,.bcancel{font-size:.9rem}
+  .bmod{border-radius:18px}
+}
 </style>
 </head>
 <body>
@@ -226,12 +258,15 @@ footer{background:var(--dark);color:#666;padding:42px 40px;text-align:center}
     <img src="logo1.png" alt="Mama Cookin"> Mama Cookin
   </div>
   <ul class="navl" id="navLinks">
-    <li><a href="#packages">Packages</a></li>
-    <li><a href="#menu">Individual Dishes</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#packages" onclick="closeHamburger()">Packages</a></li>
+    <li><a href="#menu" onclick="closeHamburger()">Individual Dishes</a></li>
+    <li><a href="#how" onclick="closeHamburger()">How It Works</a></li>
+    <li><a href="#faq" onclick="closeHamburger()">FAQ</a></li>
+    <li><a href="#contact" onclick="closeHamburger()">Contact</a></li>
   </ul>
+  <button class="hbg" id="hamburger" onclick="toggleHamburger()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <div style="display:flex;gap:3px;align-items:center">
     <button onclick="setLang('en')" id="lb-en" class="lbtn lact">EN</button>
     <button onclick="setLang('ru')" id="lb-ru" class="lbtn">RU</button>
@@ -982,8 +1017,9 @@ function openBundleBuilder(pkgId){
   renderBundleBody();
   updateBundlePrice();
   document.getElementById('bundleOverlay').classList.add('open');
+  lockScroll();
 }
-function closeBundleBuilder(){ document.getElementById('bundleOverlay').classList.remove('open'); }
+function closeBundleBuilder(){ document.getElementById('bundleOverlay').classList.remove('open'); unlockScroll(); }
 
 function renderBundleBody(){
   document.getElementById('bundleBody').innerHTML=currentPkg.slots.map(slot=>{
@@ -1166,9 +1202,25 @@ function cartQ(id,d){
   updateCart(); renderMenuGrid();
 }
 
+function lockScroll(){ document.body.style.overflow='hidden'; }
+function unlockScroll(){ document.body.style.overflow=''; }
+
+function toggleHamburger(){
+  const hbg=document.getElementById('hamburger');
+  const nav=document.getElementById('navLinks');
+  hbg.classList.toggle('open');
+  nav.classList.toggle('mopen');
+}
+function closeHamburger(){
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('navLinks').classList.remove('mopen');
+}
+
 function toggleCart(){
+  const isOpen=document.getElementById('cartSidebar').classList.contains('open');
   document.getElementById('cartOverlay').classList.toggle('open');
   document.getElementById('cartSidebar').classList.toggle('open');
+  isOpen ? unlockScroll() : lockScroll();
 }
 
 // ─── CHECKOUT ────────────────────────────────────────────────────────────────
@@ -1180,8 +1232,9 @@ function openCheckout(){
   toggleCart();
   document.getElementById('coOverlay').classList.add('open');
   buildDateGrid(); initStripe(); goCoStep(1);
+  lockScroll();
 }
-function closeCheckout(){ document.getElementById('coOverlay').classList.remove('open'); }
+function closeCheckout(){ document.getElementById('coOverlay').classList.remove('open'); unlockScroll(); }
 function initStripe(){
   if(!stripe) stripe=Stripe('pk_live_51T6aG7AYAdBa4MYxE2JmRVj9odK3dPdsXFYBuVeE2JuBuOjCDb5afSfGXlSNllb2iH5Q6Wzqf9pQAh8vB8i2oWql00Un3gJ7qC');
 }
