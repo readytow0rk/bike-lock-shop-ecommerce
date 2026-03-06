@@ -1452,16 +1452,17 @@ function updatePromoBar(){
       ru:`⏰ <strong>Скидка 10%</strong> — Оформите заказ за <strong>${fmtTime(timerSecs)}</strong> и сэкономьте!`,
       uk:`⏰ <strong>Знижка 10%</strong> — Оформіть замовлення за <strong>${fmtTime(timerSecs)}</strong> і заощадьте!`
     };
+    bar.style.display='';
     bar.innerHTML=msgs[currentLang]||msgs.en;
   } else {
     bar.style.display='none';
   }
 }
 function startPromoTimer(){
-  const KEY='mc_promo_expiry';
+  const KEY='mc_promo_expiry_1h';
   let expiry=parseInt(localStorage.getItem(KEY)||'0');
   if(!expiry||expiry<=Date.now()){
-    expiry=Date.now()+20*60*1000;
+    expiry=Date.now()+60*60*1000;
     localStorage.setItem(KEY,expiry);
   }
   timerSecs=Math.max(0,Math.round((expiry-Date.now())/1000));
