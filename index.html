@@ -79,12 +79,14 @@ nav{position:sticky;top:0;z-index:100;background:var(--dark);display:flex;align-
 .bbody{padding:24px 28px;max-height:62vh;overflow-y:auto}
 .bsec{margin-bottom:24px}
 .bsec-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.bopts{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:7px}
-.bopt{border:1.5px solid var(--border);border-radius:9px;padding:9px 12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;font-size:.81rem}
+.bopts{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:7px}
+.bopt{border:1.5px solid var(--border);border-radius:9px;padding:9px 10px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:9px;font-size:.81rem}
 .bopt:hover{border-color:var(--terracotta)}
 .bopt.sel{border-color:var(--terracotta);background:#FEF3EC}
 .bopt input[type=radio]{accent-color:var(--terracotta);width:15px;height:15px;flex-shrink:0}
-.bopt-name{flex:1;line-height:1.3}
+.bopt-img{width:46px;height:46px;border-radius:7px;flex-shrink:0;background:#f0ebe4;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;font-size:1.35rem}
+.bopt-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bopt-name{flex:1;line-height:1.35;font-weight:500}
 .bopt-extra{font-size:.7rem;color:var(--terracotta);font-weight:600;white-space:nowrap}
 .bftr{padding:18px 28px;border-top:1px solid var(--border);display:flex;gap:10px}
 .badd{flex:1;padding:13px;background:var(--terracotta);color:white;border:none;border-radius:11px;cursor:pointer;font-family:'Jost',sans-serif;font-size:.92rem;font-weight:700;transition:background .2s}
@@ -256,8 +258,9 @@ footer{background:var(--dark);color:#666;padding:42px 40px;text-align:center}
   .bmod{border-radius:0;max-width:100%;width:100%;margin:0;height:100vh;height:100dvh;display:flex;flex-direction:column}
   .bbody{max-height:none;flex:1;overflow-y:auto;padding:14px 16px}
   .bopts{grid-template-columns:1fr}
-  .bopt{padding:14px;font-size:.92rem}
-  .bopt-name{font-size:.92rem;line-height:1.45}
+  .bopt{padding:10px;font-size:.88rem;gap:10px}
+  .bopt-img{width:50px;height:50px}
+  .bopt-name{font-size:.88rem;line-height:1.4}
   .bsec-title{font-size:1rem;margin-bottom:13px}
   .bhdr{padding:0 16px;height:54px;flex-shrink:0}
   .bhdr h2{font-size:1.05rem;flex:1;text-align:center}
@@ -544,23 +547,23 @@ const SIDES=[
   {id:'sd7',name:'Steamed Vegetables',desc:'Seasonal broccoli, carrots and courgette — perfectly steamed',price:15,emoji:'🥦',weight:'700g',cat:'sides',sizes:[{label:'700g',weight:'700g',price:15},{label:'1.2kg',weight:'1.2kg',price:22},{label:'1.5kg',weight:'1.5kg',price:30}]},
 ];
 const BREAKFASTS=[
-  {id:'b1',name:'Butter Pancakes (12 pcs)',desc:'Thin classic Russian blini with butter',price:8.00,emoji:'🫓',weight:'600g',cat:'breakfast'},
-  {id:'b2',name:'Cottage Cheese Pancakes (6 pcs)',desc:'Fluffy blinis filled with sweet cottage cheese',price:8.50,emoji:'🥞',weight:'600g',cat:'breakfast'},
-  {id:'b3',name:'Ham & Cheese Pancakes (6 pcs)',desc:'Savoury crêpes stuffed with ham and melted cheese',price:10.50,emoji:'🫓',weight:'600g',cat:'breakfast',extra:4.50},
-  {id:'b4',name:'Chicken & Cheese Pancakes (6 pcs)',desc:'Filled crêpes with chicken, cheese and herbs',price:10.50,emoji:'🫓',weight:'600g',cat:'breakfast',extra:4.50},
-  {id:'b5',name:'Scrambled Eggs with Broccoli (3 pcs)',desc:'Soft scrambled eggs with tender broccoli florets',price:8.50,emoji:'🥚',weight:'750g',cat:'breakfast'},
-  {id:'b6',name:'Tomato Omelette (3 pcs)',desc:'Fluffy baked omelette with fresh tomatoes and herbs',price:8.00,emoji:'🍳',weight:'600g',cat:'breakfast'},
-  {id:'b7',name:'Ham Omelette (3 pcs)',desc:'Classic omelette with diced smoked ham',price:9.00,emoji:'🍳',weight:'600g',cat:'breakfast',extra:3.50},
-  {id:'b8',name:'Cheese Omelette (3 pcs)',desc:'Folded omelette with melted cheddar cheese',price:9.50,emoji:'🧀',weight:'600g',cat:'breakfast',extra:4.50},
-  {id:'b9',name:'Shakshuka (3 pcs)',desc:'Eggs poached in spiced tomato and pepper sauce',price:9.00,emoji:'🍅',weight:'720g',cat:'breakfast',extra:3.50},
+  {id:'b1',name:'Butter Pancakes',desc:'Thin classic Russian blini with butter',price:8.00,emoji:'🫓',weight:'6 pcs',cat:'breakfast',sizes:[{label:'3 pcs',weight:'3 pcs',price:4},{label:'6 pcs',weight:'6 pcs',price:8},{label:'9 pcs',weight:'9 pcs',price:12}],sizesDef:1},
+  {id:'b2',name:'Cottage Cheese Pancakes',desc:'Fluffy blinis filled with sweet cottage cheese',price:8.50,emoji:'🥞',weight:'6 pcs',cat:'breakfast',sizes:[{label:'3 pcs',weight:'3 pcs',price:4.5},{label:'6 pcs',weight:'6 pcs',price:8.5},{label:'9 pcs',weight:'9 pcs',price:13}],sizesDef:1},
+  {id:'b3',name:'Ham & Cheese Pancakes',desc:'Savoury crêpes stuffed with ham and melted cheese',price:10.50,emoji:'🫓',weight:'6 pcs',cat:'breakfast',extra:4.50,sizes:[{label:'3 pcs',weight:'3 pcs',price:5.5},{label:'6 pcs',weight:'6 pcs',price:10.5},{label:'9 pcs',weight:'9 pcs',price:16}],sizesDef:1},
+  {id:'b4',name:'Chicken & Cheese Pancakes',desc:'Filled crêpes with chicken, cheese and herbs',price:10.50,emoji:'🫓',weight:'6 pcs',cat:'breakfast',extra:4.50,sizes:[{label:'3 pcs',weight:'3 pcs',price:5.5},{label:'6 pcs',weight:'6 pcs',price:10.5},{label:'9 pcs',weight:'9 pcs',price:16}],sizesDef:1},
+  {id:'b5',name:'Scrambled Eggs with Broccoli',desc:'Soft scrambled eggs with tender broccoli florets',price:8.50,emoji:'🥚',weight:'750g',cat:'breakfast'},
+  {id:'b6',name:'Tomato Omelette',desc:'Fluffy baked omelette with fresh tomatoes and herbs',price:8.00,emoji:'🍳',weight:'600g',cat:'breakfast'},
+  {id:'b7',name:'Ham Omelette',desc:'Classic omelette with diced smoked ham',price:9.00,emoji:'🍳',weight:'600g',cat:'breakfast',extra:3.50},
+  {id:'b8',name:'Cheese Omelette',desc:'Folded omelette with melted cheddar cheese',price:9.50,emoji:'🧀',weight:'600g',cat:'breakfast',extra:4.50},
+  {id:'b9',name:'Shakshuka',desc:'Eggs poached in spiced tomato and pepper sauce',price:9.00,emoji:'🍅',weight:'720g',cat:'breakfast',extra:3.50},
   {id:'b10',name:'Semolina Porridge',desc:'Creamy smooth semolina with butter and honey',price:6.50,emoji:'🥣',weight:'900g',cat:'breakfast'},
   {id:'b11',name:'Buckwheat Porridge with Milk',desc:'Nutty buckwheat in warm whole milk, lightly sweetened',price:6.50,emoji:'🌾',weight:'900g',cat:'breakfast'},
   {id:'b12',name:'Oat Porridge on Coconut Milk',desc:'Creamy oats cooked in coconut milk, topped with honey',price:6.50,emoji:'🥥',weight:'900g',cat:'breakfast'},
   {id:'b13',name:'Rice Porridge with Raisins',desc:'Sweet rice pudding with plump raisins and cinnamon',price:6.50,emoji:'🍚',weight:'900g',cat:'breakfast'},
   {id:'b14',name:'Buckwheat with Broccoli & Parmesan',desc:'Savoury buckwheat with tender broccoli and shaved parmesan',price:7.00,emoji:'🥦',weight:'900g',cat:'breakfast'},
-  {id:'b15',name:'Classic Syrniki (12 pcs)',desc:'Traditional Russian cottage cheese pancakes, golden fried',price:10.50,emoji:'🥞',weight:'600g',cat:'breakfast',extra:4.50},
-  {id:'b16',name:'Coconut Syrniki (12 pcs)',desc:'Cottage cheese pancakes with coconut flakes',price:10.50,emoji:'🥥',weight:'600g',cat:'breakfast',extra:4.50},
-  {id:'b17',name:'Cottage Cheese Bake (3 pcs)',desc:'Baked cottage cheese casserole, lightly sweetened',price:9.00,emoji:'🍮',weight:'600g',cat:'breakfast',extra:3.50},
+  {id:'b15',name:'Classic Syrniki',desc:'Traditional Russian cottage cheese pancakes, golden fried',price:10.50,emoji:'🥞',weight:'6 pcs',cat:'breakfast',extra:4.50,sizes:[{label:'3 pcs',weight:'3 pcs',price:5.5},{label:'6 pcs',weight:'6 pcs',price:10.5},{label:'9 pcs',weight:'9 pcs',price:16}],sizesDef:1},
+  {id:'b16',name:'Coconut Syrniki',desc:'Cottage cheese pancakes with coconut flakes',price:10.50,emoji:'🥥',weight:'6 pcs',cat:'breakfast',extra:4.50,sizes:[{label:'3 pcs',weight:'3 pcs',price:5.5},{label:'6 pcs',weight:'6 pcs',price:10.5},{label:'9 pcs',weight:'9 pcs',price:16}],sizesDef:1},
+  {id:'b17',name:'Cottage Cheese Bake',desc:'Baked cottage cheese casserole, lightly sweetened',price:9.00,emoji:'🍮',weight:'6 pcs',cat:'breakfast',extra:3.50,sizes:[{label:'3 pcs',weight:'3 pcs',price:4.5},{label:'6 pcs',weight:'6 pcs',price:9},{label:'9 pcs',weight:'9 pcs',price:13.5}],sizesDef:1},
 ];
 const SALADS=[
   {id:'sl1',name:'Coleslaw',desc:'Crunchy cabbage and carrot slaw in light dressing',price:6.50,emoji:'🥗',weight:'600g',cat:'salads'},
@@ -618,8 +621,8 @@ const PACKAGES=[
   {id:'family3day',title:'3-Day Family Meal',emoji:'🍲',cc:'c2',badge:'BEST SELLER',portions:'~18 portions',basePrice:60,
    desc:['3L homemade soup (borscht, meatball, creamy & more)','Large tray of main dish (plov, stew, meatballs, roast chicken & more)','Feeds a family of 3 — 3 lunches + 3 dinners','Menu can be discussed & customised'],
    slots:[
-     {key:'soup1',label:'Soup',options:SOUPS,icon:'🍜'},
-     {key:'main1',label:'Main Course',options:MAINS,icon:'🍗'},
+     {key:'soup1',label:'Soup (3L)',options:SOUPS,icon:'🍜'},
+     {key:'main1',label:'Main Course (1.5kg)',options:MAINS,icon:'🍗'},
    ]},
   {id:'extended',title:'Extended Family Package',emoji:'👨‍👩‍👧‍👦',cc:'c3',badge:'BIGGEST SAVING',portions:'~35+ portions',basePrice:120,
    desc:['2 soups (3L each)','4 hot main courses','2 side dishes','2 salads or breakfasts','2 drinks (1L each)','Larger order? Contact us — the more you add, the bigger the discount!'],
@@ -684,23 +687,23 @@ const ITEM_TRANS={
   sd3:{ru:{name:'Картофель с чесноком запечённый',desc:'Хрустящий запечённый картофель с чесноком и розмарином'},uk:{name:'Картопля з часником запечена',desc:'Хрустка запечена картопля з часником та розмарином'}},
   sd4:{ru:{name:'Рис с яйцом',desc:'Пышный рис с яйцом всмятку и зеленью'},uk:{name:'Рис з яйцем',desc:'Пишний рис з яйцем всмятку та зеленню'}},
   sd7:{ru:{name:'Овощи на пару',desc:'Брокколи, морковь и кабачки, приготовленные на пару'},uk:{name:'Овочі на пару',desc:'Броколі, морква та кабачки, приготовлені на пару'}},
-  b1:{ru:{name:'Масляные блины (12 шт)',desc:'Тонкие классические блины с маслом'},uk:{name:'Масляні млинці (12 шт)',desc:'Тонкі класичні млинці з маслом'}},
-  b2:{ru:{name:'Творожные блины (6 шт)',desc:'Пышные блины с творожной начинкой'},uk:{name:'Сирні млинці (6 шт)',desc:'Пишні млинці з сирною начинкою'}},
-  b3:{ru:{name:'Блины с ветчиной и сыром (6 шт)',desc:'Сытные блины с ветчиной и расплавленным сыром'},uk:{name:'Млинці з шинкою та сиром (6 шт)',desc:'Ситні млинці з шинкою та розплавленим сиром'}},
-  b4:{ru:{name:'Блины с курицей и сыром (6 шт)',desc:'Блины с курицей, сыром и травами'},uk:{name:'Млинці з куркою та сиром (6 шт)',desc:'Млинці з куркою, сиром та зеленню'}},
-  b5:{ru:{name:'Яичница с брокколи (3 шт)',desc:'Мягкая яичница с нежными соцветиями брокколи'},uk:{name:'Яєчня з броколі (3 шт)',desc:'М\'яка яєчня з ніжними суцвіттями броколі'}},
-  b6:{ru:{name:'Омлет с помидорами (3 шт)',desc:'Пышный запечённый омлет со свежими помидорами и зеленью'},uk:{name:'Омлет з помідорами (3 шт)',desc:'Пишний запечений омлет зі свіжими помідорами та зеленню'}},
-  b7:{ru:{name:'Омлет с ветчиной (3 шт)',desc:'Классический омлет с нарезанной копчёной ветчиной'},uk:{name:'Омлет з шинкою (3 шт)',desc:'Класичний омлет із нарізаною копченою шинкою'}},
-  b8:{ru:{name:'Омлет с сыром (3 шт)',desc:'Свёрнутый омлет с расплавленным сыром чеддер'},uk:{name:'Омлет з сиром (3 шт)',desc:'Загорнутий омлет із розплавленим сиром чеддер'}},
-  b9:{ru:{name:'Шакшука (3 шт)',desc:'Яйца пашот в пряном томатно-перечном соусе'},uk:{name:'Шакшука (3 шт)',desc:'Яйця пашот у пряному томатно-перцевому соусі'}},
+  b1:{ru:{name:'Масляные блины',desc:'Тонкие классические блины с маслом'},uk:{name:'Масляні млинці',desc:'Тонкі класичні млинці з маслом'}},
+  b2:{ru:{name:'Творожные блины',desc:'Пышные блины с творожной начинкой'},uk:{name:'Сирні млинці',desc:'Пишні млинці з сирною начинкою'}},
+  b3:{ru:{name:'Блины с ветчиной и сыром',desc:'Сытные блины с ветчиной и расплавленным сыром'},uk:{name:'Млинці з шинкою та сиром',desc:'Ситні млинці з шинкою та розплавленим сиром'}},
+  b4:{ru:{name:'Блины с курицей и сыром',desc:'Блины с курицей, сыром и травами'},uk:{name:'Млинці з куркою та сиром',desc:'Млинці з куркою, сиром та зеленню'}},
+  b5:{ru:{name:'Яичница с брокколи',desc:'Мягкая яичница с нежными соцветиями брокколи'},uk:{name:'Яєчня з броколі',desc:'М\'яка яєчня з ніжними суцвіттями броколі'}},
+  b6:{ru:{name:'Омлет с помидорами',desc:'Пышный запечённый омлет со свежими помидорами и зеленью'},uk:{name:'Омлет з помідорами',desc:'Пишний запечений омлет зі свіжими помідорами та зеленню'}},
+  b7:{ru:{name:'Омлет с ветчиной',desc:'Классический омлет с нарезанной копчёной ветчиной'},uk:{name:'Омлет з шинкою',desc:'Класичний омлет із нарізаною копченою шинкою'}},
+  b8:{ru:{name:'Омлет с сыром',desc:'Свёрнутый омлет с расплавленным сыром чеддер'},uk:{name:'Омлет з сиром',desc:'Загорнутий омлет із розплавленим сиром чеддер'}},
+  b9:{ru:{name:'Шакшука',desc:'Яйца пашот в пряном томатно-перечном соусе'},uk:{name:'Шакшука',desc:'Яйця пашот у пряному томатно-перцевому соусі'}},
   b10:{ru:{name:'Манная каша',desc:'Нежная манная каша с маслом и мёдом'},uk:{name:'Манна каша',desc:'Ніжна манна каша з маслом та медом'}},
   b11:{ru:{name:'Гречневая каша с молоком',desc:'Ореховая гречка в тёплом цельном молоке'},uk:{name:'Гречана каша з молоком',desc:'Горіхова гречка у теплому цільному молоці'}},
   b12:{ru:{name:'Овсяная каша на кокосовом молоке',desc:'Нежная овсянка на кокосовом молоке с мёдом'},uk:{name:'Вівсяна каша на кокосовому молоці',desc:'Ніжна вівсянка на кокосовому молоці з медом'}},
   b13:{ru:{name:'Рисовая каша с изюмом',desc:'Рисовый пудинг с изюмом и корицей'},uk:{name:'Рисова каша з родзинками',desc:'Рисовий пудинг з родзинками та корицею'}},
   b14:{ru:{name:'Гречка с брокколи и пармезаном',desc:'Гречка с нежными брокколи и пармезаном'},uk:{name:'Гречка з броколі та пармезаном',desc:'Гречка з ніжними броколі та пармезаном'}},
-  b15:{ru:{name:'Сырники классические (12 шт)',desc:'Традиционные сырники из творога, жареные золотистые'},uk:{name:'Сирники класичні (12 шт)',desc:'Традиційні сирники з сиру, смажені золотисті'}},
-  b16:{ru:{name:'Сырники с кокосом (12 шт)',desc:'Сырники из творога с кокосовой стружкой'},uk:{name:'Сирники з кокосом (12 шт)',desc:'Сирники з кокосовою стружкою'}},
-  b17:{ru:{name:'Творожная запеканка (3 шт)',desc:'Запечённая творожная запеканка, слегка сладкая'},uk:{name:'Сирна запіканка (3 шт)',desc:'Запечена сирна запіканка, злегка солодка'}},
+  b15:{ru:{name:'Сырники классические',desc:'Традиционные сырники из творога, жареные золотистые'},uk:{name:'Сирники класичні',desc:'Традиційні сирники з сиру, смажені золотисті'}},
+  b16:{ru:{name:'Сырники с кокосом',desc:'Сырники из творога с кокосовой стружкой'},uk:{name:'Сирники з кокосом',desc:'Сирники з кокосовою стружкою'}},
+  b17:{ru:{name:'Творожная запеканка',desc:'Запечённая творожная запеканка, слегка сладкая'},uk:{name:'Сирна запіканка',desc:'Запечена сирна запіканка, злегка солодка'}},
   sl1:{ru:{name:'Коул-слоу',desc:'Хрустящий капустный салат с морковью в лёгкой заправке'},uk:{name:'Коул-слоу',desc:'Хрусткий капустяний салат з морквою у легкій заправці'}},
   sl2:{ru:{name:'Салат из кабачков и курицы',desc:'Кабачки-гриль с куриной грудкой и травами'},uk:{name:'Салат з кабачків та курки',desc:'Кабачки-гриль з курячою грудкою та зеленню'}},
   sl3:{ru:{name:'Цезарь с курицей',desc:'Романо, курица-гриль, пармезан, гренки, соус Цезарь'},uk:{name:'Цезар з куркою',desc:'Романо, курка-гриль, п��рмезан, грінки, соус Цезар'}},
@@ -1028,14 +1031,14 @@ function closeBundleBuilder(){ document.getElementById('bundleOverlay').classLis
 function renderBundleBody(){
   document.getElementById('bundleBody').innerHTML=currentPkg.slots.map(slot=>{
     const opts=slot.options.map(opt=>{
-      const ex=opt.extra?`<span class="bopt-extra">+£${opt.extra.toFixed(2)}</span>`:'';
       return `<label class="bopt" id="bo-${slot.key}-${opt.id}" onclick="selBundleOpt('${slot.key}','${opt.id}')">
         <input type="radio" name="${slot.key}" value="${opt.id}" ${bundleSel[slot.key]===opt.id?'checked':''}>
-        <span class="bopt-name">${opt.emoji} ${iName(opt)} <small style="color:#bbb;font-size:.68rem">${opt.weight}</small></span>${ex}</label>`;
+        <div class="bopt-img"><span>${opt.emoji}</span><img src="food-images/${opt.id}.webp" alt="" onerror="this.style.display='none'"></div>
+        <span class="bopt-name">${iName(opt)}</span></label>`;
     }).join('');
     const skip=slot.allowSkip?`<label class="bopt" id="bo-${slot.key}-skip" onclick="selBundleOpt('${slot.key}','skip')">
       <input type="radio" name="${slot.key}" value="skip" ${bundleSel[slot.key]==='skip'?'checked':''}>
-      <span class="bopt-name">${UI[currentLang].skip_item}</span><span class="bopt-extra">-£${slot.skipDiscount.toFixed(2)}</span></label>`:'';
+      <span class="bopt-name">${UI[currentLang].skip_item}</span></label>`:'';
     return `<div class="bsec">
       <div class="bsec-title"><span>${slot.icon}</span>${tSlot(slot.label)}</div>
       <div class="bopts">${opts}${skip}</div>
@@ -1062,8 +1065,6 @@ function getBundleExtras(){
     const v=bundleSel[s.key];
     if(!v) return;
     if(v==='skip'){x-=s.skipDiscount||0;return;}
-    const o=s.options.find(op=>op.id===v);
-    if(o&&o.extra) x+=o.extra;
   });
   return x;
 }
