@@ -9,7 +9,7 @@ exports.handler = async (event) => {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: Math.round(amount * 100), // convert £ to pence
       currency: 'gbp',
-      automatic_payment_methods: { enabled: true },
+      automatic_payment_methods: { enabled: true, allow_redirects: 'never' },
     });
     return {
       statusCode: 200,
