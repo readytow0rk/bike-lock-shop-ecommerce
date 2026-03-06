@@ -26,10 +26,8 @@ m6.webp   Georgian Turkey             | Индейка по-грузински
 m7.webp   Ajapsandali with Beef       | Аджапсандали с говядиной
 m8.webp   Homemade Meatballs          | Домашние фрикадельки (3 шт)
 m9.webp   Chicken & Cheese Rissoles   | Куриные котлеты с сыром (3 шт)
-m10.webp  Pollock in Batter           | Минтай в кляре (3 шт)
 m11.webp  Meatballs in Cream Sauce    | Фрикадельки в сливочном соусе (6 шт)
 m12.webp  Classic Beef Stroganoff     | Говядина по-строгановски
-m13.webp  Braised Pork in Satsebeli   | Тушёная свинина в сацебели (3 шт)
 m14.webp  Chicken Kiev                | Котлета по-киевски
 
 --- SIDES / ГАРНИРЫ ---

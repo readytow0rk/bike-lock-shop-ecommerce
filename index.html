@@ -532,6 +532,8 @@ const MAINS=[
   {id:'m9',name:'Chicken & Cheese Rissoles',desc:'Juicy chicken patties stuffed with bacon and melted cheese',price:25,emoji:'🍗',weight:'10 pcs',cat:'mains',sizes:[{label:'10 pcs',weight:'10 pcs',price:25},{label:'20 pcs',weight:'20 pcs',price:40}]},
   {id:'m11',name:'Meatballs in Cream Sauce',desc:'Tender beef meatballs in rich mushroom cream sauce',price:30,emoji:'🍢',weight:'10 pcs',cat:'mains',sizes:[{label:'10 pcs',weight:'10 pcs',price:30},{label:'20 pcs',weight:'20 pcs',price:40}]},
   {id:'m14',name:'Chicken Kiev',desc:'Classic butter-stuffed breaded chicken breast, golden fried',price:14.00,emoji:'🍳',weight:'350g',cat:'mains'},
+  {id:'m15',name:'Chicken Thighs in Garlic Sour Cream Sauce',desc:'Juicy chicken thighs slow-cooked in a rich garlic and sour cream sauce',price:25,emoji:'🍗',weight:'6 pcs',cat:'mains',sizes:[{label:'6 pcs',weight:'6 pcs',price:25},{label:'9 pcs',weight:'9 pcs',price:28}]},
+  {id:'m16',name:'Stuffed Peppers',desc:'Bell peppers filled with seasoned minced meat and rice, in tomato sauce',price:25,emoji:'🫑',weight:'6 pcs',cat:'mains',sizes:[{label:'6 pcs',weight:'6 pcs',price:25},{label:'9 pcs',weight:'9 pcs',price:32}]},
 ];
 const SIDE_SZ_A=[{label:'900g',weight:'900g',price:8},{label:'1.2kg',weight:'1.2kg',price:11},{label:'1.5kg',weight:'1.5kg',price:15}];
 const SIDES=[
@@ -675,6 +677,8 @@ const ITEM_TRANS={
   m12:{ru:{name:'Говядина по-строгановски',desc:'Нежная говядина в насыщенном соусе из грибов и сметаны'},uk:{name:'Яловичина по-строганівськи',desc:'Ніжна яловичина у насиченому соусі з грибів та сметани'}},
   m13:{ru:{name:'Тушёная свинина в сацебели (3 шт)',desc:'Свинина в традиционном грузинском томатно-травяном соусе'},uk:{name:'Тушкована свинина у сацебелі (3 шт)',desc:'Свинина у традиційному грузинському томатно-трав\'яному соусі'}},
   m14:{ru:{name:'Котлета по-киевски',desc:'Классическая котлета по-киевски с маслом, в панировке, золотистая'},uk:{name:'Котлета по-київськи',desc:'Класична котлета по-київськи з маслом, у паніровці, золотиста'}},
+  m15:{ru:{name:'Куриные бёдрышки в чесночно-сметанном соусе',desc:'Сочные куриные бёдра, тушёные в насыщенном чесночно-сметанном соусе'},uk:{name:'Курячі стегенця в часниково-сметанному соусі',desc:'Соковиті курячі стегна, тушковані у насиченому часниково-сметанному соусі'}},
+  m16:{ru:{name:'Фаршированные перцы',desc:'Болгарские перцы, фаршированные мясным фаршем с рисом, в томатном соусе'},uk:{name:'Фаршировані перці',desc:'Болгарські перці, фаршировані м\'ясним фаршем з рисом, у томатному соусі'}},
   sd1:{ru:{name:'Пюре картофельное',desc:'Сливочное пюре с маслом и зелёным луком'},uk:{name:'Картопляне пюре',desc:'Вершкове пюре з маслом та зеленою цибулею'}},
   sd2:{ru:{name:'Паста отварная',desc:'Паста аль денте, слегка сдобренная маслом'},uk:{name:'Варена паста',desc:'Паста аль денте, злегка збризкана маслом'}},
   sd3:{ru:{name:'Картофель с чесноком запечённый',desc:'Хрустящий запечённый картофель с чесноком и розмарином'},uk:{name:'Картопля з часником запечена',desc:'Хрустка запечена картопля з часником та розмарином'}},
@@ -1126,7 +1130,7 @@ function renderMenuGrid(){
     const sz=sizes[sidx];
     const cartId=`${item.id}-${sidx}`;
     const ci=cart.find(c=>c.id===cartId),qty=ci?ci.qty:0;
-    const szBtns=sizes.length>1?`<div style="display:flex;gap:4px;margin-top:9px;flex-wrap:wrap">${sizes.map((s,i)=>`<button onclick="selSize('${item.id}',${i})" style="padding:3px 10px;border-radius:20px;border:1.5px solid ${i===sidx?'var(--terracotta)':'var(--border)'};background:${i===sidx?'var(--terracotta)':'white'};color:${i===sidx?'white':'var(--lt)'};font-size:.66rem;font-weight:600;cursor:pointer;font-family:Jost,sans-serif;line-height:1.9;transition:all .15s">${tSize(s.label)} <span style="font-weight:400;opacity:.8">${s.weight}</span></button>`).join('')}</div>`:'';
+    const szBtns=sizes.length>1?`<div style="display:flex;gap:4px;margin-top:9px;flex-wrap:wrap">${sizes.map((s,i)=>`<button onclick="selSize('${item.id}',${i})" style="padding:3px 10px;border-radius:20px;border:1.5px solid ${i===sidx?'var(--terracotta)':'var(--border)'};background:${i===sidx?'var(--terracotta)':'white'};color:${i===sidx?'white':'var(--lt)'};font-size:.66rem;font-weight:600;cursor:pointer;font-family:Jost,sans-serif;line-height:1.9;transition:all .15s">${tSize(s.label)}${s.weight!==s.label?` <span style="font-weight:400;opacity:.8">${s.weight}</span>`:''}</button>`).join('')}</div>`:'';
     return `<div class="mi">
       <div class="miimg">
         <span style="font-size:3rem">${item.emoji}</span>
@@ -1138,7 +1142,7 @@ function renderMenuGrid(){
         <div class="midesc">${iDesc(item)}</div>
         ${szBtns}
         <div class="mifoot">
-          <div><div class="mip">£${sz.price.toFixed(2)}</div><div class="miw">${sz.weight}</div></div>
+          <div><div class="mip">£${sz.price.toFixed(2)}</div>${sz.weight!==sz.label?`<div class="miw">${sz.weight}</div>`:''}</div>
           ${qty===0?`<button class="addbtn" onclick="addItem('${item.id}')">+</button>`:`<div class="qc"><button onclick="chgQty('${cartId}',-1)">−</button><span class="qn">${qty}</span><button onclick="chgQty('${cartId}',1)">+</button></div>`}
         </div>
       </div>
