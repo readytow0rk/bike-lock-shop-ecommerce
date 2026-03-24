@@ -2,3 +2,10 @@
 .env.local
 node_modules/
 .DS_Store
+food-images/
+image.png
+logo1.png
+mama-cookin-logo*.svg
+Archive.zip
+.claude/
+to\ do.txt

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LOCKSPYRE — industrial security</title>
+
+  <!-- favicon (green) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b09'/%3E%3Cpolygon points='32,3 61,18 61,46 32,61 3,46 3,18' fill='none' stroke='%231f7a5a' stroke-width='2.5'/%3E%3Cline x1='22' y1='18' x2='22' y2='46' stroke='%231f7a5a' stroke-width='3' stroke-linecap='round'/%3E%3Cpath d='M22,18 Q38,18 38,25 Q38,32 22,32' fill='none' stroke='%231f7a5a' stroke-width='2.5' stroke-linecap='round'/%3E%3Cpath d='M22,32 Q40,32 40,39 Q40,46 22,46' fill='none' stroke='%231f7a5a' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #070b09;
+      --deep:      #0b110f;
+      --dark:      #0d1512;
+      --panel:     #0f1a15;
+      --panel-alt: #13221b;
+      --border:    rgba(46, 204, 113, 0.2);
+      --bdim:      rgba(255,255,255,0.04);
+      --green-d:   #0f2f1f;
+      --green:     #1f7a5a;
+      --green-l:   #2ecc71;
+      --green-glow: rgba(46, 204, 113, 0.25);
+      --white:     #eef0f5;
+      --grey:      #9aa9b5;
+      --greyl:     #cbd5e1;
+      --greyd:     #5f6c7a;
+      --fd: 'Rajdhani', sans-serif;
+      --fc: 'Barlow Condensed', sans-serif;
+      --fb: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); background: var(--black); color: var(--white); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--green); }
+    body::before {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.015;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:200px;
+    }
+
+    /* logo */
+    .logo { display:flex; align-items:center; gap:11px; text-decoration:none; cursor:pointer; flex-shrink:0; }
+    .logo-mark { width:36px; height:36px; flex-shrink:0; }
+    .logo-text { font-family:var(--fd); font-size:1.5rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--white); line-height:1; }
+    .logo-text em { color:var(--green); font-style:normal; }
+
+    /* header */
+    header {
+      position:fixed; top:0; left:0; right:0; z-index:100; height:68px;
+      display:flex; align-items:center; justify-content:space-between; padding:0 5%;
+      background:rgba(7,11,9,0.97); backdrop-filter:blur(16px); border-bottom:1px solid var(--border);
+    }
+    header::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,transparent,var(--green),transparent); opacity:.3;
+    }
+    nav { display:flex; align-items:center; gap:26px; }
+    nav a {
+      font-family:var(--fc); font-size:.78rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--grey); text-decoration:none; transition:color .2s; cursor:pointer; position:relative; white-space:nowrap;
+    }
+    nav a::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px; background:var(--green-l); transform:scaleX(0); transform-origin:left; transition:transform .25s; }
+    nav a:hover { color:var(--white); }
+    nav a:hover::after { transform:scaleX(1); }
+    .nav-cta {
+      background:var(--green)!important; color:var(--white)!important; padding:8px 22px;
+      font-family:var(--fc)!important; font-size:.72rem!important; font-weight:600!important; letter-spacing:.2em!important;
+      clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); transition:background .2s, box-shadow .2s!important;
+      box-shadow:0 0 10px var(--green-glow);
+    }
+    .nav-cta::after { display:none!important; }
+    .nav-cta:hover { background:#259b6d!important; box-shadow:0 0 18px var(--green-glow); }
+
+    .hbg { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; }
+    .hbg span { display:block; width:24px; height:2px; background:var(--white); transition:all .3s; }
+    .hbg.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hbg.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .hbg.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+    .mmenu {
+      display:none; position:fixed; top:68px; left:0; right:0; z-index:99;
+      background:rgba(7,11,9,.99); backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+      flex-direction:column; padding:8px 5% 24px;
+    }
+    .mmenu.open { display:flex; }
+    .mmenu a {
+      font-family:var(--fc); font-size:1rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--grey); text-decoration:none; cursor:pointer; padding:16px 0; border-bottom:1px solid var(--bdim); transition:color .2s;
+    }
+    .mmenu a:last-child { border-bottom:none; }
+    .mmenu a:hover,.mmenu a.mc { color:var(--green-l); }
+    .mmenu a.mc { font-weight:700; }
+
+    /* HERO */
+    #home {
+      padding-top:68px; min-height:100vh; display:flex; align-items:center;
+      background:linear-gradient(145deg,var(--black) 0%,var(--deep) 50%,#0c1511 100%);
+      position:relative; overflow:hidden;
+    }
+    #home::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(ellipse 55% 55% at 65% 45%,rgba(46,204,113,.08) 0%,transparent 70%),
+                 radial-gradient(ellipse 35% 35% at 15% 65%,rgba(20,90,70,.1) 0%,transparent 70%);
+    }
+    .hslash { position:absolute; top:0; width:1px; height:100%; background:linear-gradient(180deg,transparent,var(--green),transparent); opacity:.08; transform:skewX(-12deg); }
+    .hero-inner {
+      max-width:1240px; margin:0 auto; padding:80px 5%;
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+      position:relative; z-index:1; width:100%;
+    }
+    .hero-eyebrow {
+      display:flex; align-items:center; gap:12px; font-family:var(--fc); font-size:.68rem; letter-spacing:.3em;
+      text-transform:uppercase; color:var(--green); font-weight:500; margin-bottom:18px;
+    }
+    .hero-eyebrow::before { content:''; width:32px; height:1px; background:var(--green); }
+    .pdot { width:5px; height:5px; background:var(--green); clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%); animation:pdot 2s infinite; }
+    @keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.6)} }
+    .hero-title { font-family:var(--fd); font-size:clamp(2.8rem,6vw,5.8rem); font-weight:700; line-height:.95; letter-spacing:.02em; text-transform:uppercase; color:var(--white); margin-bottom:28px; }
+    .hero-title .tr { color:var(--green); display:block; }
+    .hero-title .to { display:block; -webkit-text-stroke:1px rgba(238,240,245,.18); color:transparent; }
+    .hero-desc { font-size:.9rem; color:var(--grey); line-height:1.8; max-width:420px; margin-bottom:42px; }
+    .hero-acts { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+
+    .btn-pri {
+      background:var(--green); color:var(--white); border:none; padding:14px 38px; font-family:var(--fc);
+      font-size:.8rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; cursor:pointer;
+      text-decoration:none; display:inline-block; box-shadow:0 0 12px rgba(46,204,113,0.3);
+      clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); transition:background .2s,transform .15s, box-shadow .2s;
+    }
+    .btn-pri:hover { background:#259b6d; transform:translateY(-2px); box-shadow:0 0 22px rgba(46,204,113,0.5); }
+    .btn-ghost {
+      background:transparent; color:var(--greyl); border:1px solid rgba(46,204,113,0.25); padding:13px 30px; font-family:var(--fc);
+      font-size:.78rem; font-weight:400; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; transition:border-color .2s,color .2s, box-shadow .2s;
+    }
+    .btn-ghost:hover { border-color:rgba(46,204,113,0.6); color:var(--green-l); box-shadow:0 0 14px rgba(46,204,113,0.2); }
+
+    .hero-vis { position:relative; display:flex; justify-content:center; }
+    .hero-frame { position:relative; width:420px; height:520px; border:1px solid var(--border); overflow:hidden; box-shadow:0 20px 40px -10px rgba(0,0,0,0.7), 0 0 0 1px rgba(46,204,113,0.1) inset; }
+    .hero-frame::before { content:''; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(180deg,transparent 60%,rgba(7,11,9,.5) 100%); }
+    .hero-frame::after { content:''; position:absolute; top:0; left:0; width:28px; height:28px; z-index:3; border-top:2px solid var(--green); border-left:2px solid var(--green); pointer-events:none; opacity:.7; }
+    .cbr { position:absolute; bottom:0; right:0; width:28px; height:28px; z-index:3; border-bottom:2px solid var(--green); border-right:2px solid var(--green); opacity:.7; }
+    /* ⬇️ BRIGHTNESS INCREASED TO REVEAL TEXT ⬇️ */
+    .hero-frame img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s; filter: brightness(1.15) contrast(1.02) saturate(1.02); }
+    .hero-frame:hover img { transform:scale(1.02); }
+
+    /* common */
+    .eyebrow {
+      font-family:var(--fc); font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--green); font-weight:500;
+      display:inline-flex; align-items:center; gap:10px; margin-bottom:12px;
+    }
+    .eyebrow::before,.eyebrow::after { content:''; width:18px; height:1px; background:var(--green); }
+    .s-title { font-family:var(--fd); font-size:clamp(2rem,4vw,3.6rem); font-weight:700; text-transform:uppercase; color:var(--white); line-height:1; letter-spacing:.03em; }
+    .s-title .ac { color:var(--green); }
+    .s-sub { font-size:.86rem; color:var(--grey); margin-top:12px; }
+    .rline { position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--green),transparent); opacity:.25; }
+
+    /* PRODUCT SECTION — brighter images for text clarity */
+    #product { padding:120px 5%; background:var(--deep); position:relative; }
+    .product-wrap { max-width:960px; margin:0 auto; display:flex; flex-direction:column; gap:40px; }
+
+    .gallery { display:flex; flex-direction:column; gap:16px; }
+    .g-main { position:relative; overflow:hidden; border:1px solid var(--border); aspect-ratio:16/9; max-height:580px; box-shadow:0 0 20px rgba(46,204,113,0.1); }
+    .g-main::before { content:''; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(180deg,transparent 70%,rgba(7,11,9,.4) 100%); }
+    .g-main::after { content:''; position:absolute; top:0; left:0; width:22px; height:22px; z-index:3; pointer-events:none; border-top:2px solid var(--green); border-left:2px solid var(--green); opacity:.6; }
+    .gbr { position:absolute; bottom:0; right:0; width:22px; height:22px; z-index:3; border-bottom:2px solid var(--green); border-right:2px solid var(--green); opacity:.6; }
+    /* ⬇️ increased brightness + slight contrast for text visibility ⬇️ */
+    .g-main img { width:100%; height:100%; object-fit:cover; display:block; transition:opacity .3s,transform .5s; filter: brightness(1.18) contrast(1.02) saturate(1.0); }
+    .g-main:hover img { transform:scale(1.01); }
+    .g-thumbs { display:flex; gap:10px; flex-wrap:wrap; }
+    .g-thumb { width:80px; height:80px; border:1px solid rgba(46,204,113,0.15); overflow:hidden; cursor:pointer; opacity:.5; transition:opacity .2s,border-color .2s, box-shadow .2s; flex-shrink:0; position:relative; }
+    .g-thumb:hover { opacity:.9; border-color:rgba(46,204,113,0.5); box-shadow:0 0 8px var(--green-glow); }
+    .g-thumb.active { opacity:1; border-color:var(--green); box-shadow:0 0 12px var(--green-glow); }
+    .g-thumb.active::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--green); }
+    /* thumbs also brighter */
+    .g-thumb img { width:100%; height:100%; object-fit:cover; filter: brightness(1.15) contrast(1.02); }
+
+    .prod-cta { display:flex; flex-direction:column; align-items:center; gap:14px; padding:28px 0 8px; }
+    .btn-order {
+      background:var(--green); color:var(--white); border:none; padding:18px 72px; font-family:var(--fc);
+      font-size:.92rem; font-weight:700; letter-spacing:.28em; text-transform:uppercase; cursor:pointer;
+      text-decoration:none; display:inline-block; box-shadow:0 0 20px rgba(46,204,113,0.3);
+      clip-path:polygon(14px 0%,100% 0%,calc(100% - 14px) 100%,0% 100%);
+      transition:background .2s,transform .15s,box-shadow .2s;
+    }
+    .btn-order:hover { background:#259b6d; transform:translateY(-2px); box-shadow:0 0 30px rgba(46,204,113,0.5); }
+    .ship-note { display:flex; align-items:center; justify-content:center; gap:10px; font-family:var(--fc); font-size:.74rem; color:var(--greyd); letter-spacing:.06em; }
+    .ship-note svg { color:var(--green); flex-shrink:0; }
+
+    /* ABOUT — brighter images */
+    #about { padding:120px 5%; background:var(--dark); position:relative; }
+    .about-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:100px; align-items:center; }
+    .about-p { font-size:.88rem; color:var(--grey); line-height:1.9; margin-bottom:20px; }
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:38px; }
+    .stat-block { background:var(--panel); padding:22px 20px; border:1px solid rgba(46,204,113,0.12); position:relative; overflow:hidden; }
+    .stat-block::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:var(--green); }
+    .stat-n { font-family:var(--fd); font-size:2.2rem; font-weight:700; color:var(--green-l); line-height:1; margin-bottom:4px; }
+    .stat-l { font-family:var(--fc); font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--greyd); }
+    .img-cluster { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .ci { overflow:hidden; border:1px solid rgba(46,204,113,0.15); position:relative; box-shadow:0 0 12px rgba(0,0,0,0.5); }
+    .ci::after { content:''; position:absolute; top:0; left:0; width:18px; height:18px; border-top:1.5px solid var(--green); border-left:1.5px solid var(--green); opacity:.7; }
+    .ci img { width:100%; height:100%; object-fit:cover; display:block; filter: brightness(1.2) contrast(1.02) saturate(1.0); transition:filter .4s,transform .5s; }
+    .ci:hover img { filter: brightness(1.25) contrast(1.02); transform:scale(1.02); }
+    .ci:nth-child(1) { grid-column:1/3; height:240px; }
+    .ci:nth-child(2),.ci:nth-child(3) { height:170px; }
+
+    /* CONTACT, FOOTER, MODAL (unchanged but colors inherited) */
+    #contact { padding:120px 5%; background:var(--deep); position:relative; }
+    .contact-wrap { max-width:1060px; margin:0 auto; display:grid; grid-template-columns:1fr 1.4fr; gap:70px; align-items:start; }
+    .cinfo { background:var(--panel); border:1px solid var(--border); padding:40px 36px; position:relative; overflow:hidden; }
+    .cinfo::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--green); opacity:.6; }
+    .cd { margin-bottom:26px; }
+    .cd-lbl { font-family:var(--fc); font-size:.6rem; letter-spacing:.28em; text-transform:uppercase; color:var(--green); margin-bottom:7px; font-weight:500; }
+    .cd-val { font-size:.88rem; color:var(--white); line-height:1.6; }
+    .cd-val a { color:var(--greyl); text-decoration:none; transition:color .2s; }
+    .cd-val a:hover { color:var(--green-l); }
+    .cdiv { width:36px; height:1px; background:rgba(46,204,113,0.2); margin:28px 0; }
+    .soc-row { display:flex; gap:10px; }
+    .soc-btn { width:38px; height:38px; border:1px solid rgba(46,204,113,0.2); display:flex; align-items:center; justify-content:center; color:var(--grey); text-decoration:none; transition:all .2s; clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%); }
+    .soc-btn:hover { border-color:var(--green); color:var(--green-l); background:rgba(46,204,113,0.05); box-shadow:0 0 12px var(--green-glow); }
+    .ccta { background:var(--panel); border:1px solid var(--border); position:relative; overflow:hidden; }
+    .ccta::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--green); opacity:.6; }
+    .ccta-inner { padding:50px 40px; text-align:center; }
+    .ccta-title { font-family:var(--fd); font-size:clamp(1.6rem,3vw,2.4rem); font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--white); line-height:1.05; margin-bottom:14px; }
+    .ccta-title span { color:var(--green); }
+    .ccta-body { font-size:.84rem; color:var(--grey); line-height:1.8; margin-bottom:30px; max-width:380px; margin-left:auto; margin-right:auto; }
+    .btn-cshop {
+      background:var(--green); color:var(--white); border:none; padding:15px 44px; font-family:var(--fc);
+      font-size:.82rem; font-weight:600; letter-spacing:.25em; text-transform:uppercase; cursor:pointer;
+      clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); transition:background .2s,transform .15s, box-shadow .2s; text-decoration:none; display:inline-block; box-shadow:0 0 12px var(--green-glow);
+    }
+    .btn-cshop:hover { background:#259b6d; transform:translateY(-2px); box-shadow:0 0 24px var(--green-glow); }
+    .cta-stats { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-top:30px; padding-top:28px; border-top:1px solid rgba(46,204,113,0.15); }
+    .cta-sn { font-family:var(--fd); font-size:1.4rem; font-weight:700; color:var(--green-l); line-height:1; }
+    .cta-sl { font-family:var(--fc); font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--greyd); margin-top:3px; text-align:center; }
+    .cta-div { width:1px; background:rgba(46,204,113,0.2); }
+
+    /* MODAL */
+    #ov { display:none; position:fixed; inset:0; z-index:200; background:rgba(5,8,7,.95); backdrop-filter:blur(10px); align-items:center; justify-content:center; padding:20px; }
+    #ov.open { display:flex; }
+    .omodal { background:var(--dark); border:1px solid rgba(46,204,113,0.3); max-width:520px; width:100%; position:relative; animation:sup .3s ease; box-shadow:0 0 30px rgba(46,204,113,0.2); }
+    .omodal::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:var(--green); opacity:.7; }
+    @keyframes sup { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .mhdr { padding:28px 36px 24px; border-bottom:1px solid rgba(46,204,113,0.15); display:flex; justify-content:space-between; align-items:flex-start; }
+    .mtitle { font-family:var(--fd); font-size:1.9rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--white); }
+    .msub { font-family:var(--fc); font-size:.74rem; color:var(--grey); margin-top:4px; }
+    .mclose { background:none; border:none; color:var(--greyd); font-size:1.3rem; cursor:pointer; transition:color .2s; flex-shrink:0; }
+    .mclose:hover { color:var(--green-l); }
+    .mbody { padding:36px 36px 44px; text-align:center; }
+    .micon { font-size:2.6rem; margin-bottom:16px; color:var(--green-l); }
+    .mmtitle { font-family:var(--fd); font-size:1.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--white); margin-bottom:14px; }
+    .mmbody { font-size:.86rem; color:var(--grey); line-height:1.85; margin-bottom:32px; max-width:380px; margin-left:auto; margin-right:auto; }
+    .btn-checkout {
+      background:var(--green); color:var(--white); border:none; padding:17px 60px; font-family:var(--fc);
+      font-size:.92rem; font-weight:700; letter-spacing:.28em; text-transform:uppercase;
+      cursor:pointer; text-decoration:none; display:inline-block; box-shadow:0 0 18px var(--green-glow);
+      clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);
+      transition:background .2s,transform .15s,box-shadow .2s;
+    }
+    .btn-checkout:hover { background:#259b6d; transform:translateY(-2px); box-shadow:0 0 32px var(--green-glow); }
+    .mnote { font-family:var(--fc); font-size:.68rem; color:var(--greyd); margin-top:16px; letter-spacing:.08em; }
+
+    /* FOOTER */
+    footer { background:var(--black); border-top:1px solid rgba(46,204,113,0.15); padding:70px 5% 30px; position:relative; }
+    footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--green),transparent); opacity:.25; }
+    .footer-top { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px; margin-bottom:60px; }
+    .f-about { font-size:.82rem; color:var(--grey); line-height:1.8; max-width:280px; margin:16px 0 24px; }
+    .fcol h4 { font-family:var(--fc); font-size:.65rem; letter-spacing:.28em; text-transform:uppercase; color:var(--green); margin-bottom:18px; font-weight:500; }
+    .fcol ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .fcol ul li a { font-family:var(--fc); font-size:.82rem; color:var(--grey); text-decoration:none; transition:color .2s; cursor:pointer; }
+    .fcol ul li a:hover { color:var(--white); }
+    .footer-bot { max-width:1200px; margin:0 auto; border-top:1px solid rgba(46,204,113,0.1); padding-top:26px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .fcopy { font-family:var(--fc); font-size:.72rem; color:var(--greyd); letter-spacing:.08em; }
+    .flegal { display:flex; gap:22px; }
+    .flegal a { font-family:var(--fc); font-size:.7rem; color:var(--greyd); text-decoration:none; transition:color .2s; }
+    .flegal a:hover { color:var(--grey); }
+
+    .rv { opacity:0; transform:translateY(24px); transition:opacity .65s ease,transform .65s ease; }
+    .rv.vis { opacity:1; transform:translateY(0); }
+
+    /* responsive */
+    @media(max-width:1024px){ .footer-top { grid-template-columns:1fr 1fr; gap:40px; } .about-inner { gap:60px; } }
+    @media(max-width:900px){
+      nav .nh { display:none; } nav .nav-cta { display:none; } .hbg { display:flex; }
+      .hero-inner { grid-template-columns:1fr; gap:48px; padding:60px 5%; } .hero-vis { order:-1; }
+      .hero-frame { width:100%; max-width:480px; height:400px; } .about-inner { grid-template-columns:1fr; gap:50px; }
+      .contact-wrap { grid-template-columns:1fr; gap:40px; } .footer-top { grid-template-columns:1fr 1fr; gap:40px; } .fbrand { grid-column:1/-1; }
+    }
+    @media(max-width:600px){
+      header { padding:0 16px; } .logo-text { font-size:1.15rem; } .logo-mark { width:28px; height:28px; }
+      #home { min-height:auto; padding-bottom:60px; } .hero-inner { padding:40px 16px 60px; gap:36px; } .hero-frame { height:300px; }
+      .hero-eyebrow { font-size:.6rem; } .hero-desc { font-size:.84rem; margin-bottom:28px; } .btn-pri { padding:12px 28px; font-size:.75rem; }
+      .btn-ghost { padding:11px 22px; font-size:.72rem; } #product { padding:80px 16px; } .g-thumbs { gap:7px; } .g-thumb { width:68px; height:68px; }
+      .btn-order { padding:15px 40px; font-size:.82rem; } #about { padding:80px 16px; } .stat-n { font-size:1.8rem; } #contact { padding:80px 16px; }
+      .cinfo { padding:28px 20px; } .ccta-inner { padding:36px 20px; } footer { padding:50px 16px 24px; } .footer-top { grid-template-columns:1fr; gap:36px; }
+      .fbrand { grid-column:auto; } .footer-bot { flex-direction:column; align-items:flex-start; gap:10px; } .mhdr { padding:20px 20px 16px; }
+      .mbody { padding:28px 20px 36px; } .mtitle { font-size:1.5rem; } .btn-checkout { padding:15px 36px; font-size:.82rem; } .cta-div { display:none; }
+    }
+    @media(max-width:380px){ .logo-text { font-size:.95rem; } .hero-frame { height:260px; } }
+  </style>
+</head>
+<body>
+
+<!-- header (exact same markup) -->
+<header>
+  <a class="logo" onclick="goto('home')">
+    <svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polygon points="32,3 61,18 61,46 32,61 3,46 3,18" fill="none" stroke="#1f7a5a" stroke-width="2.5"/>
+      <polygon points="32,10 54,21 54,43 32,54 10,43 10,21" fill="rgba(31,122,90,0.1)"/>
+      <line x1="22" y1="18" x2="22" y2="46" stroke="#1f7a5a" stroke-width="3" stroke-linecap="round"/>
+      <path d="M22,18 Q38,18 38,26 Q38,32 22,32" fill="none" stroke="#1f7a5a" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M22,32 Q40,32 40,39 Q40,46 22,46" fill="none" stroke="#1f7a5a" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+    <span class="logo-text">LOCK<em>SPYRE</em></span>
+  </a>
+  <nav>
+    <a class="nh" onclick="goto('home')">Home</a>
+    <a class="nh" onclick="goto('product')">Shop</a>
+    <a class="nh" onclick="goto('about')">About</a>
+    <a class="nh" onclick="goto('contact')">Contact</a>
+    <a class="nav-cta" onclick="openOrder()">Secure now</a>
+  </nav>
+  <button class="hbg" id="hbg" aria-label="Toggle menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+</header>
+<div class="mmenu" id="mmenu">
+  <a onclick="mg('home')">Home</a>
+  <a onclick="mg('product')">Shop</a>
+  <a onclick="mg('about')">About</a>
+  <a onclick="mg('contact')">Contact</a>
+  <a class="mc" onclick="closeMM();openOrder();">Secure order ⚡</a>
+</div>
+
+<!-- HERO with brighter image -->
+<section id="home">
+  <div class="hslash" style="right:26%"></div><div class="hslash" style="right:29.5%;opacity:.05"></div>
+  <div class="hero-inner">
+    <div class="rv">
+      <div class="hero-eyebrow"><div class="pdot"></div>SS 2025 — hardened steel</div>
+      <h1 class="hero-title"><span class="to">Lock what</span><span class="tr">matters</span></h1>
+      <p class="hero-desc">Industrial‑grade security with clean design. 12mm hardened chain, smart locking mechanism — trusted by riders worldwide.</p>
+      <div class="hero-acts">
+        <a class="btn-pri" onclick="goto('product')">View the lock</a>
+        <button class="btn-ghost" onclick="goto('about')">Why LOCKSPYRE</button>
+      </div>
+    </div>
+    <div class="hero-vis rv">
+      <div class="hero-frame"><div class="cbr"></div><img src="https://i.ibb.co/TMdwjKrb/Main-main-1-4.png" alt="core lock hero"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP - images now brighter for text clarity -->
+<section id="product">
+  <div class="rline"></div>
+  <div style="max-width:960px;margin:0 auto 64px;text-align:center;" class="rv">
+    <p class="eyebrow">flagship series</p>
+    <h2 class="s-title">The <span class="ac">Chainlock</span> Pro</h2>
+    <p class="s-sub">One lock. Three security ratings. 18mm shackle.</p>
+  </div>
+  <div class="product-wrap">
+    <div class="gallery rv">
+      <div class="g-main"><div class="gbr"></div><img id="main-img" src="https://i.ibb.co/xqDNxDz1/3.jpg" alt="lock detail"/></div>
+      <div class="g-thumbs">
+        <div class="g-thumb active" onclick="si(this,'https://i.ibb.co/xqDNxDz1/3.jpg')"><img src="https://i.ibb.co/xqDNxDz1/3.jpg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'https://i.ibb.co/svWnX45x/3-2.jpg')"><img src="https://i.ibb.co/svWnX45x/3-2.jpg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'https://i.ibb.co/fG0tYTDx/4.jpg')"><img src="https://i.ibb.co/fG0tYTDx/4.jpg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'https://i.ibb.co/ZphNWqRC/5.jpg')"><img src="https://i.ibb.co/ZphNWqRC/5.jpg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'https://i.ibb.co/2YKGXczp/7.jpg')"><img src="https://i.ibb.co/2YKGXczp/7.jpg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'https://i.ibb.co/XrRbwDMt/7-2.jpg')"><img src="https://i.ibb.co/XrRbwDMt/7-2.jpg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'https://i.ibb.co/VcGr1n5P/Neon-Sheild-img.jpg')"><img src="https://i.ibb.co/VcGr1n5P/Neon-Sheild-img.jpg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'https://i.ibb.co/TMdwjKrb/Main-main-1-4.png')"><img src="https://i.ibb.co/TMdwjKrb/Main-main-1-4.png" alt=""/></div>
+      </div>
+    </div>
+    <div class="prod-cta rv">
+      <a class="btn-order" href="#" onclick="openOrder();return false;">Secure yours →</a>
+      <div class="ship-note"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12H3l9-9 9 9h-2M5 12v7a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-7"/></svg>Free tracked shipping · 2‑day dispatch</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT - images brighter -->
+<section id="about">
+  <div class="rline"></div>
+  <div class="about-inner">
+    <div class="rv">
+      <p class="eyebrow" style="display:inline-flex;">The LOCKSPYRE standard</p>
+      <h2 class="s-title" style="margin-bottom:24px;">Forged for<br/><span class="ac">the ride</span></h2>
+      <p class="about-p">We started LOCKSPYRE because bike theft shouldn't be a worry. Every lock is engineered with boron steel, double‑cylinder cores, and anti‑drill plates.</p>
+      <p class="about-p">Small‑batch production, individually tested. If it doesn't pass our torque test, it's recycled.</p>
+      <div class="stats-grid">
+        <div class="stat-block"><div class="stat-n">18mm</div><div class="stat-l">Hardened shackle</div></div>
+        <div class="stat-block"><div class="stat-n">12k N</div><div class="stat-l">Tensile strength</div></div>
+        <div class="stat-block"><div class="stat-n">IP68</div><div class="stat-l">weather sealed</div></div>
+        <div class="stat-block"><div class="stat-n">Sold Secure</div><div class="stat-l">Diamond rated</div></div>
+      </div>
+    </div>
+    <div class="img-cluster rv">
+      <div class="ci"><img src="https://i.ibb.co/fG0tYTDx/4.jpg" alt=""/></div>
+      <div class="ci"><img src="https://i.ibb.co/2YKGXczp/7.jpg" alt=""/></div>
+      <div class="ci"><img src="https://i.ibb.co/XrRbwDMt/7-2.jpg" alt=""/></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT (content unchanged) -->
+<section id="contact">
+  <div class="rline"></div>
+  <div style="max-width:1060px;margin:0 auto 70px;text-align:center;" class="rv">
+    <p class="eyebrow">Get in touch</p>
+    <h2 class="s-title">Contact <span class="ac">Us</span></h2>
+    <p class="s-sub">Questions about compatibility, bulk orders, or dealer inquiries.</p>
+  </div>
+  <div class="contact-wrap">
+    <div class="rv"><div class="cinfo"><div class="cd"><p class="cd-lbl">Email</p><p class="cd-val"><a href="mailto:hello@lockspyre.com">hello@lockspyre.com</a></p></div><div class="cd"><p class="cd-lbl">Phone</p><p class="cd-val">+1 (555) 204-8830</p></div><div class="cd"><p class="cd-lbl">Studio</p><p class="cd-val">12 Crimson Lane, Suite 4B<br/>New York, NY 10014</p></div><div class="cd"><p class="cd-lbl">Hours</p><p class="cd-val">Mon–Fri, 9–6 EST</p></div><div class="cdiv"></div><div class="soc-row"><a class="soc-btn" href="#" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/></svg></a><a class="soc-btn" href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a></div></div></div>
+    <div class="rv"><div class="ccta"><div class="ccta-inner"><p class="eyebrow">Ready to secure?</p><h3 class="ccta-title">Get your <span>Chainlock</span></h3><p class="ccta-body">Choose shackle length and finish. Order in 60 seconds.</p><a class="btn-cshop" onclick="goto('product')">View the lock →</a><div class="cta-stats"><div><div class="cta-sn">$89</div><div class="cta-sl">Starting from</div></div><div class="cta-div"></div><div><div class="cta-sn">Free</div><div class="cta-sl">Shipping $100+</div></div><div class="cta-div"></div><div><div class="cta-sn">2 days</div><div class="cta-sl">dispatch</div></div></div></div></div></div>
+  </div>
+</section>
+
+<!-- FOOTER (short placeholder) -->
+<footer>
+  <div class="footer-top"><div class="fbrand"><a class="logo" onclick="goto('home')" style="display:inline-flex;"><svg class="logo-mark" style="width:26px;height:26px;" viewBox="0 0 64 64"><polygon points="32,3 61,18 61,46 32,61 3,46 3,18" fill="none" stroke="#1f7a5a" stroke-width="2.5"/><line x1="22" y1="18" x2="22" y2="46" stroke="#1f7a5a" stroke-width="3" stroke-linecap="round"/><path d="M22,18 Q38,18 38,26 Q38,32 22,32" fill="none" stroke="#1f7a5a" stroke-width="2.5" stroke-linecap="round"/><path d="M22,32 Q40,32 40,39 Q40,46 22,46" fill="none" stroke="#1f7a5a" stroke-width="2.5" stroke-linecap="round"/></svg><span class="logo-text" style="font-size:1.3rem;">LOCK<em>SPYRE</em></span></a><p class="f-about">Industrial locks for urban riders. Tested to extremes.</p></div><div class="fcol"><h4>Shop</h4><ul><li><a onclick="goto('product')">Chainlock</a></li></ul></div><div class="fcol"><h4>Support</h4><ul><li><a href="#">FAQ</a></li></ul></div><div class="fcol"><h4>Brand</h4><ul><li><a onclick="goto('about')">Our story</a></li></ul></div></div>
+  <div style="max-width:1200px;margin:0 auto;"><div class="footer-bot"><p class="fcopy">© 2025 LOCKSPYRE</p><div class="flegal"><a href="#">Privacy</a><a href="#">Terms</a></div></div></div>
+</footer>
+
+<!-- ORDER MODAL (unchanged) -->
+<div id="ov"><div class="omodal"><div class="mhdr"><div><h2 class="mtitle">Secure Order</h2><p class="msub">Chainlock Pro / 18mm</p></div><button class="mclose" onclick="closeOrder()">✕</button></div><div class="mbody"><div class="micon">🔒</div><h3 class="mmtitle">One click away</h3><p class="mmbody">Head to our secure checkout. Choose size/finish — dispatched within 2 days.</p><a class="btn-checkout" href="#">Go to secure checkout →</a><p class="mnote">SSL encrypted · Free shipping $100+</p></div></div></div>
+
+<script>
+  function goto(id){ closeMM(); var e=document.getElementById(id); if(e) e.scrollIntoView({behavior:'smooth'}); }
+  function toggleMenu(){ document.getElementById('mmenu').classList.toggle('open'); document.getElementById('hbg').classList.toggle('open'); }
+  function closeMM(){ document.getElementById('mmenu').classList.remove('open'); document.getElementById('hbg').classList.remove('open'); }
+  function mg(id){ closeMM(); setTimeout(function(){ var e=document.getElementById(id); if(e) e.scrollIntoView({behavior:'smooth'}); },80); }
+  document.addEventListener('click',function(e){ var m=document.getElementById('mmenu'),b=document.getElementById('hbg'); if(m.classList.contains('open')&&!m.contains(e.target)&&!b.contains(e.target)) closeMM(); });
+  function si(t,s){ document.querySelectorAll('.g-thumb').forEach(function(x){x.classList.remove('active');}); t.classList.add('active'); var i=document.getElementById('main-img'); i.style.opacity='0'; setTimeout(function(){ i.src=s; i.style.opacity='1'; },200); }
+  function openOrder(){ document.getElementById('ov').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeOrder(){ document.getElementById('ov').classList.remove('open'); document.body.style.overflow=''; }
+  document.getElementById('ov').addEventListener('click',function(e){ if(e.target===this) closeOrder(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeOrder(); closeMM(); } });
+  var io=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('vis'); }); },{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+</script>
+</body>
+</html>

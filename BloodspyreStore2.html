@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ARMORLOCK — High-Security Bike Protection</title>
+
+  <!-- ░░ FAVICON — Updated to Green Security Theme ░░ -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b09'/%3E%3Cpath d='M32,12 C24,12 18,18 18,26 L18,32 L14,32 L14,52 L50,52 L50,32 L46,32 L46,26 C46,18 40,12 32,12 Z M32,18 C36,18 40,22 40,26 L40,32 L24,32 L24,26 C24,22 28,18 32,18 Z' fill='none' stroke='%232ecc71' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
+
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* NEW COLOR SYSTEM */
+      --primary:   #0f2f1f;
+      --accent:    #1f7a5a;
+      --highlight: #2ecc71;
+      --bg:        #070b09;
+      --panel:     #0d1512;
+      --border:    rgba(46, 204, 113, 0.2);
+      
+      /* LEGACY MAPPING */
+      --black:     var(--bg);
+      --deep:      #0a0f0d;
+      --dark:      #0d1512;
+      --panel-alt: #121d18;
+      --bdim:      rgba(255,255,255,0.05);
+      --red:       var(--highlight);
+      --red2:      var(--accent);
+      --redp:      #a8e6cf;
+      --white:     #eef5f2;
+      --grey:      #88a496;
+      --greyl:     #b8ced4;
+      --greyd:     #4a5f55;
+      
+      /* FONTS */
+      --fd: 'Rajdhani', sans-serif;
+      --fc: 'Barlow Condensed', sans-serif;
+      --fb: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); background: var(--bg); color: var(--white); font-weight: 300; line-height: 1.6; overflow-x: hidden; }
+    
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+    
+    body::before {
+      content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.03;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:250px;
+    }
+
+    /* ════════════ LOGO ════════════ */
+    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; cursor:pointer; flex-shrink:0; }
+    .logo-mark { width:34px; height:34px; flex-shrink:0; filter: drop-shadow(0 0 8px rgba(46, 204, 113, 0.3)); }
+    .logo-text { font-family:var(--fd); font-size:1.4rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--white); line-height:1; }
+    .logo-text em { color:var(--highlight); font-style:normal; text-shadow: 0 0 10px rgba(46, 204, 113, 0.4); }
+
+    /* ════════════ HEADER ════════════ */
+    header {
+      position:fixed; top:0; left:0; right:0; z-index:100; height:72px;
+      display:flex; align-items:center; justify-content:space-between; padding:0 6%;
+      background:rgba(7, 11, 9, 0.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+    }
+    header::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,transparent,var(--highlight),transparent); opacity:.2;
+    }
+    nav { display:flex; align-items:center; gap:32px; }
+    nav a {
+      font-family:var(--fc); font-size:.8rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase;
+      color:var(--grey); text-decoration:none; transition:all .3s ease; cursor:pointer; position:relative; white-space:nowrap;
+    }
+    nav a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--highlight); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
+    nav a:hover { color:var(--white); text-shadow: 0 0 8px rgba(46, 204, 113, 0.3); }
+    nav a:hover::after { transform:scaleX(1); }
+    
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent), var(--highlight)) !important; 
+      color:var(--white)!important; padding:10px 24px;
+      font-family:var(--fc)!important; font-size:.75rem!important; font-weight:600!important; letter-spacing:.15em!important;
+      border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 4px 15px rgba(31, 122, 90, 0.3); transition: all .3s ease !important;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); filter: brightness(1.1); }
+
+    .hbg { display:none; flex-direction:column; gap:6px; background:none; border:none; cursor:pointer; padding:8px; }
+    .hbg span { display:block; width:26px; height:2px; background:var(--white); transition:all .3s; }
+    .hbg.open span:nth-child(1) { transform:translateY(8px) rotate(45deg); }
+    .hbg.open span:nth-child(2) { opacity:0; }
+    .hbg.open span:nth-child(3) { transform:translateY(-8px) rotate(-45deg); }
+
+    .mmenu {
+      display:none; position:fixed; top:72px; left:0; right:0; z-index:99;
+      background:rgba(7, 11, 9, 0.98); backdrop-filter:blur(25px); border-bottom:1px solid var(--border);
+      flex-direction:column; padding:10px 6% 30px;
+    }
+    .mmenu.open { display:flex; }
+    .mmenu a {
+      font-family:var(--fc); font-size:1.1rem; font-weight:500; letter-spacing:.15em; text-transform:uppercase;
+      color:var(--grey); text-decoration:none; cursor:pointer; padding:18px 0; border-bottom:1px solid var(--bdim); transition:color .3s;
+    }
+    .mmenu a:hover,.mmenu a.mc { color:var(--highlight); }
+
+    /* ════════════ HERO ════════════ */
+    #home {
+      padding-top:72px; min-height:100vh; display:flex; align-items:center;
+      background: radial-gradient(circle at 70% 30%, #12241b 0%, var(--bg) 70%);
+      position:relative; overflow:hidden;
+    }
+    .hslash { position:absolute; top:0; width:1px; height:100%; background:linear-gradient(180deg,transparent,var(--highlight),transparent); opacity:.08; transform:skewX(-15deg); }
+    
+    .hero-inner {
+      max-width:1300px; margin:0 auto; padding:100px 6%;
+      display:grid; grid-template-columns:1fr 1.1fr; gap:60px; align-items:center;
+      position:relative; z-index:1; width:100%;
+    }
+    .hero-eyebrow {
+      display:flex; align-items:center; gap:14px; font-family:var(--fc); font-size:.75rem; letter-spacing:.4em;
+      text-transform:uppercase; color:var(--highlight); font-weight:600; margin-bottom:24px;
+    }
+    .hero-eyebrow::before { content:''; width:40px; height:1px; background:var(--highlight); opacity: 0.6; }
+    
+    .pdot { width:6px; height:6px; background:var(--highlight); border-radius: 50%; box-shadow: 0 0 10px var(--highlight); animation:pdot 2.5s infinite; }
+    @keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+    
+    .hero-title { font-family:var(--fd); font-size:clamp(3rem, 7vw, 6.2rem); font-weight:700; line-height:0.9; letter-spacing:-0.01em; text-transform:uppercase; color:var(--white); margin-bottom:32px; }
+    .hero-title .tr { color:var(--highlight); display:block; text-shadow: 0 0 20px rgba(46, 204, 113, 0.2); }
+    .hero-title .to { display:block; -webkit-text-stroke:1px rgba(238,240,245,.15); color:transparent; }
+    
+    .hero-desc { font-size:1rem; color:var(--grey); line-height:1.7; max-width:480px; margin-bottom:48px; }
+    .hero-acts { display:flex; gap:18px; flex-wrap:wrap; align-items:center; }
+
+    .btn-pri {
+      background: linear-gradient(135deg, var(--accent), var(--highlight));
+      color:var(--white); border:none; padding:16px 42px; font-family:var(--fc);
+      font-size:.85rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; cursor:pointer;
+      text-decoration:none; display:inline-block; border-radius: 4px;
+      box-shadow: 0 10px 25px rgba(31, 122, 90, 0.25); transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .btn-pri:hover { transform:translateY(-3px); box-shadow: 0 15px 35px rgba(46, 204, 113, 0.35); filter: brightness(1.1); }
+    
+    .btn-ghost {
+      background:rgba(255,255,255,0.03); color:var(--white); border:1px solid var(--border); padding:15px 36px; font-family:var(--fc);
+      font-size:.82rem; font-weight:500; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; border-radius: 4px;
+      transition: all .3s ease;
+    }
+    .btn-ghost:hover { background: rgba(46, 204, 113, 0.05); border-color:var(--highlight); color:var(--highlight); box-shadow: 0 0 15px rgba(46, 204, 113, 0.1); }
+
+    .hero-vis { position:relative; display:flex; justify-content:center; }
+    .hero-frame { 
+      position:relative; width:460px; height:560px; border:1px solid var(--border); overflow:hidden; 
+      border-radius: 8px; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    }
+    /* Removed dark overlay to keep image text clear */
+    .hero-frame::before { 
+      content:''; position:absolute; inset:0; z-index:2; pointer-events:none; 
+      background: transparent; 
+    }
+    .hero-frame::after { 
+      content:''; position:absolute; top:15px; left:15px; width:30px; height:30px; z-index:3; 
+      border-top:2px solid var(--highlight); border-left:2px solid var(--highlight); pointer-events:none; opacity: 0.6;
+    }
+    .cbr { 
+      position:absolute; bottom:15px; right:15px; width:30px; height:30px; z-index:3; 
+      border-bottom:2px solid var(--highlight); border-right:2px solid var(--highlight); pointer-events:none; opacity: 0.6;
+    }
+    .hero-frame img { 
+      width:100%; height:100%; object-fit:cover; display:block; transition:transform 1s ease; 
+      filter: none; /* Removed filters for maximum clarity */
+    }
+    .hero-frame:hover img { transform:scale(1.08); }
+
+    /* ════════════ COMMON ════════════ */
+    .eyebrow {
+      font-family:var(--fc); font-size:.7rem; letter-spacing:.35em; text-transform:uppercase; color:var(--highlight); font-weight:600;
+      display:inline-flex; align-items:center; gap:12px; margin-bottom:16px;
+    }
+    .eyebrow::before,.eyebrow::after { content:''; width:24px; height:1px; background:var(--highlight); opacity: 0.4; }
+    
+    .s-title { font-family:var(--fd); font-size:clamp(2.2rem, 5vw, 4rem); font-weight:700; text-transform:uppercase; color:var(--white); line-height:1; letter-spacing:.02em; }
+    .s-title .ac { color:var(--highlight); text-shadow: 0 0 15px rgba(46, 204, 113, 0.2); }
+    .s-sub { font-size:.95rem; color:var(--grey); margin-top:16px; max-width: 600px; }
+    .rline { position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--highlight),transparent); opacity:.15; }
+
+    /* ════════════ PRODUCT ════════════ */
+    #product { padding:140px 6%; background:var(--panel); position:relative; }
+    .product-wrap { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:60px; }
+
+    .gallery { display:flex; flex-direction:column; gap:20px; }
+    .g-main { 
+      position:relative; overflow:hidden; border:1px solid var(--border); aspect-ratio:16/10; max-height:620px; 
+      border-radius: 8px; background: var(--bg);
+    }
+    /* Removed radial overlay for image clarity */
+    .g-main::before { 
+      content:''; position:absolute; inset:0; z-index:2; pointer-events:none; 
+      background: transparent; 
+    }
+    .g-main::after { 
+      content:''; position:absolute; top:20px; left:20px; width:24px; height:24px; z-index:3; 
+      pointer-events:none; border-top:2px solid var(--highlight); border-left:2px solid var(--highlight); opacity: 0.5;
+    }
+    #main-img { 
+      width:100%; height:100%; object-fit:cover; transition: opacity .4s ease, transform .8s ease; 
+      filter: none; /* Removed filters for maximum clarity */
+    }
+    
+    .g-thumbs { display:grid; grid-template-columns:repeat(auto-fit, minmax(80px, 1fr)); gap:12px; }
+    .g-thumb { 
+      aspect-ratio:1/1; border:1px solid var(--border); cursor:pointer; overflow:hidden; 
+      position:relative; border-radius: 4px; transition: all .3s ease;
+    }
+    .g-thumb img { 
+      width:100%; height:100%; object-fit:cover; opacity:.6; transition:all .4s; 
+      filter: none; /* Removed filters for maximum clarity */
+    }
+    .g-thumb:hover img { opacity:.8; transform: scale(1.1); }
+    .g-thumb.active { border-color:var(--highlight); box-shadow: 0 0 15px rgba(46, 204, 113, 0.2); }
+    .g-thumb.active img { opacity:1; filter: none; }
+
+    .p-info { display:flex; flex-direction:column; justify-content:center; }
+    .p-cat { font-family:var(--fc); font-size:.75rem; letter-spacing:.3em; text-transform:uppercase; color:var(--highlight); margin-bottom:12px; font-weight: 600; }
+    .p-name { font-family:var(--fd); font-size:clamp(2.5rem, 5vw, 3.8rem); font-weight:700; line-height:1; text-transform:uppercase; margin-bottom:20px; }
+    .p-price { font-family:var(--fd); font-size:2rem; color:var(--white); font-weight:600; margin-bottom:24px; display:flex; align-items:center; gap:15px; }
+    .p-price span { font-size:1rem; color:var(--greyd); text-decoration:line-through; font-weight:400; }
+    .p-desc { font-size:1rem; color:var(--grey); line-height:1.7; margin-bottom:40px; }
+    
+    .p-meta { display:grid; grid-template-columns:1fr 1fr; gap:25px; margin-bottom:45px; padding:25px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius: 6px; }
+    .m-item { display:flex; flex-direction:column; gap:4px; }
+    .m-lbl { font-family:var(--fc); font-size:.65rem; text-transform:uppercase; color:var(--greyd); letter-spacing:.15em; font-weight: 600; }
+    .m-val { font-family:var(--fd); font-size:1.1rem; color:var(--white); font-weight:600; letter-spacing: 0.05em; }
+
+    /* ════════════ ABOUT / CLUSTER ════════════ */
+    #about { padding:140px 6%; background:var(--bg); position:relative; }
+    .about-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .about-p { font-size:1rem; color:var(--grey); line-height:1.8; margin-bottom:25px; }
+    
+    .img-cluster { position:relative; display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; }
+    .ci { border:1px solid var(--border); border-radius: 6px; overflow:hidden; position:relative; }
+    .ci img { width:100%; height:100%; object-fit:cover; filter: none; transition: transform .6s ease; }
+    .ci:hover img { transform: scale(1.05); }
+    .ci:nth-child(1) { grid-row: span 2; }
+    
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; margin-top:40px; }
+    .stat-n { font-family:var(--fd); font-size:2rem; font-weight:700; color:var(--highlight); }
+    .stat-l { font-family:var(--fc); font-size:.7rem; text-transform:uppercase; color:var(--greyd); letter-spacing:.15em; }
+
+    /* ════════════ CTA SECTION ════════════ */
+    #cta { padding:120px 6%; position:relative; overflow:hidden; background: var(--panel); }
+    .ccta { 
+      max-width:1100px; margin:0 auto; background: linear-gradient(135deg, #0d1512 0%, #0f2f1f 100%); 
+      border:1px solid var(--border); position:relative; border-radius: 12px; box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    }
+    .ccta-inner { padding:80px 60px; position:relative; z-index:2; text-align:center; }
+    .ccta-title { font-family:var(--fd); font-size:clamp(2rem, 4vw, 3.5rem); font-weight:700; text-transform:uppercase; margin-bottom:20px; line-height:1.1; }
+    .ccta-title span { color:var(--highlight); text-shadow: 0 0 20px rgba(46, 204, 113, 0.3); }
+    .ccta-body { font-size:1.1rem; color:var(--greyl); margin:0 auto 40px; max-width:600px; }
+    
+    .btn-cshop {
+      background:var(--highlight); color:var(--bg); border:none; padding:18px 50px; font-family:var(--fc);
+      font-size:.9rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; cursor:pointer;
+      text-decoration:none; display:inline-block; border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3); transition:all .3s ease;
+    }
+    .btn-cshop:hover { transform:scale(1.05); filter: brightness(1.1); }
+    
+    .cta-stats { display:flex; justify-content:center; gap:50px; margin-top:60px; padding-top:40px; border-top:1px solid rgba(255,255,255,0.05); }
+    .cta-sn { font-family:var(--fd); font-size:1.8rem; font-weight:700; color:var(--white); line-height:1; margin-bottom:8px; }
+    .cta-sl { font-family:var(--fc); font-size:.7rem; text-transform:uppercase; color:var(--greyd); letter-spacing:.2em; font-weight: 600; }
+    .cta-div { width:1px; height:40px; background:rgba(255,255,255,0.1); align-self:center; }
+
+    /* ════════════ FOOTER ════════════ */
+    footer { padding:100px 6% 40px; background:var(--bg); border-top:1px solid var(--border); }
+    .footer-top { max-width:1200px; margin:0 auto 80px; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px; }
+    .f-about { font-size:.92rem; color:var(--grey); margin:25px 0 30px; max-width:320px; line-height:1.7; }
+    .soc-row { display:flex; gap:12px; }
+    .soc-btn { 
+      width:38px; height:38px; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; 
+      color:var(--grey); transition:all .3s ease; border-radius: 4px;
+    }
+    .soc-btn:hover { border-color:var(--highlight); color:var(--highlight); background: rgba(46, 204, 113, 0.05); }
+    
+    .fcol h4 { font-family:var(--fd); font-size:1.1rem; text-transform:uppercase; margin-bottom:25px; letter-spacing:.1em; color:var(--white); }
+    .fcol ul { list-style:none; }
+    .fcol li { margin-bottom:12px; }
+    .fcol a { color:var(--grey); text-decoration:none; font-size:.9rem; transition:color .3s; cursor:pointer; }
+    .fcol a:hover { color:var(--highlight); }
+
+    .footer-bot { 
+      max-width:1200px; margin:0 auto; padding-top:30px; border-top:1px solid rgba(255,255,255,0.05); 
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; 
+    }
+    .fcopy { font-size:.8rem; color:var(--greyd); }
+    .flegal { display:flex; gap:25px; }
+    .flegal a { font-size:.8rem; color:var(--greyd); text-decoration:none; transition:color .3s; }
+
+    /* ════════════ MODAL ════════════ */
+    #ov { 
+      position:fixed; inset:0; z-index:1000; background:rgba(7,11,9,0.95); backdrop-filter:blur(12px); 
+      display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .4s; 
+    }
+    #ov.open { opacity:1; pointer-events:auto; }
+    .omodal { 
+      background:var(--panel); border:1px solid var(--border); width:92%; max-width:540px; 
+      position:relative; transform:translateY(30px); transition:transform .4s; border-radius: 12px;
+    }
+    #ov.open .omodal { transform:translateY(0); }
+    
+    .mhdr { padding:35px 40px; border-bottom:1px solid rgba(255,255,255,0.05); display:flex; justify-content:space-between; align-items:flex-start; }
+    .mtitle { font-family:var(--fd); font-size:1.8rem; text-transform:uppercase; font-weight:700; color:var(--white); }
+    .msub { font-size:.9rem; color:var(--grey); margin-top:4px; }
+    .mclose { background:none; border:none; color:var(--greyd); font-size:1.4rem; cursor:pointer; transition:color .3s; }
+    .mclose:hover { color:var(--highlight); }
+    
+    .mbody { padding:50px 40px; text-align:center; }
+    .micon { font-size:3.5rem; margin-bottom:25px; color:var(--highlight); }
+    .mmtitle { font-family:var(--fd); font-size:1.5rem; text-transform:uppercase; margin-bottom:15px; color:var(--white); }
+    .mmbody { font-size:1rem; color:var(--grey); line-height:1.7; margin-bottom:40px; }
+    
+    .btn-checkout { 
+      background: linear-gradient(135deg, var(--accent), var(--highlight)); color:var(--bg); border:none; 
+      padding:18px 0; width:100%; display:block; text-align:center; text-decoration:none; 
+      font-family:var(--fc); font-size:1rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; 
+      border-radius: 6px; transition:all .3s;
+    }
+    .btn-checkout:hover { transform:translateY(-2px); filter: brightness(1.1); }
+    .mnote { font-size:.75rem; color:var(--greyd); margin-top:20px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ════════════ ANIMATIONS ════════════ */
+    .rv { opacity:0; transform:translateY(30px); transition:all .8s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .rv.vis { opacity:1; transform:translateY(0); }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      .hero-inner { grid-template-columns:1fr; text-align:center; gap:60px; padding-top:60px; }
+      .hero-eyebrow { justify-content:center; }
+      .hero-desc { margin-left:auto; margin-right:auto; }
+      .hero-acts { justify-content:center; }
+      .hero-frame { width:100%; max-width:460px; height:500px; }
+      .about-inner { grid-template-columns: 1fr; text-align: center; }
+      .img-cluster { max-width: 600px; margin: 0 auto; }
+      .footer-top { grid-template-columns:1fr 1fr; gap:40px; }
+      .fbrand { grid-column: span 2; text-align: center; }
+      .f-about { margin: 25px auto 30px; }
+      .soc-row { justify-content: center; }
+    }
+    @media(max-width:768px){
+      header { padding:0 5%; }
+      nav { display:none; }
+      .hbg { display:flex; }
+      .footer-top { grid-template-columns: 1fr; text-align: center; }
+      .fbrand { grid-column: span 1; }
+      .footer-bot { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════ HEADER ═══════════════════════ -->
+  <header>
+    <a class="logo" onclick="goto('home')">
+      <svg class="logo-mark" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32,12 C24,12 18,18 18,26 L18,32 L14,32 L14,52 L50,52 L50,32 L46,32 L46,26 C46,18 40,12 32,12 Z M32,18 C36,18 40,22 40,26 L40,32 L24,32 L24,26 C24,22 28,18 32,18 Z" fill="none" stroke="#2ecc71" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="29" y="38" width="6" height="8" rx="1" fill="#2ecc71"/>
+      </svg>
+      <span class="logo-text">ARMOR<em>LOCK</em></span>
+    </a>
+
+    <nav>
+      <a onclick="goto('home')">Home</a>
+      <a onclick="goto('product')">The Lock</a>
+      <a onclick="goto('about')">Security</a>
+      <a onclick="goto('contact')">Support</a>
+      <a class="nav-cta" onclick="openOrder()">Order Now</a>
+    </nav>
+
+    <button class="hbg" id="hbg" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="mmenu" id="mmenu">
+    <a onclick="goto('home')">Home</a>
+    <a onclick="goto('product')">The Lock</a>
+    <a onclick="goto('about')">Security</a>
+    <a onclick="goto('contact')">Support</a>
+    <a class="mc" onclick="openOrder()">Order Now</a>
+  </div>
+
+
+  <!-- ═══════════════════════ HERO ═══════════════════════ -->
+  <section id="home">
+    <div class="hslash" style="left:20%;"></div>
+    <div class="hslash" style="left:50%;"></div>
+    <div class="hslash" style="left:80%;"></div>
+
+    <div class="hero-inner">
+      <div class="hero-cont rv">
+        <div class="hero-eyebrow">
+          <div class="pdot"></div>
+          <span>Next-Gen Security</span>
+        </div>
+        <h1 class="hero-title">
+          <span class="tr">Lock What</span>
+          <span class="to">Matters</span>
+        </h1>
+        <p class="hero-desc">Experience industrial-grade protection with ArmorLock. Engineered for the modern cyclist who demands uncompromising security and smart design.</p>
+        <div class="hero-acts">
+          <a class="btn-pri" onclick="goto('product')">View Specs</a>
+          <button class="btn-ghost" onclick="openOrder()">Secure Yours</button>
+        </div>
+      </div>
+
+      <div class="hero-vis rv">
+        <div class="hero-frame">
+          <div class="cbr"></div>
+          <!-- RESTORED ORIGINAL HERO IMAGE -->
+          <img src="https://i.ibb.co/TMdwjKrb/Main-main-1-4.png" alt="ArmorLock Security">
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ PRODUCT ═══════════════════════ -->
+  <section id="product">
+    <div class="rline"></div>
+    <div class="product-wrap">
+      
+      <div style="text-align:center;" class="rv">
+        <p class="eyebrow">Engineering Excellence</p>
+        <h2 class="s-title">The <span class="ac">Titan-G</span> Series</h2>
+        <p class="s-sub" style="margin-left:auto;margin-right:auto;">Built with hardened boron steel and featuring a dual-bolt locking mechanism, the Titan-G is virtually indestructible.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:60px;">
+        <div class="gallery rv">
+          <div class="g-main">
+            <!-- RESTORED ORIGINAL PRODUCT MAIN IMAGE -->
+            <img id="main-img" src="https://i.ibb.co/xqDNxDz1/3.jpg" alt="Titan-G Main View">
+          </div>
+          <div class="g-thumbs">
+            <!-- RESTORED ALL ORIGINAL THUMBNAILS -->
+            <div class="g-thumb active" onclick="si(this,'https://i.ibb.co/xqDNxDz1/3.jpg')"><img src="https://i.ibb.co/xqDNxDz1/3.jpg" alt=""/></div>
+            <div class="g-thumb" onclick="si(this,'https://i.ibb.co/svWnX45x/3-2.jpg')"><img src="https://i.ibb.co/svWnX45x/3-2.jpg" alt=""/></div>
+            <div class="g-thumb" onclick="si(this,'https://i.ibb.co/fG0tYTDx/4.jpg')"><img src="https://i.ibb.co/fG0tYTDx/4.jpg" alt=""/></div>
+            <div class="g-thumb" onclick="si(this,'https://i.ibb.co/ZphNWqRC/5.jpg')"><img src="https://i.ibb.co/ZphNWqRC/5.jpg" alt=""/></div>
+            <div class="g-thumb" onclick="si(this,'https://i.ibb.co/2YKGXczp/7.jpg')"><img src="https://i.ibb.co/2YKGXczp/7.jpg" alt=""/></div>
+            <div class="g-thumb" onclick="si(this,'https://i.ibb.co/XrRbwDMt/7-2.jpg')"><img src="https://i.ibb.co/XrRbwDMt/7-2.jpg" alt=""/></div>
+            <div class="g-thumb" onclick="si(this,'https://i.ibb.co/VcGr1n5P/Neon-Sheild-img.jpg')"><img src="https://i.ibb.co/VcGr1n5P/Neon-Sheild-img.jpg" alt=""/></div>
+            <div class="g-thumb" onclick="si(this,'https://i.ibb.co/TMdwjKrb/Main-main-1-4.png')"><img src="https://i.ibb.co/TMdwjKrb/Main-main-1-4.png" alt=""/></div>
+          </div>
+        </div>
+
+        <div class="p-info rv">
+          <span class="p-cat">Security Grade: Gold</span>
+          <h3 class="p-name">ArmorLock Titan-G</h3>
+          <div class="p-price">$89.00 <span>$120.00</span></div>
+          <p class="p-desc">Our flagship U-lock designed for high-risk urban environments. Featuring a 16mm hardened steel shackle and a pick-resistant disc cylinder, providing the ultimate peace of mind for your ride.</p>
+          
+          <div class="p-meta">
+            <div class="m-item"><div class="m-lbl">Material</div><div class="m-val">Boron Steel</div></div>
+            <div class="m-item"><div class="m-lbl">Weight</div><div class="m-val">1.2 kg</div></div>
+            <div class="m-item"><div class="m-lbl">Security</div><div class="m-val">Level 10/10</div></div>
+            <div class="m-item"><div class="m-lbl">Warranty</div><div class="m-val">Lifetime</div></div>
+          </div>
+
+          <button class="btn-pri" onclick="openOrder()" style="width:100%;">Add to Security Kit</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ ABOUT / CLUSTER ═══════════════════════ -->
+  <section id="about">
+    <div class="rline"></div>
+    <div class="about-inner">
+      <div class="rv">
+        <p class="eyebrow" style="display:inline-flex;">The ArmorLock Standard</p>
+        <h2 class="s-title" style="margin-bottom:24px;">Built for<br/><span class="ac">Protection</span></h2>
+        <p class="about-p">ArmorLock was founded by engineers who refused to accept the status quo of bike security. We create industrial-grade hardware that combines smart technology with unbreakable materials.</p>
+        <p class="about-p">Every lock is tested against extreme conditions—from bolt cutters to hydraulic presses. If it can be broken, it's not an ArmorLock.</p>
+        <div class="stats-grid">
+          <div class="stat-block"><div class="stat-n">100%</div><div class="stat-l">Hardened Steel</div></div>
+          <div class="stat-block"><div class="stat-n">50k+</div><div class="stat-l">Bikes Protected</div></div>
+          <div class="stat-block"><div class="stat-n">32</div><div class="stat-l">Security Patents</div></div>
+          <div class="stat-block"><div class="stat-n">Gold</div><div class="stat-l">Sold Secure Rated</div></div>
+        </div>
+      </div>
+      <div class="img-cluster rv">
+        <!-- RESTORED ORIGINAL CLUSTER IMAGES -->
+        <div class="ci"><img src="https://i.ibb.co/fG0tYTDx/4.jpg" alt=""/></div>
+        <div class="ci"><img src="https://i.ibb.co/2YKGXczp/7.jpg" alt=""/></div>
+        <div class="ci"><img src="https://i.ibb.co/XrRbwDMt/7-2.jpg" alt=""/></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ CTA ═══════════════════════ -->
+  <section id="cta">
+    <div class="rline"></div>
+    <div class="rv">
+      <div class="ccta">
+        <div class="ccta-inner">
+          <p class="eyebrow">Ready to Secure Your Ride?</p>
+          <h3 class="ccta-title">Join the <span>ArmorLock</span> Network</h3>
+          <p class="ccta-body">Don't wait for the worst to happen. Protect your investment with the world's most trusted bike security system.</p>
+          <a class="btn-cshop" onclick="openOrder()">Order Your Lock Today →</a>
+          
+          <div class="cta-stats">
+            <div><div class="cta-sn">$89</div><div class="cta-sl">Titan-G Series</div></div>
+            <div class="cta-div"></div>
+            <div><div class="cta-sn">Free</div><div class="cta-sl">Global Shipping</div></div>
+            <div class="cta-div"></div>
+            <div><div class="cta-sn">24h</div><div class="cta-sl">Dispatch Time</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer>
+    <div class="footer-top">
+      <div class="fbrand">
+        <a class="logo" onclick="goto('home')" style="display:inline-flex;">
+          <svg class="logo-mark" style="width:26px;height:26px;" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <path d="M32,12 C24,12 18,18 18,26 L18,32 L14,32 L14,52 L50,52 L50,32 L46,32 L46,26 C46,18 40,12 32,12 Z M32,18 C36,18 40,22 40,26 L40,32 L24,32 L24,26 C24,22 28,18 32,18 Z" fill="none" stroke="#2ecc71" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="logo-text" style="font-size:1.3rem;">ARMOR<em>LOCK</em></span>
+        </a>
+        <p class="f-about">Precision-engineered security solutions for the modern cyclist. Based in Berlin, shipping worldwide.</p>
+        <div class="soc-row">
+          <a class="soc-btn" href="#" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/></svg></a>
+          <a class="soc-btn" href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+          <a class="soc-btn" href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div class="fcol"><h4>Shop</h4><ul><li><a onclick="goto('product')">Titan-G Series</a></li><li><a href="#">Accessories</a></li><li><a href="#">Mounting Kits</a></li><li><a href="#">Gift Cards</a></li></ul></div>
+      <div class="fcol"><h4>Support</h4><ul><li><a href="#">Lock Registration</a></li><li><a href="#">Key Replacement</a></li><li><a href="#">Shipping Info</a></li><li><a href="#">Returns</a></li><li><a href="#">FAQ</a></li></ul></div>
+      <div class="fcol"><h4>Company</h4><ul><li><a href="#">Our Mission</a></li><li><a href="#">Technology</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Press Kit</a></li><li><a href="#">Careers</a></li></ul></div>
+    </div>
+    <div class="footer-bot">
+      <p class="fcopy">© 2026 ArmorLock Security GmbH · Engineered for Safety.</p>
+      <div class="flegal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════ ORDER MODAL ═══════════════════════ -->
+  <div id="ov">
+    <div class="omodal">
+      <div class="mhdr">
+        <div>
+          <h2 class="mtitle">Secure Your Order</h2>
+          <p class="msub">Ready to protect your ride with ArmorLock?</p>
+        </div>
+        <button class="mclose" onclick="closeOrder()" aria-label="Close">✕</button>
+      </div>
+      <div class="mbody">
+        <div class="micon">🛡️</div>
+        <h3 class="mmtitle">Elite Protection Awaits</h3>
+        <p class="mmbody">Click below to proceed to our encrypted checkout. Select your preferred series and color — we'll dispatch your security kit within 24 hours.</p>
+        <a class="btn-checkout" href="#">Go to Secure Checkout →</a>
+        <p class="mnote">SSL Encrypted · Global Shipping · Lifetime Warranty</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════ SCRIPTS ═══════════════════════ -->
+  <script>
+    function goto(id){ closeMM(); var e=document.getElementById(id); if(e) e.scrollIntoView({behavior:'smooth'}); }
+    function toggleMenu(){ document.getElementById('mmenu').classList.toggle('open'); document.getElementById('hbg').classList.toggle('open'); }
+    function closeMM(){ document.getElementById('mmenu').classList.remove('open'); document.getElementById('hbg').classList.remove('open'); }
+    
+    document.addEventListener('click',function(e){ 
+      var m=document.getElementById('mmenu'),b=document.getElementById('hbg'); 
+      if(m.classList.contains('open')&&!m.contains(e.target)&&!b.contains(e.target)) closeMM(); 
+    });
+
+    function si(t,s){ 
+      document.querySelectorAll('.g-thumb').forEach(function(x){x.classList.remove('active');}); 
+      t.classList.add('active'); 
+      var i=document.getElementById('main-img'); 
+      i.style.opacity='0'; 
+      i.style.transform='scale(0.98)';
+      setTimeout(function(){ 
+        i.src=s; 
+        i.style.opacity='1'; 
+        i.style.transform='scale(1)';
+      },250); 
+    }
+
+    function openOrder(){ document.getElementById('ov').classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeOrder(){ document.getElementById('ov').classList.remove('open'); document.body.style.overflow=''; }
+    document.getElementById('ov').addEventListener('click',function(e){ if(e.target===this) closeOrder(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'){ closeOrder(); closeMM(); } });
+
+    var io=new IntersectionObserver(function(entries){ 
+      entries.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('vis'); }); 
+    },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+    document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+  </script>
+</body>
+</html>
