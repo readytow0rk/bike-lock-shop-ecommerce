@@ -260,6 +260,14 @@
     .pc-act { padding:7px 14px; border:none; border-radius:3px; cursor:pointer; font-family:var(--fc); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
     .pc-act-confirm { background:var(--accent); color:var(--white); }
     .pc-act-manual { background:rgba(255,255,255,.08); color:var(--grey); }
+    .addr-list { max-height:210px; overflow-y:auto; border:1px solid var(--border); border-radius:3px; margin-bottom:8px; }
+    .addr-opt { padding:10px 14px; cursor:pointer; border-bottom:1px solid rgba(255,255,255,.04); transition:background .15s; }
+    .addr-opt:last-child { border-bottom:none; }
+    .addr-opt:hover { background:rgba(46,204,113,.1); }
+    .addr-opt div:first-child { font-size:.88rem; color:var(--white); }
+    .addr-opt-sub { font-size:.72rem; color:var(--greyd); margin-top:2px; }
+    .addr-manual-link { text-align:center; padding:9px; font-size:.75rem; color:var(--greyd); cursor:pointer; border-top:1px solid var(--border); transition:color .2s; }
+    .addr-manual-link:hover { color:var(--hi); }
 
     /* Modal buttons */
     .m-btn { width:100%; padding:14px; margin-top:16px; background:linear-gradient(135deg,var(--accent),var(--hi)); border:none; color:#050e08; font-family:var(--fc); font-size:.82rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; border-radius:3px; transition:filter .2s; }
@@ -653,6 +661,9 @@ var EMAILJS_KEY_VAL  = 'nZpslawaT163Wayua';
 var NOTIFY_EMAIL     = 'caspi.ready.spam@gmail.com';
 var PRICE_CENTS      = 8900;
 var HEADER_H         = 106; // 38px banner + 68px header
+// Get a FREE key at getaddress.io (100 lookups/day, no card needed)
+// Without a key, postcode still validates but won't show individual addresses
+var GETADDRESS_KEY   = '';
 
 // ── NAVIGATION ──────────────────────────────────────────
 function goto(id) {
@@ -829,11 +840,30 @@ document.addEventListener('click', function(e) {
 
 // ── PHONE VALIDATION ─────────────────────────────────────
 var PHONE_CFG = {
-  GB: { ph:'07XXX XXXXXX',   hint:'UK: 11 digits starting 07 or 01' },
-  US: { ph:'(555) 000-0000', hint:'US: 10 digits' },
-  CA: { ph:'(555) 000-0000', hint:'Canada: 10 digits' },
-  AU: { ph:'04XX XXX XXX',   hint:'AU: 10 digits starting 04' },
-  IE: { ph:'08X XXX XXXX',   hint:'Ireland: 10 digits' }
+  GB: { ph:'07XXX XXXXXX',        hint:'UK: 11 digits starting 07 or 01',    min:10, max:11 },
+  US: { ph:'(555) 000-0000',      hint:'US: 10 digits (no country code)',     min:10, max:10 },
+  CA: { ph:'(555) 000-0000',      hint:'Canada: 10 digits (no country code)', min:10, max:10 },
+  AU: { ph:'04XX XXX XXX',        hint:'AU: 10 digits starting 04',           min:9,  max:10 },
+  NZ: { ph:'+64 XX XXX XXXX',     hint:'New Zealand: 9 digits',               min:8,  max:10 },
+  IE: { ph:'08X XXX XXXX',        hint:'Ireland: 10 digits',                  min:9,  max:10 },
+  DE: { ph:'+49 1XX XXXXXXX',     hint:'Germany: include +49 country code',   min:10, max:12 },
+  FR: { ph:'+33 6 XX XX XX XX',   hint:'France: 10 digits or with +33',       min:9,  max:11 },
+  NL: { ph:'+31 6 XXXX XXXX',     hint:'Netherlands: 10 digits',              min:9,  max:10 },
+  SE: { ph:'+46 7X XXX XXXX',     hint:'Sweden: include +46',                 min:9,  max:11 },
+  NO: { ph:'+47 XXX XX XXX',      hint:'Norway: 8 digits',                    min:8,  max:8  },
+  DK: { ph:'+45 XX XX XX XX',     hint:'Denmark: 8 digits',                   min:8,  max:8  },
+  FI: { ph:'+358 4X XXX XXXX',    hint:'Finland: include +358',               min:9,  max:11 },
+  BE: { ph:'+32 4XX XX XX XX',    hint:'Belgium: 9-10 digits',                min:9,  max:10 },
+  CH: { ph:'+41 7X XXX XX XX',    hint:'Switzerland: 10 digits',              min:9,  max:10 },
+  AT: { ph:'+43 6XX XXXXXXX',     hint:'Austria: include +43',                min:9,  max:11 },
+  ES: { ph:'+34 6XX XXX XXX',     hint:'Spain: 9 digits',                     min:9,  max:9  },
+  IT: { ph:'+39 3XX XXX XXXX',    hint:'Italy: 10 digits',                    min:9,  max:11 },
+  PT: { ph:'+351 9XX XXX XXX',    hint:'Portugal: 9 digits',                  min:9,  max:9  },
+  PL: { ph:'+48 XXX XXX XXX',     hint:'Poland: 9 digits',                    min:9,  max:9  },
+  CZ: { ph:'+420 XXX XXX XXX',    hint:'Czech Republic: 9 digits',            min:9,  max:9  },
+  UA: { ph:'+380 XX XXX XXXX',    hint:'Ukraine: 9 digits with +380',         min:9,  max:10 },
+  SG: { ph:'+65 XXXX XXXX',       hint:'Singapore: 8 digits',                 min:8,  max:8  },
+  JP: { ph:'+81 XX XXXX XXXX',    hint:'Japan: 10-11 digits with +81',        min:10, max:11 },
 };
 
 function updatePhoneHint(cc) {
@@ -857,7 +887,11 @@ function validatePhone(phone, cc) {
   var d = phone.replace(/\D/g, '');
   if (cc === 'GB') { var c = d.replace(/^44/, '0'); return /^0[1-9]\d{9}$/.test(c); }
   if (cc === 'US' || cc === 'CA') { return /^\d{10}$/.test(d.replace(/^1/, '')); }
-  if (cc === 'AU' || cc === 'IE') { return /^\d{10}$/.test(d.replace(/^(61|353)/, '0')); }
+  if (cc === 'AU') { return /^\d{9,10}$/.test(d.replace(/^61/, '')); }
+  if (cc === 'IE') { return /^\d{9,10}$/.test(d.replace(/^353/, '')); }
+  // Use min/max from PHONE_CFG for all other countries
+  var cfg = PHONE_CFG[cc];
+  if (cfg) { return d.length >= cfg.min && d.length <= cfg.max; }
   return d.length >= 6 && d.length <= 15;
 }
 
@@ -882,16 +916,78 @@ async function lookupPostcode() {
 
   if (selectedCC === 'GB') {
     try {
+      // Step 1: validate with postcodes.io (free, no key)
       var r = await fetch('https://api.postcodes.io/postcodes/' + encodeURIComponent(pc.replace(/\s/g,'').toUpperCase()));
       var d = await r.json();
-      if (d.status === 200 && d.result) {
-        if (pcEl) pcEl.value = d.result.postcode;
-        showPCCard(d.result.postcode, d.result.admin_district || d.result.region || '', d.result.admin_county || d.result.region || '', true);
-      } else { showPCCard(pc, '', '', false); }
+      if (d.status !== 200 || !d.result) { showPCCard(pc, '', '', false); if (btn) { btn.textContent = 'Find'; btn.disabled = false; } return; }
+      if (pcEl) pcEl.value = d.result.postcode;
+      var city   = d.result.admin_district || d.result.region || '';
+      var county = d.result.admin_county   || d.result.region || '';
+
+      // Step 2: try getaddress.io for individual addresses (needs free API key)
+      if (GETADDRESS_KEY) {
+        try {
+          var ar = await fetch('https://api.getaddress.io/find/' + encodeURIComponent(d.result.postcode.replace(/\s/g,'')) + '?api-key=' + GETADDRESS_KEY + '&expand=true');
+          var ad = await ar.json();
+          if (ad.addresses && ad.addresses.length > 0) {
+            showAddressDropdown(d.result.postcode, city, county, ad.addresses);
+            if (btn) { btn.textContent = 'Find'; btn.disabled = false; }
+            return;
+          }
+        } catch(e2) { /* fall through to area card */ }
+      }
+
+      // Fallback: show area confirmation card
+      showPCCard(d.result.postcode, city, county, true);
     } catch(e) { showPCCard(pc, '', '', false); }
   } else { showNonUKFields(); }
 
   if (btn) { btn.textContent = 'Find'; btn.disabled = false; }
+}
+
+function showAddressDropdown(postcode, city, county, addresses) {
+  var div = document.getElementById('pc-result'); if (!div) return;
+  var html = '<div class="pc-card">' +
+    '<div class="pc-card-sub">&#10003; ' + postcode + ' — ' + (city || 'United Kingdom') + '</div>' +
+    '<div class="pc-card-area" style="font-size:.8rem;color:var(--greyl);margin-bottom:10px;">Select your address:</div>' +
+    '<div class="addr-list">';
+  addresses.forEach(function(a, i) {
+    var line1 = a.line_1 || '';
+    var line2 = [a.line_2, a.town_or_city || city].filter(Boolean).join(', ');
+    html += '<div class="addr-opt" onclick="selectAddress(' + i + ')">' +
+      '<div>' + line1 + '</div>' +
+      (line2 ? '<div class="addr-opt-sub">' + line2 + '</div>' : '') +
+      '</div>';
+  });
+  html += '</div>' +
+    '<div class="addr-manual-link" onclick="showManualUK()">Not listed — enter manually</div>' +
+    '</div>';
+  div.innerHTML = html;
+  // Store addresses for selectAddress()
+  window._addrCache = { postcode: postcode, city: city, county: county, addresses: addresses };
+}
+
+function selectAddress(idx) {
+  var cache = window._addrCache; if (!cache) return;
+  var a = cache.addresses[idx];
+  var houseEl  = document.getElementById('f-house');
+  var streetEl = document.getElementById('f-street');
+  var cityEl   = document.getElementById('f-city-uk');
+  var countyEl = document.getElementById('f-county');
+  // line_1 is usually "10 Trinity Hall Close" — split house number from street
+  var line1 = a.line_1 || '';
+  var match = line1.match(/^(\S+)\s+(.+)$/);
+  if (houseEl)  houseEl.value  = match ? match[1] : line1;
+  if (streetEl) streetEl.value = match ? match[2] : (a.line_2 || '');
+  if (cityEl)   cityEl.value   = a.town_or_city || cache.city;
+  if (countyEl) countyEl.value = a.county || cache.county;
+  document.getElementById('uk-fields').style.display   = 'block';
+  document.getElementById('other-fields').style.display = 'none';
+  document.getElementById('addr-fields').style.display  = 'block';
+  document.getElementById('s2-btn').style.display       = 'block';
+  pcConfirmed = true;
+  var div = document.getElementById('pc-result');
+  if (div) div.innerHTML = '<div class="pc-card"><div class="pc-card-sub">&#10003; Address selected</div><div class="pc-card-area">' + line1 + ', ' + (a.town_or_city || cache.city) + '</div></div>';
 }
 
 function showPCCard(pc, city, county, found) {
@@ -937,6 +1033,8 @@ function showManualUK() {
   document.getElementById('addr-fields').style.display  = 'block';
   document.getElementById('s2-btn').style.display       = 'block';
   pcConfirmed = true;
+  // Clear the postcode card — no need to show it again after choosing manual entry
+  var div = document.getElementById('pc-result'); if (div) div.innerHTML = '';
 }
 
 function showNonUKFields() {
