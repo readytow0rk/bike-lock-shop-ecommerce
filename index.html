@@ -3,47 +3,62 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>ARMORLOCK — High-Security Bike Protection</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23070b09'/%3E%3Cpath d='M32,12 C24,12 18,18 18,26 L18,32 L14,32 L14,52 L50,52 L50,32 L46,32 L46,26 C46,18 40,12 32,12 Z M32,18 C36,18 40,22 40,26 L40,32 L24,32 L24,26 C24,22 28,18 32,18 Z' fill='none' stroke='%232ecc71' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"/>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
-    :root {
-      --bh: 38px;
-      --hh: 68px;
-      --bg:    #070b09;
-      --panel: #0d1512;
-      --border:rgba(46,204,113,0.18);
-      --accent:#1f7a5a;
-      --hi:    #2ecc71;
-      --white: #eef5f2;
-      --grey:  #88a496;
-      --greyl: #b8c8be;
-      --greyd: #4a5f55;
-      --fd:'Rajdhani',sans-serif;
-      --fc:'Barlow Condensed',sans-serif;
-      --fb:'Barlow',sans-serif;
-    }
-    html { scroll-behavior:smooth; }
-    body { font-family:var(--fb); background:var(--bg); color:var(--white); font-weight:300; line-height:1.6; overflow-x:hidden; }
-    ::-webkit-scrollbar { width:4px; }
-    ::-webkit-scrollbar-track { background:var(--bg); }
-    ::-webkit-scrollbar-thumb { background:var(--accent); border-radius:10px; }
+  <title>NEONSHIELD — Premium Bike Security</title>
 
-    /* V4: grid texture */
+  <link rel="icon" type="image/png" href="images/icon.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Barlow+Condensed:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300;1,400&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bh:      38px;
+      --hh:      68px;
+      --black:   #070b09;
+      --deep:    #090e0b;
+      --dark:    #0b1210;
+      --panel:   #0d1512;
+      --panel-alt:#101a15;
+      --border:  rgba(46,204,113,0.18);
+      --bdim:    rgba(46,204,113,0.08);
+      --green:   #1f7a5a;
+      --green2:  #2ecc71;
+      --greenp:  #a8f0c8;
+      --greenglow:rgba(46,204,113,0.12);
+      --white:   #e8f0ec;
+      --grey:    #7a9086;
+      --greyl:   #aabfb4;
+      --greyd:   #4a6058;
+      --fd: 'Rajdhani', sans-serif;
+      --fc: 'Barlow Condensed', sans-serif;
+      --fb: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--fb);
+      background: var(--black);
+      color: var(--white);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--green); }
+
     body::before {
       content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.018;
-      background-image:linear-gradient(rgba(46,204,113,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(46,204,113,.5) 1px,transparent 1px);
-      background-size:40px 40px;
+      background-image: linear-gradient(rgba(46,204,113,.4) 1px,transparent 1px), linear-gradient(90deg,rgba(46,204,113,.4) 1px,transparent 1px);
+      background-size: 40px 40px;
     }
-    /* V4: ambient glow */
     body::after {
       content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
-      background:radial-gradient(ellipse 40% 40% at 80% 20%,rgba(46,204,113,0.04) 0%,transparent 70%),
-                 radial-gradient(ellipse 30% 30% at 10% 80%,rgba(31,122,90,0.05) 0%,transparent 70%);
+      background: radial-gradient(ellipse 40% 40% at 80% 20%,rgba(46,204,113,0.04) 0%,transparent 70%),
+                  radial-gradient(ellipse 30% 30% at 10% 80%,rgba(31,122,90,0.05) 0%,transparent 70%);
     }
 
-    /* ── BANNER ──────────────────────────────────── */
+    /* ════ BANNER ════ */
     #top-banner {
       position:fixed; top:0; left:0; right:0; z-index:200;
       height:var(--bh); background:#091a10; border-bottom:1px solid rgba(46,204,113,0.3);
@@ -51,188 +66,303 @@
     }
     #banner-txt {
       font-family:var(--fc); font-size:.72rem; font-weight:600; letter-spacing:.28em;
-      text-transform:uppercase; color:var(--hi);
+      text-transform:uppercase; color:var(--green2);
       transition:opacity .28s ease, transform .28s ease;
     }
 
-    /* ── HEADER ──────────────────────────────────── */
+    /* ════ LOGO ════ */
+    .logo { display:flex; align-items:center; gap:11px; text-decoration:none; cursor:pointer; flex-shrink:0; }
+    .logo-mark { width:36px; height:36px; flex-shrink:0; }
+    .logo-text {
+      font-family:var(--fd); font-size:1.5rem; font-weight:700;
+      letter-spacing:0.14em; text-transform:uppercase; color:var(--white); line-height:1;
+    }
+    .logo-text em { color:var(--green2); font-style:normal; }
+
+    /* ════ HEADER ════ */
     header {
       position:fixed; top:var(--bh); left:0; right:0; z-index:100; height:var(--hh);
       display:flex; align-items:center; justify-content:space-between; padding:0 5%;
-      background:rgba(7,11,9,.96); backdrop-filter:blur(20px); border-bottom:1px solid var(--border);
+      background:rgba(7,11,9,0.96); backdrop-filter:blur(20px) saturate(1.4);
+      border-bottom:1px solid var(--border);
     }
-    header::after { content:''; position:absolute; bottom:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--hi),transparent); opacity:.2; }
-    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; cursor:pointer; flex-shrink:0; }
-    .logo-mark { width:32px; height:32px; flex-shrink:0; filter:drop-shadow(0 0 8px rgba(46,204,113,.3)); }
-    .logo-text { font-family:var(--fd); font-size:1.35rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--white); }
-    .logo-text em { color:var(--hi); font-style:normal; }
-    header nav { display:flex; align-items:center; gap:28px; }
-    nav a { font-family:var(--fc); font-size:.75rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); text-decoration:none; transition:color .2s; cursor:pointer; white-space:nowrap; position:relative; }
-    nav a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1px; background:var(--hi); transform:scaleX(0); transform-origin:left; transition:transform .25s; }
-    nav a:hover { color:var(--white); }
+    header::after {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,transparent,var(--green2),transparent); opacity:.3;
+    }
+    nav { display:flex; align-items:center; gap:26px; }
+    nav a {
+      font-family:var(--fc); font-size:.78rem; font-weight:500; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--grey); text-decoration:none; transition:color .25s;
+      cursor:pointer; position:relative; white-space:nowrap;
+    }
+    nav a::after {
+      content:''; position:absolute; bottom:-3px; left:0; right:0; height:1px;
+      background:var(--green2); transform:scaleX(0); transform-origin:left; transition:transform .3s ease;
+    }
+    nav a:hover { color:var(--greenp); }
     nav a:hover::after { transform:scaleX(1); }
-    /* V3: angular clip-path CTA */
-    .nav-cta { background:var(--accent)!important; color:var(--white)!important; padding:9px 26px; font-family:var(--fc)!important; font-size:.72rem!important; font-weight:700!important; letter-spacing:.18em!important; clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%); box-shadow:0 0 12px rgba(46,204,113,.2); transition:background .2s,box-shadow .2s!important; }
+    .nav-cta {
+      background:linear-gradient(135deg,var(--green),var(--green2))!important;
+      color:var(--black)!important; padding:8px 22px;
+      font-family:var(--fc)!important; font-size:.72rem!important; font-weight:700!important;
+      letter-spacing:.2em!important; clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+      transition:all .25s!important; box-shadow:0 0 16px rgba(46,204,113,0.15)!important;
+    }
     .nav-cta::after { display:none!important; }
-    .nav-cta:hover { background:#259b6d!important; box-shadow:0 0 22px rgba(46,204,113,.4)!important; }
+    .nav-cta:hover { background:linear-gradient(135deg,var(--green2),#36e882)!important; box-shadow:0 0 28px rgba(46,204,113,0.35)!important; color:var(--black)!important; }
     .hbg { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:6px; }
-    .hbg span { display:block; width:24px; height:2px; background:var(--white); transition:all .3s; border-radius:2px; }
+    .hbg span { display:block; width:24px; height:2px; background:var(--white); transition:all .3s; }
     .hbg.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-    .hbg.open span:nth-child(2) { opacity:0; }
+    .hbg.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
     .hbg.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-    .mmenu { display:none; position:fixed; top:calc(var(--bh) + var(--hh)); left:0; right:0; z-index:99; background:rgba(7,11,9,.99); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); flex-direction:column; padding:8px 5% 24px; }
+    .mmenu {
+      display:none; position:fixed; top:calc(var(--bh) + var(--hh)); left:0; right:0; z-index:99;
+      background:rgba(7,11,9,.99); backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border); flex-direction:column; padding:8px 5% 24px;
+    }
     .mmenu.open { display:flex; }
-    .mmenu a { font-family:var(--fc); font-size:1rem; letter-spacing:.2em; text-transform:uppercase; color:var(--grey); text-decoration:none; cursor:pointer; padding:15px 0; border-bottom:1px solid rgba(255,255,255,.04); transition:color .2s; }
-    .mmenu a:hover { color:var(--hi); }
-    .mmenu a.mc { color:var(--hi); font-weight:700; border:none; }
+    .mmenu a {
+      font-family:var(--fc); font-size:1rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--grey); text-decoration:none; cursor:pointer; padding:16px 0;
+      border-bottom:1px solid var(--bdim); transition:color .2s;
+    }
+    .mmenu a:last-child { border-bottom:none; }
+    .mmenu a:hover,.mmenu a.mc { color:var(--green2); }
+    .mmenu a.mc { font-weight:700; }
 
-    /* ── BUTTONS ──────────────────────────────────── */
-    .btn-pri { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--accent),var(--hi)); color:#050e08; border:none; padding:15px 40px; font-family:var(--fc); font-size:.85rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); transition:filter .2s,transform .2s; text-decoration:none; }
-    .btn-pri:hover { filter:brightness(1.12); transform:translateY(-2px); }
-    .btn-sec { display:inline-flex; align-items:center; gap:8px; background:transparent; color:var(--white); border:1px solid rgba(46,204,113,.35); padding:14px 32px; font-family:var(--fc); font-size:.82rem; font-weight:500; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; transition:border-color .2s,color .2s; text-decoration:none; border-radius:2px; }
-    .btn-sec:hover { border-color:var(--hi); color:var(--hi); }
-
-    /* ── LAYOUT ──────────────────────────────────── */
-    section { position:relative; z-index:1; }
-    .wrap { max-width:1280px; margin:0 auto; padding:0 6%; }
-
-    /* ── HERO ──────────────────────────────────── */
-    #home { padding-top:calc(var(--bh) + var(--hh)); min-height:100vh; display:flex; align-items:center; background:radial-gradient(circle at 65% 40%,#0e261c 0%,var(--bg) 65%); }
-    .hero-inner { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; padding:80px 0; }
-    .hero-eyebrow { display:flex; align-items:center; gap:12px; margin-bottom:22px; font-family:var(--fc); font-size:.72rem; letter-spacing:.4em; text-transform:uppercase; color:var(--hi); font-weight:600; }
-    .hero-eyebrow::before { content:''; width:36px; height:1px; background:var(--hi); opacity:.7; }
-    .pdot { width:5px; height:5px; background:var(--hi); border-radius:50%; display:inline-block; animation:pdot 2.5s infinite; }
+    /* ════ HERO ════ */
+    #home {
+      padding-top:calc(var(--bh) + var(--hh));
+      min-height:100vh; display:flex; align-items:center;
+      background: linear-gradient(160deg,var(--black) 0%,#080f0b 55%,#060d09 100%);
+      position:relative; overflow:hidden;
+    }
+    #home::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(ellipse 50% 60% at 68% 44%,rgba(31,122,90,.09) 0%,transparent 70%),
+                  radial-gradient(ellipse 30% 30% at 12% 60%,rgba(46,204,113,.04) 0%,transparent 70%);
+    }
+    .hslash { position:absolute; top:0; width:1px; height:100%; background:linear-gradient(180deg,transparent,rgba(46,204,113,0.15),transparent); opacity:.6; transform:skewX(-14deg); }
+    .hero-inner {
+      max-width:1240px; margin:0 auto; padding:80px 5%;
+      display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+      position:relative; z-index:1; width:100%;
+    }
+    .hero-eyebrow {
+      display:flex; align-items:center; gap:12px;
+      font-family:var(--fc); font-size:.68rem; letter-spacing:.3em;
+      text-transform:uppercase; color:var(--green2); font-weight:500; margin-bottom:18px;
+    }
+    .hero-eyebrow::before { content:''; width:32px; height:1px; background:var(--green2); }
+    .pdot { width:5px; height:5px; background:var(--green2); clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%); animation:pdot 2.5s infinite; box-shadow:0 0 6px var(--green2); }
     @keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.6)} }
-    .hero-title { font-family:var(--fd); font-size:clamp(2.8rem,6.5vw,5.5rem); font-weight:700; line-height:.9; letter-spacing:-.01em; text-transform:uppercase; color:var(--white); margin-bottom:28px; }
-    .hero-title .tr { color:var(--hi); display:block; text-shadow:0 0 24px rgba(46,204,113,.25); }
-    .hero-desc { font-size:.95rem; color:var(--grey); line-height:1.75; max-width:460px; margin-bottom:44px; }
-    .hero-acts { display:flex; gap:16px; flex-wrap:wrap; align-items:center; margin-bottom:52px; }
-    .hero-meta { display:flex; border-top:1px solid var(--border); padding-top:28px; }
-    .hm { flex:1; padding:0 20px; border-right:1px solid var(--border); }
-    .hm:first-child { padding-left:0; }
-    .hm:last-child { border-right:none; }
-    .hm-val { font-family:var(--fd); font-size:1.25rem; font-weight:700; color:var(--white); }
-    .hm-lab { font-family:var(--fc); font-size:.62rem; letter-spacing:.18em; text-transform:uppercase; color:var(--greyd); margin-top:2px; }
-    .hero-img-wrap { position:relative; display:flex; justify-content:center; align-items:center; }
-    .hero-img-glow { position:absolute; width:80%; height:80%; border-radius:50%; background:radial-gradient(circle,rgba(46,204,113,.08) 0%,transparent 70%); animation:glow 4s ease-in-out infinite; }
-    @keyframes glow { 0%,100%{transform:scale(1);opacity:.6} 50%{transform:scale(1.05);opacity:1} }
-    .hero-img { width:100%; max-width:520px; border-radius:4px; position:relative; z-index:1; display:block; }
+    .hero-title {
+      font-family:var(--fd); font-size:clamp(2.8rem,6vw,5.6rem); font-weight:700;
+      line-height:.95; letter-spacing:.02em; text-transform:uppercase; color:var(--white); margin-bottom:28px;
+    }
+    .hero-title .tr { color:var(--green2); display:block; text-shadow:0 0 40px rgba(46,204,113,0.3); }
+    .hero-title .to { display:block; -webkit-text-stroke:1px rgba(232,240,236,.18); color:transparent; }
+    .hero-desc { font-size:.9rem; color:var(--grey); line-height:1.85; max-width:420px; margin-bottom:42px; }
+    .hero-acts { display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+    .btn-pri {
+      background:linear-gradient(135deg,var(--green),var(--green2)); color:var(--black);
+      border:none; padding:14px 38px; font-family:var(--fc); font-size:.8rem; font-weight:700;
+      letter-spacing:.22em; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block;
+      clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+      transition:all .25s; box-shadow:0 4px 24px rgba(46,204,113,0.2);
+    }
+    .btn-pri:hover { background:linear-gradient(135deg,var(--green2),#36e882); transform:translateY(-2px); box-shadow:0 8px 36px rgba(46,204,113,0.35); }
+    .btn-ghost {
+      background:transparent; color:var(--greyl); border:1px solid rgba(46,204,113,0.25);
+      padding:13px 30px; font-family:var(--fc); font-size:.78rem; font-weight:400;
+      letter-spacing:.18em; text-transform:uppercase; cursor:pointer; transition:all .25s;
+    }
+    .btn-ghost:hover { border-color:var(--green2); color:var(--greenp); background:rgba(46,204,113,0.05); box-shadow:0 0 20px rgba(46,204,113,0.1); }
+    .hero-vis { position:relative; display:flex; justify-content:center; }
+    .hero-frame {
+      position:relative; width:420px; height:520px;
+      border:1px solid var(--border); overflow:hidden;
+      box-shadow:0 0 60px rgba(46,204,113,0.07),inset 0 0 30px rgba(46,204,113,0.02);
+    }
+    .hero-frame::before {
+      content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+      background: linear-gradient(180deg,transparent 55%,rgba(7,11,9,.55) 100%), linear-gradient(135deg,rgba(46,204,113,0.04) 0%,transparent 60%);
+    }
+    .hero-frame::after {
+      content:''; position:absolute; top:0; left:0; width:28px; height:28px; z-index:3;
+      border-top:2px solid var(--green2); border-left:2px solid var(--green2); pointer-events:none;
+    }
+    .cbr { position:absolute; bottom:0; right:0; width:28px; height:28px; z-index:3; border-bottom:2px solid var(--green2); border-right:2px solid var(--green2); }
+    .hero-frame img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .7s ease; filter:saturate(.85) brightness(.92); }
+    .hero-frame:hover img { transform:scale(1.04); filter:saturate(.95) brightness(.96); }
+    .trust-row { display:flex; gap:22px; flex-wrap:wrap; margin-top:16px; }
+    .trust-badge { display:flex; align-items:center; gap:7px; font-family:var(--fc); font-size:.65rem; letter-spacing:.14em; text-transform:uppercase; color:var(--greyd); }
+    .trust-badge svg { color:var(--green2); flex-shrink:0; }
 
-    /* ── PRODUCT ──────────────────────────────────── */
-    #product { padding:100px 0; background:var(--panel); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-    .product-inner { display:grid; grid-template-columns:1.1fr 1fr; gap:70px; align-items:start; }
-    .gallery { display:flex; flex-direction:column; gap:14px; }
-    .g-main { border-radius:4px; overflow:hidden; background:rgba(46,204,113,.03); border:1px solid var(--border); }
-    #main-img { width:100%; display:block; transition:opacity .25s; }
-    .g-thumbs { display:flex; gap:10px; }
-    .g-thumb { flex:1; border-radius:3px; overflow:hidden; cursor:pointer; border:1px solid var(--border); opacity:.5; transition:opacity .2s,border-color .2s; }
-    .g-thumb.active,.g-thumb:hover { opacity:1; border-color:var(--hi); }
-    .g-thumb img { width:100%; display:block; }
-    .p-badge { display:inline-flex; align-items:center; gap:8px; margin-bottom:20px; background:rgba(46,204,113,.1); border:1px solid rgba(46,204,113,.25); border-radius:2px; padding:5px 14px; font-family:var(--fc); font-size:.68rem; letter-spacing:.2em; text-transform:uppercase; color:var(--hi); }
-    .p-name { font-family:var(--fd); font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:700; text-transform:uppercase; color:var(--white); line-height:1; margin-bottom:6px; }
-    .p-sub { font-family:var(--fc); font-size:.78rem; letter-spacing:.2em; color:var(--greyd); text-transform:uppercase; margin-bottom:18px; }
-    .p-stars { display:flex; align-items:center; gap:8px; margin-bottom:24px; }
-    .stars-row { color:var(--hi); font-size:1rem; letter-spacing:2px; }
-    .p-price { font-family:var(--fd); font-size:3rem; font-weight:700; color:var(--hi); margin-bottom:6px; }
-    .p-price-note { font-size:.8rem; color:var(--greyd); margin-bottom:32px; }
-    .p-specs { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:32px; }
-    .spec-item { background:rgba(255,255,255,.025); border:1px solid var(--border); border-radius:3px; padding:12px 14px; display:flex; align-items:center; gap:10px; }
-    .spec-ico { font-size:1rem; flex-shrink:0; }
-    .spec-lab { font-family:var(--fc); font-size:.62rem; letter-spacing:.15em; color:var(--greyd); text-transform:uppercase; margin-bottom:2px; }
-    .spec-val { font-family:var(--fd); font-size:.92rem; font-weight:600; color:var(--white); }
-    .p-order-btn { width:100%; padding:16px; font-family:var(--fc); font-size:.88rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; background:linear-gradient(135deg,var(--accent),var(--hi)); color:#050e08; border:none; cursor:pointer; clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); transition:filter .2s; margin-bottom:12px; }
-    .p-order-btn:hover { filter:brightness(1.1); }
-    .p-guarantee { text-align:center; font-family:var(--fc); font-size:.68rem; letter-spacing:.12em; color:var(--greyd); text-transform:uppercase; }
+    /* ════ COMMON ════ */
+    .eyebrow {
+      font-family:var(--fc); font-size:.65rem; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--green2); font-weight:500; display:inline-flex; align-items:center; gap:10px; margin-bottom:12px;
+    }
+    .eyebrow::before,.eyebrow::after { content:''; width:18px; height:1px; background:var(--green2); }
+    .s-title { font-family:var(--fd); font-size:clamp(2rem,4vw,3.6rem); font-weight:700; text-transform:uppercase; color:var(--white); line-height:1; letter-spacing:.03em; }
+    .s-title .ac { color:var(--green2); }
+    .s-sub { font-size:.86rem; color:var(--grey); margin-top:12px; }
+    .rline { position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--green2),transparent); opacity:.25; }
 
-    /* ── SECURITY ──────────────────────────────────── */
-    #security { padding:100px 0; }
-    .sec-head { text-align:center; margin-bottom:70px; }
-    .sec-eyebrow { font-family:var(--fc); font-size:.72rem; letter-spacing:.4em; text-transform:uppercase; color:var(--hi); margin-bottom:16px; }
-    .sec-title { font-family:var(--fd); font-size:clamp(2rem,4vw,3.4rem); font-weight:700; text-transform:uppercase; color:var(--white); }
-    .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; }
-    .feat { background:var(--panel); border:1px solid var(--border); padding:36px 28px; transition:border-color .3s; }
-    .feat:hover { border-color:rgba(46,204,113,.5); }
-    .feat-ico { font-size:1.6rem; margin-bottom:16px; }
-    .feat-title { font-family:var(--fd); font-size:1.1rem; font-weight:700; text-transform:uppercase; color:var(--white); margin-bottom:8px; }
-    .feat-desc { font-size:.85rem; color:var(--grey); line-height:1.65; }
+    /* ════ PRODUCT ════ */
+    #product { padding:120px 5%; background:var(--deep); position:relative; }
+    .product-wrap { max-width:960px; margin:0 auto; display:flex; flex-direction:column; gap:40px; }
+    .gallery { display:flex; flex-direction:column; gap:16px; }
+    .g-main {
+      position:relative; overflow:hidden; border:1px solid var(--border);
+      aspect-ratio:16/9; max-height:580px; box-shadow:0 0 40px rgba(46,204,113,0.05);
+    }
+    .g-main::before {
+      content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
+      background: linear-gradient(180deg,transparent 65%,rgba(7,11,9,.35) 100%), linear-gradient(135deg,rgba(46,204,113,0.03) 0%,transparent 50%);
+    }
+    .g-main::after { content:''; position:absolute; top:0; left:0; width:22px; height:22px; z-index:3; pointer-events:none; border-top:2px solid var(--green2); border-left:2px solid var(--green2); }
+    .gbr { position:absolute; bottom:0; right:0; width:22px; height:22px; z-index:3; border-bottom:2px solid var(--green2); border-right:2px solid var(--green2); }
+    .g-main img { width:100%; height:100%; object-fit:cover; display:block; transition:opacity .3s,transform .5s; filter:saturate(.82) brightness(.9); }
+    .g-main:hover img { transform:scale(1.02); filter:saturate(.92) brightness(.95); }
+    .g-thumbs { display:flex; gap:10px; flex-wrap:wrap; }
+    .g-thumb { width:80px; height:80px; border:1px solid rgba(46,204,113,0.1); overflow:hidden; cursor:pointer; opacity:.4; transition:all .25s; flex-shrink:0; position:relative; }
+    .g-thumb:hover { opacity:.75; border-color:rgba(46,204,113,0.4); }
+    .g-thumb.active { opacity:1; border-color:var(--green2); box-shadow:0 0 10px rgba(46,204,113,0.2); }
+    .g-thumb.active::after { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:var(--green2); }
+    .g-thumb img { width:100%; height:100%; object-fit:cover; filter:saturate(.6); }
+    .prod-cta { display:flex; flex-direction:column; align-items:center; gap:14px; padding:28px 0 8px; }
+    .btn-order {
+      background:linear-gradient(135deg,var(--green),var(--green2)); color:var(--black);
+      border:none; padding:18px 72px; font-family:var(--fc); font-size:.92rem; font-weight:700;
+      letter-spacing:.28em; text-transform:uppercase; cursor:pointer; text-decoration:none; display:inline-block;
+      clip-path:polygon(14px 0%,100% 0%,calc(100% - 14px) 100%,0% 100%);
+      transition:all .25s; box-shadow:0 6px 30px rgba(46,204,113,0.22);
+    }
+    .btn-order:hover { background:linear-gradient(135deg,var(--green2),#36e882); transform:translateY(-3px); box-shadow:0 14px 48px rgba(46,204,113,0.38); }
+    .ship-note { display:flex; align-items:center; justify-content:center; gap:10px; font-family:var(--fc); font-size:.74rem; color:var(--greyd); letter-spacing:.06em; }
+    .ship-note svg { color:var(--green2); flex-shrink:0; }
 
-    /* ── ABOUT ──────────────────────────────────── */
-    #about { padding:100px 0; background:var(--panel); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
-    .about-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
-    .about-img-stack { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .about-img-stack img { width:100%; border-radius:4px; display:block; }
-    .about-img-stack img:first-child { grid-column:1/-1; }
-    .about-desc { font-size:.92rem; color:var(--grey); line-height:1.75; margin-bottom:28px; }
-    .about-points { display:flex; flex-direction:column; gap:12px; margin-bottom:36px; }
-    .ap { display:flex; align-items:flex-start; gap:12px; }
-    .ap-dot { width:6px; height:6px; background:var(--hi); border-radius:50%; flex-shrink:0; margin-top:8px; }
-    .ap-text { font-size:.88rem; color:var(--greyl); line-height:1.6; }
+    /* ════ ABOUT ════ */
+    #about { padding:120px 5%; background:var(--dark); position:relative; }
+    .about-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:100px; align-items:center; }
+    .about-p { font-size:.88rem; color:var(--grey); line-height:1.9; margin-bottom:20px; }
+    .stats-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-top:38px; }
+    .stat-block { background:var(--panel); padding:22px 20px; border:1px solid var(--bdim); position:relative; overflow:hidden; transition:border-color .25s,box-shadow .25s; }
+    .stat-block:hover { border-color:rgba(46,204,113,0.3); box-shadow:0 0 20px rgba(46,204,113,0.06); }
+    .stat-block::before { content:''; position:absolute; top:0; left:0; width:3px; height:100%; background:linear-gradient(180deg,var(--green),var(--green2)); }
+    .stat-n { font-family:var(--fd); font-size:2.2rem; font-weight:700; color:var(--green2); line-height:1; margin-bottom:4px; text-shadow:0 0 20px rgba(46,204,113,0.3); }
+    .stat-l { font-family:var(--fc); font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--greyd); }
+    .img-cluster { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .ci { overflow:hidden; border:1px solid var(--bdim); position:relative; transition:border-color .3s,box-shadow .3s; }
+    .ci::after { content:''; position:absolute; top:0; left:0; width:18px; height:18px; border-top:1.5px solid var(--green2); border-left:1.5px solid var(--green2); }
+    .ci img { width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.65) brightness(.82); transition:filter .4s,transform .5s; }
+    .ci:hover { border-color:rgba(46,204,113,0.35); box-shadow:0 0 24px rgba(46,204,113,0.08); }
+    .ci:hover img { filter:saturate(.9) brightness(.95); transform:scale(1.04); }
+    .ci:nth-child(1) { grid-column:1/3; height:240px; }
+    .ci:nth-child(2),.ci:nth-child(3) { height:170px; }
 
-    /* ── CTA ──────────────────────────────────── */
-    #cta { padding:100px 0; background:linear-gradient(135deg,#0a2018 0%,#0f3020 50%,#0a2018 100%); border-top:1px solid var(--border); text-align:center; }
-    .cta-eyebrow { font-family:var(--fc); font-size:.72rem; letter-spacing:.4em; text-transform:uppercase; color:var(--hi); margin-bottom:20px; }
-    .cta-price { font-family:var(--fd); font-size:4.5rem; font-weight:700; color:var(--hi); line-height:1; margin-bottom:8px; }
-    .cta-price-note { font-family:var(--fc); font-size:.75rem; letter-spacing:.2em; color:var(--greyd); text-transform:uppercase; margin-bottom:16px; }
-    .cta-title { font-family:var(--fd); font-size:clamp(2rem,5vw,3.8rem); font-weight:700; text-transform:uppercase; color:var(--white); margin-bottom:14px; }
-    .cta-sub { font-size:.95rem; color:var(--grey); margin-bottom:40px; }
+    /* ════ CONTACT ════ */
+    #contact { padding:120px 5%; background:var(--deep); position:relative; }
+    .contact-wrap { max-width:1060px; margin:0 auto; display:grid; grid-template-columns:1fr 1.4fr; gap:70px; align-items:start; }
+    .cinfo { background:var(--panel); border:1px solid var(--border); padding:40px 36px; position:relative; overflow:hidden; box-shadow:0 0 30px rgba(46,204,113,0.04); }
+    .cinfo::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--green),var(--green2)); }
+    .cd { margin-bottom:26px; }
+    .cd-lbl { font-family:var(--fc); font-size:.6rem; letter-spacing:.28em; text-transform:uppercase; color:var(--green2); margin-bottom:7px; font-weight:500; }
+    .cd-val { font-size:.88rem; color:var(--white); line-height:1.6; }
+    .cd-val a { color:var(--greyl); text-decoration:none; transition:color .2s; }
+    .cd-val a:hover { color:var(--greenp); }
+    .cdiv { width:36px; height:1px; background:var(--border); margin:28px 0; }
+    .soc-row { display:flex; gap:10px; }
+    .soc-btn { width:38px; height:38px; border:1px solid rgba(46,204,113,0.15); display:flex; align-items:center; justify-content:center; color:var(--grey); text-decoration:none; transition:all .25s; clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%); }
+    .soc-btn:hover { border-color:var(--green2); color:var(--green2); background:rgba(46,204,113,0.08); box-shadow:0 0 14px rgba(46,204,113,0.15); }
+    .ccta { background:var(--panel); border:1px solid var(--border); position:relative; overflow:hidden; box-shadow:0 0 40px rgba(46,204,113,0.05); }
+    .ccta::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--green),var(--green2)); }
+    .ccta-inner { padding:50px 40px; text-align:center; }
+    .ccta-title { font-family:var(--fd); font-size:clamp(1.6rem,3vw,2.4rem); font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--white); line-height:1.05; margin-bottom:14px; }
+    .ccta-title span { color:var(--green2); }
+    .ccta-body { font-size:.84rem; color:var(--grey); line-height:1.8; margin-bottom:30px; max-width:380px; margin-left:auto; margin-right:auto; }
+    .btn-cshop { background:linear-gradient(135deg,var(--green),var(--green2)); color:var(--black); border:none; padding:15px 44px; font-family:var(--fc); font-size:.82rem; font-weight:700; letter-spacing:.25em; text-transform:uppercase; cursor:pointer; clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); transition:all .25s; text-decoration:none; display:inline-block; box-shadow:0 4px 20px rgba(46,204,113,0.2); }
+    .btn-cshop:hover { background:linear-gradient(135deg,var(--green2),#36e882); transform:translateY(-2px); box-shadow:0 8px 32px rgba(46,204,113,0.35); }
+    .cta-stats { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; margin-top:30px; padding-top:28px; border-top:1px solid var(--bdim); }
+    .cta-sn { font-family:var(--fd); font-size:1.4rem; font-weight:700; color:var(--green2); line-height:1; text-shadow:0 0 16px rgba(46,204,113,0.3); }
+    .cta-sl { font-family:var(--fc); font-size:.58rem; letter-spacing:.2em; text-transform:uppercase; color:var(--greyd); margin-top:3px; text-align:center; }
+    .cta-div { width:1px; background:var(--bdim); }
 
-    /* ── CONTACT ──────────────────────────────────── */
-    #contact { padding:80px 0; }
-    .contact-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-    .contact-card { background:var(--panel); border:1px solid var(--border); border-radius:4px; padding:32px 28px; text-align:center; }
-    .cc2-ico { font-size:1.8rem; margin-bottom:14px; }
-    .cc2-title { font-family:var(--fd); font-size:1rem; font-weight:700; text-transform:uppercase; color:var(--white); margin-bottom:8px; }
-    .cc2-text { font-size:.85rem; color:var(--grey); line-height:1.6; }
-    .cc2-link { color:var(--hi); text-decoration:none; }
+    /* ════ FEATURE STRIP ════ */
+    .feat-strip { background:var(--panel); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:32px 5%; }
+    .feat-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-around; align-items:center; flex-wrap:wrap; gap:24px; }
+    .feat-item { display:flex; align-items:center; gap:12px; font-family:var(--fc); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase; color:var(--grey); }
+    .feat-item svg { color:var(--green2); flex-shrink:0; }
+    .feat-item strong { color:var(--greyl); font-weight:600; }
 
-    /* ── FOOTER ──────────────────────────────────── */
-    footer { background:var(--panel); border-top:1px solid var(--border); padding:60px 0 30px; }
-    .footer-inner { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:40px; border-bottom:1px solid var(--border); margin-bottom:28px; }
-    .footer-brand p { font-size:.85rem; color:var(--greyd); line-height:1.6; max-width:240px; margin-top:14px; }
-    .footer-col h4 { font-family:var(--fc); font-size:.72rem; letter-spacing:.25em; text-transform:uppercase; color:var(--hi); margin-bottom:16px; }
-    .footer-col a { display:block; font-size:.82rem; color:var(--grey); text-decoration:none; margin-bottom:10px; cursor:pointer; transition:color .2s; }
-    .footer-col a:hover { color:var(--white); }
-    .footer-bottom { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
-    .footer-bottom p { font-size:.75rem; color:var(--greyd); }
-    .footer-seals { display:flex; gap:8px; }
-    .seal { border:1px solid var(--border); border-radius:3px; padding:4px 10px; font-family:var(--fc); font-size:.6rem; letter-spacing:.15em; text-transform:uppercase; color:var(--greyd); }
+    /* ════ FOOTER ════ */
+    footer { background:var(--black); border-top:1px solid var(--border); padding:70px 5% 30px; position:relative; }
+    footer::before { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--green2),transparent); opacity:.3; }
+    .footer-top { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px; margin-bottom:60px; }
+    .f-about { font-size:.82rem; color:var(--grey); line-height:1.8; max-width:280px; margin:16px 0 24px; }
+    .fcol h4 { font-family:var(--fc); font-size:.65rem; letter-spacing:.28em; text-transform:uppercase; color:var(--green2); margin-bottom:18px; font-weight:500; }
+    .fcol ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .fcol ul li a { font-family:var(--fc); font-size:.82rem; color:var(--grey); text-decoration:none; transition:color .2s; cursor:pointer; }
+    .fcol ul li a:hover { color:var(--greenp); }
+    .footer-bot { max-width:1200px; margin:0 auto; border-top:1px solid var(--bdim); padding-top:26px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+    .fcopy { font-family:var(--fc); font-size:.72rem; color:var(--greyd); letter-spacing:.08em; }
+    .flegal { display:flex; gap:22px; }
+    .flegal a { font-family:var(--fc); font-size:.7rem; color:var(--greyd); text-decoration:none; transition:color .2s; }
+    .flegal a:hover { color:var(--grey); }
 
-    /* ── MODAL ──────────────────────────────────── */
-    #ov { display:none; position:fixed; inset:0; z-index:500; background:rgba(0,0,0,.82); backdrop-filter:blur(12px); align-items:center; justify-content:center; padding:20px; }
+    /* ════ ORDER MODAL (base from V4) ════ */
+    #ov { display:none; position:fixed; inset:0; z-index:500; background:rgba(4,7,5,.94); backdrop-filter:blur(12px); align-items:center; justify-content:center; padding:20px; }
     #ov.open { display:flex; }
-    .omodal { background:var(--panel); border:1px solid var(--border); border-radius:8px; width:100%; max-width:480px; max-height:90dvh; overflow:hidden; display:flex; flex-direction:column; position:relative; box-shadow:0 24px 80px rgba(0,0,0,.65); }
-    .mhead { padding:18px 22px 16px; flex-shrink:0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
-    #mbk { display:none; background:none; border:none; cursor:pointer; color:var(--grey); font-size:1.3rem; padding:0; line-height:1; flex-shrink:0; transition:color .2s; }
+    .omodal {
+      background:var(--dark); border:1px solid var(--border);
+      max-width:520px; width:100%; position:relative;
+      animation:sup .3s ease; box-shadow:0 0 60px rgba(46,204,113,0.1);
+      display:flex; flex-direction:column; max-height:92dvh; overflow:hidden;
+    }
+    .omodal::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--green),var(--green2)); }
+    @keyframes sup { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    .mhead { padding:20px 26px 16px; border-bottom:1px solid var(--bdim); display:flex; align-items:center; gap:12px; flex-shrink:0; }
+    #mbk { display:none; background:none; border:none; cursor:pointer; color:var(--grey); font-size:1.25rem; padding:0; line-height:1; flex-shrink:0; transition:color .2s; }
     #mbk:hover { color:var(--white); }
-    .mhead-text { flex:1; }
-    #modal-title { font-family:var(--fd); font-size:1.25rem; font-weight:700; text-transform:uppercase; color:var(--white); }
-    #modal-sub { font-family:var(--fc); font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--hi); margin-top:2px; }
-    .mclose { background:none; border:none; cursor:pointer; color:var(--greyd); font-size:1.3rem; line-height:1; flex-shrink:0; padding:0; transition:color .2s; }
-    .mclose:hover { color:var(--white); }
-    .mprog { display:flex; align-items:center; padding:12px 22px 0; flex-shrink:0; }
-    .mp-step { width:22px; height:22px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--fc); font-size:.65rem; font-weight:700; color:var(--greyd); background:var(--bg); transition:all .25s; flex-shrink:0; }
-    .mp-step.active { border-color:var(--hi); color:var(--hi); }
-    .mp-step.done { background:var(--accent); border-color:var(--accent); color:var(--white); }
+    .mhead-txt { flex:1; }
+    #modal-title { font-family:var(--fd); font-size:1.5rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; color:var(--white); }
+    #modal-sub { font-family:var(--fc); font-size:.7rem; color:var(--grey); margin-top:3px; letter-spacing:.1em; }
+    .mclose { background:none; border:none; color:var(--greyd); font-size:1.3rem; cursor:pointer; transition:color .2s; flex-shrink:0; padding:0; }
+    .mclose:hover { color:var(--green2); }
+
+    .mprog { display:flex; align-items:center; padding:12px 26px 0; flex-shrink:0; }
+    .mp-step { width:22px; height:22px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-family:var(--fc); font-size:.65rem; font-weight:700; color:var(--greyd); background:var(--black); transition:all .25s; flex-shrink:0; }
+    .mp-step.active { border-color:var(--green2); color:var(--green2); }
+    .mp-step.done { background:var(--green); border-color:var(--green); color:var(--white); }
     .mp-line { flex:1; height:1px; background:var(--border); transition:background .25s; }
-    .mp-line.done { background:var(--accent); }
-    .mscroll { flex:1; overflow-y:auto; padding:18px 22px 22px; }
+    .mp-line.done { background:var(--green); }
+
+    .mscroll { flex:1; overflow-y:auto; padding:18px 26px 26px; }
     .step { display:none; }
     .step.active { display:block; }
 
-    /* Forms */
+    /* Form elements */
     .form-row { margin-bottom:14px; }
-    .form-row label { display:block; font-family:var(--fc); font-size:.66rem; letter-spacing:.18em; text-transform:uppercase; color:var(--greyd); margin-bottom:6px; }
-    .form-row input,.form-row textarea { width:100%; padding:11px 14px; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:3px; color:var(--white); font-family:var(--fb); font-size:16px; outline:none; transition:border-color .2s; }
-    .form-row input:focus,.form-row textarea:focus { border-color:var(--hi); }
+    .form-row label { display:block; font-family:var(--fc); font-size:.64rem; letter-spacing:.2em; text-transform:uppercase; color:var(--greyd); margin-bottom:6px; }
+    .form-row input,.form-row textarea {
+      width:100%; padding:11px 14px; background:rgba(255,255,255,.04);
+      border:1px solid var(--border); color:var(--white); font-family:var(--fb);
+      font-size:16px; outline:none; transition:border-color .2s; border-radius:2px;
+    }
+    .form-row input:focus,.form-row textarea:focus { border-color:var(--green2); }
     .form-row textarea { resize:vertical; min-height:72px; }
     .row2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-    .opt-label { font-family:var(--fc); font-size:.6rem; letter-spacing:.1em; color:var(--greyd); text-transform:uppercase; }
+    .opt-label { font-family:var(--fc); font-size:.58rem; letter-spacing:.1em; color:var(--greyd); text-transform:uppercase; }
     .err-msg { display:none; color:#e74c3c; font-size:.78rem; margin-bottom:10px; padding:8px 12px; background:rgba(231,76,60,.08); border-radius:3px; border:1px solid rgba(231,76,60,.2); }
 
     /* Country dropdown */
     .cc-field-wrap { position:relative; }
-    .cc-field { width:100%; padding:10px 14px; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:3px; cursor:pointer; display:flex; align-items:center; gap:10px; transition:border-color .2s; }
-    .cc-field:hover,.cc-field.open { border-color:var(--hi); }
+    .cc-field { width:100%; padding:10px 14px; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:2px; cursor:pointer; display:flex; align-items:center; gap:10px; transition:border-color .2s; }
+    .cc-field:hover,.cc-field.open { border-color:var(--green2); }
     .cc-flag-big { font-size:1.3rem; flex-shrink:0; }
     .cc-name-txt { font-size:.9rem; color:var(--white); flex:1; }
     .cc-placeholder { font-size:.88rem; color:var(--greyd); flex:1; font-style:italic; }
@@ -241,24 +371,24 @@
     .cc-drop { display:none; position:absolute; top:calc(100% + 4px); left:0; right:0; z-index:60; background:#0b1a12; border:1px solid var(--border); border-radius:4px; box-shadow:0 8px 32px rgba(0,0,0,.6); overflow:hidden; }
     .cc-drop.open { display:block; }
     .cc-search-wrap { padding:8px; border-bottom:1px solid var(--border); }
-    .cc-search { width:100%; padding:8px 12px; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:3px; color:var(--white); font-size:16px; outline:none; font-family:var(--fb); }
+    .cc-search { width:100%; padding:8px 12px; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:2px; color:var(--white); font-size:16px; outline:none; font-family:var(--fb); }
     .cc-list { max-height:200px; overflow-y:auto; }
     .cc-opt { display:flex; align-items:center; gap:10px; padding:9px 14px; cursor:pointer; transition:background .15s; font-size:.88rem; color:var(--white); }
-    .cc-opt:hover,.cc-opt.sel { background:rgba(46,204,113,.1); color:var(--hi); }
+    .cc-opt:hover,.cc-opt.sel { background:rgba(46,204,113,.1); color:var(--green2); }
     .cc-opt-flag { font-size:1.1rem; flex-shrink:0; }
 
     /* Postcode */
     .pc-row { display:flex; gap:8px; margin-bottom:10px; }
     .pc-row input { flex:1; }
-    .pc-find-btn { padding:11px 18px; background:var(--accent); border:none; border-radius:3px; color:var(--white); font-family:var(--fc); font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; white-space:nowrap; transition:background .2s; flex-shrink:0; }
+    .pc-find-btn { padding:11px 18px; background:var(--green); border:none; border-radius:2px; color:var(--white); font-family:var(--fc); font-size:.75rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; cursor:pointer; white-space:nowrap; transition:background .2s; flex-shrink:0; }
     .pc-find-btn:hover { background:#259b6d; }
     .pc-find-btn:disabled { opacity:.5; cursor:not-allowed; }
     .pc-card { background:rgba(46,204,113,.05); border:1px solid rgba(46,204,113,.25); border-radius:4px; padding:14px 16px; margin-bottom:12px; }
-    .pc-card-sub { font-family:var(--fc); font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--hi); margin-bottom:4px; }
+    .pc-card-sub { font-family:var(--fc); font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; color:var(--green2); margin-bottom:4px; }
     .pc-card-area { font-size:.9rem; color:var(--white); margin-bottom:10px; }
     .pc-card-actions { display:flex; gap:8px; flex-wrap:wrap; }
     .pc-act { padding:7px 14px; border:none; border-radius:3px; cursor:pointer; font-family:var(--fc); font-size:.68rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
-    .pc-act-confirm { background:var(--accent); color:var(--white); }
+    .pc-act-confirm { background:var(--green); color:var(--white); }
     .pc-act-manual { background:rgba(255,255,255,.08); color:var(--grey); }
     .addr-list { max-height:210px; overflow-y:auto; border:1px solid var(--border); border-radius:3px; margin-bottom:8px; }
     .addr-opt { padding:10px 14px; cursor:pointer; border-bottom:1px solid rgba(255,255,255,.04); transition:background .15s; }
@@ -267,10 +397,10 @@
     .addr-opt div:first-child { font-size:.88rem; color:var(--white); }
     .addr-opt-sub { font-size:.72rem; color:var(--greyd); margin-top:2px; }
     .addr-manual-link { text-align:center; padding:9px; font-size:.75rem; color:var(--greyd); cursor:pointer; border-top:1px solid var(--border); transition:color .2s; }
-    .addr-manual-link:hover { color:var(--hi); }
+    .addr-manual-link:hover { color:var(--green2); }
 
     /* Modal buttons */
-    .m-btn { width:100%; padding:14px; margin-top:16px; background:linear-gradient(135deg,var(--accent),var(--hi)); border:none; color:#050e08; font-family:var(--fc); font-size:.82rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; border-radius:3px; transition:filter .2s; }
+    .m-btn { width:100%; padding:14px; margin-top:16px; background:linear-gradient(135deg,var(--green),var(--green2)); border:none; color:var(--black); font-family:var(--fc); font-size:.82rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; clip-path:polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); transition:filter .2s; }
     .m-btn:hover { filter:brightness(1.1); }
     .m-btn:disabled { opacity:.5; cursor:not-allowed; filter:none; }
     .step-intro { font-size:.85rem; color:var(--grey); margin-bottom:18px; line-height:1.6; }
@@ -285,44 +415,72 @@
     .order-row { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid var(--border); }
     .order-row:last-child { border-bottom:none; }
     .order-label { font-family:var(--fc); font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--grey); }
-    .order-val { font-family:var(--fd); font-weight:700; color:var(--hi); }
+    .order-val { font-family:var(--fd); font-weight:700; color:var(--green2); }
     .order-total .order-label { color:var(--white); }
     .order-total .order-val { font-size:1.25rem; }
 
     /* Success */
     .success-wrap { text-align:center; padding:20px 0; }
     .success-icon { font-size:3rem; margin-bottom:16px; }
-    .success-title { font-family:var(--fd); font-size:1.5rem; font-weight:700; text-transform:uppercase; color:var(--hi); margin-bottom:12px; }
+    .success-title { font-family:var(--fd); font-size:1.5rem; font-weight:700; text-transform:uppercase; color:var(--green2); margin-bottom:12px; }
     #success-msg { font-size:.88rem; color:var(--grey); line-height:1.7; }
 
-    /* ── RESPONSIVE ──────────────────────────────────── */
+    /* ════ RESPONSIVE 1024 ════ */
+    @media(max-width:1024px){
+      .footer-top { grid-template-columns:1fr 1fr; gap:40px; }
+      .about-inner { gap:60px; }
+    }
+    /* ════ RESPONSIVE 900 ════ */
     @media(max-width:900px){
-      header nav { display:none; }
+      nav .nh { display:none; }
+      nav .nav-cta { display:none; }
       .hbg { display:flex; }
-      .hero-inner { grid-template-columns:1fr; gap:40px; text-align:center; padding:60px 0; }
-      .hero-eyebrow { justify-content:center; }
-      .hero-desc { margin:0 auto 44px; }
-      .hero-acts { justify-content:center; }
-      .hero-img-wrap { order:-1; }
-      .hero-img { max-width:360px; }
-      .hero-meta { flex-wrap:wrap; }
-      .hm { min-width:50%; border-right:none; border-bottom:1px solid var(--border); padding:12px 0; }
-      .product-inner { grid-template-columns:1fr; }
-      .features-grid { grid-template-columns:1fr 1fr; }
-      .about-inner { grid-template-columns:1fr; }
-      .about-img-stack { display:none; }
-      .contact-grid { grid-template-columns:1fr; }
-      .footer-inner { grid-template-columns:1fr 1fr; }
+      .hero-inner { grid-template-columns:1fr; gap:48px; padding:60px 5%; }
+      .hero-vis { order:-1; }
+      .hero-frame { width:100%; max-width:480px; height:400px; }
+      .about-inner { grid-template-columns:1fr; gap:50px; }
+      .contact-wrap { grid-template-columns:1fr; gap:40px; }
+      .footer-top { grid-template-columns:1fr 1fr; gap:40px; }
+      .fbrand { grid-column:1/-1; }
+      .feat-inner { gap:16px; }
     }
-    @media(max-width:560px){
-      .features-grid { grid-template-columns:1fr; gap:0; }
-      .footer-inner { grid-template-columns:1fr; }
-      .p-specs { grid-template-columns:1fr; }
-      .footer-bottom { flex-direction:column; text-align:center; }
-    }
+    /* ════ RESPONSIVE 640 (modal fullscreen) ════ */
     @media(max-width:640px){
       #ov { padding:0; align-items:stretch; }
       .omodal { max-height:100dvh; height:100%; border-radius:0; max-width:100%; }
+    }
+    /* ════ RESPONSIVE 600 ════ */
+    @media(max-width:600px){
+      header { padding:0 16px; }
+      .logo-text { font-size:1.15rem; }
+      .logo-mark { width:28px; height:28px; }
+      #home { min-height:auto; padding-bottom:60px; }
+      .hero-inner { padding:40px 16px 60px; gap:36px; }
+      .hero-frame { height:300px; }
+      .hero-eyebrow { font-size:.6rem; }
+      .hero-desc { font-size:.84rem; margin-bottom:28px; }
+      .btn-pri { padding:12px 28px; font-size:.75rem; }
+      .btn-ghost { padding:11px 22px; font-size:.72rem; }
+      #product { padding:80px 16px; }
+      .g-thumbs { gap:7px; }
+      .g-thumb { width:68px; height:68px; }
+      .btn-order { padding:15px 40px; font-size:.82rem; }
+      #about { padding:80px 16px; }
+      .stat-n { font-size:1.8rem; }
+      #contact { padding:80px 16px; }
+      .cinfo { padding:28px 20px; }
+      .ccta-inner { padding:36px 20px; }
+      footer { padding:50px 16px 24px; }
+      .footer-top { grid-template-columns:1fr; gap:36px; }
+      .fbrand { grid-column:auto; }
+      .footer-bot { flex-direction:column; align-items:flex-start; gap:10px; }
+      .cta-div { display:none; }
+      .trust-row { gap:14px; }
+      .feat-item { font-size:.68rem; }
+    }
+    @media(max-width:380px){
+      .logo-text { font-size:.95rem; }
+      .hero-frame { height:260px; }
     }
   </style>
 </head>
@@ -336,199 +494,242 @@
 <!-- ═══ HEADER ═══ -->
 <header>
   <a class="logo" onclick="goto('home')">
-    <svg class="logo-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="64" height="64" fill="#070b09"/>
-      <path d="M32,12 C24,12 18,18 18,26 L18,32 L14,32 L14,52 L50,52 L50,32 L46,32 L46,26 C46,18 40,12 32,12 Z M32,18 C36,18 40,22 40,26 L40,32 L24,32 L24,26 C24,22 28,18 32,18 Z" fill="none" stroke="#2ecc71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span class="logo-text">ARMOR<em>LOCK</em></span>
+    <img class="logo-mark" src="images/icon.png" alt="NeonShield" style="border-radius:4px;"/>
+    <span class="logo-text">NEON<em>SHIELD</em></span>
   </a>
   <nav>
-    <a onclick="goto('home')">Home</a>
-    <a onclick="goto('product')">The Lock</a>
-    <a onclick="goto('security')">Security</a>
-    <a onclick="goto('contact')">Contact</a>
-    <a class="nav-cta" onclick="openOrder()">ORDER NOW</a>
+    <a class="nh" onclick="goto('home')">Home</a>
+    <a class="nh" onclick="goto('product')">Shop</a>
+    <a class="nh" onclick="goto('about')">About</a>
+    <a class="nh" onclick="goto('contact')">Contact</a>
+    <a class="nav-cta" onclick="openOrder()">Order Now</a>
   </nav>
-  <button class="hbg" id="hbg" onclick="toggleMenu()" aria-label="Menu">
+  <button class="hbg" id="hbg" aria-label="Toggle menu" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </button>
 </header>
 
-<!-- ═══ MOBILE MENU ═══ -->
-<nav class="mmenu" id="mmenu">
-  <a onclick="goto('home')">Home</a>
-  <a onclick="goto('product')">The Lock</a>
-  <a onclick="goto('security')">Security</a>
-  <a onclick="goto('contact')">Contact</a>
-  <a class="mc" onclick="openOrder()">Order Now — $89.00</a>
-</nav>
+<!-- Mobile nav -->
+<div class="mmenu" id="mmenu">
+  <a onclick="mg('home')">Home</a>
+  <a onclick="mg('product')">Shop</a>
+  <a onclick="mg('about')">About</a>
+  <a onclick="mg('contact')">Contact</a>
+  <a class="mc" onclick="closeMM();openOrder();">Order Now</a>
+</div>
+
 
 <!-- ═══ HERO ═══ -->
 <section id="home">
-  <div class="wrap">
-    <div class="hero-inner">
-      <div>
-        <div class="hero-eyebrow"><span class="pdot"></span>&nbsp;Titan-G Series — Grade-5 Titanium</div>
-        <h1 class="hero-title"><span class="tr">NO LOCK.</span>NO RIDE.</h1>
-        <p class="hero-desc">The ArmorLock Titan-G is engineered for the urban battlefield. Grade-5 titanium shackle, 18mm hardened steel body, ABUS 5-cylinder disc detainer lock rated <strong>Sold Secure Diamond</strong>.</p>
-        <div class="hero-acts">
-          <button class="btn-pri" onclick="openOrder()">ORDER NOW — $89.00</button>
-          <a class="btn-sec" onclick="goto('product')">VIEW THE LOCK ↓</a>
-        </div>
-        <div class="hero-meta">
-          <div class="hm"><div class="hm-val">1.4<small style="font-size:.65em">KG</small></div><div class="hm-lab">Weight</div></div>
-          <div class="hm"><div class="hm-val">4.9<small style="font-size:.65em">★</small></div><div class="hm-lab">Rating</div></div>
-          <div class="hm"><div class="hm-val">18<small style="font-size:.65em">MM</small></div><div class="hm-lab">Steel Body</div></div>
-          <div class="hm"><div class="hm-val">∞</div><div class="hm-lab">Guarantee</div></div>
-        </div>
+  <div class="hslash" style="right:26%"></div>
+  <div class="hslash" style="right:29.5%;opacity:.25"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow"><div class="pdot"></div>Pro Series 2025 — New Drop</div>
+      <h1 class="hero-title">
+        <span class="to">Built to</span>
+        <span class="tr">Protect</span>
+        What's Yours
+      </h1>
+      <p class="hero-desc">Military-grade bike security engineered for urban riders. Hardened steel core, anti-drill casing, pick-resistant cylinder — because your ride deserves the best lock on the market.</p>
+      <div class="hero-acts">
+        <a class="btn-pri" onclick="goto('product')">Shop the Drop</a>
+        <button class="btn-ghost" onclick="goto('about')">Our Story</button>
       </div>
-      <div class="hero-img-wrap">
-        <div class="hero-img-glow"></div>
-        <img class="hero-img" src="images/hero.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt="ArmorLock Titan-G"/>
+      <div class="trust-row">
+        <span class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Sold Rating 4.9/5
+        </span>
+        <span class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Certified Grade 5
+        </span>
+        <span class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Ships Worldwide
+        </span>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <div class="hero-frame">
+        <div class="cbr"></div>
+        <img src="images/ohijo4r81dsm08awfm12amziz7e1.jpeg" alt="NeonShield Pro Lock"/>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PRODUCT ═══ -->
+
+<!-- ═══ FEATURE STRIP ═══ -->
+<div class="feat-strip">
+  <div class="feat-inner">
+    <div class="feat-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div><strong>Anti-Cut Steel</strong></div>
+    </div>
+    <div class="feat-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      <div><strong>Pick-Resistant Cylinder</strong></div>
+    </div>
+    <div class="feat-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+      <div><strong>5-Year Warranty</strong></div>
+    </div>
+    <div class="feat-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12H3l9-9 9 9h-2M5 12v7a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-7"/></svg>
+      <div><strong>Free Shipping $80+</strong></div>
+    </div>
+    <div class="feat-item">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <div><strong>Security Grade A+</strong></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ SHOP ═══ -->
 <section id="product">
-  <div class="wrap">
-    <div class="product-inner">
-      <div class="gallery">
-        <div class="g-main">
-          <img id="main-img" src="images/product-1.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt="ArmorLock"/>
-        </div>
-        <div class="g-thumbs">
-          <div class="g-thumb active" onclick="si(this,'images/product-1.jpg','https://i.ibb.co/TMdwjKrb/Main-main-1-4.png')"><img src="images/product-1.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt=""/></div>
-          <div class="g-thumb" onclick="si(this,'images/product-2.jpg','https://i.ibb.co/TMdwjKrb/Main-main-1-4.png')"><img src="images/product-2.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt=""/></div>
-          <div class="g-thumb" onclick="si(this,'images/product-3.jpg','https://i.ibb.co/TMdwjKrb/Main-main-1-4.png')"><img src="images/product-3.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt=""/></div>
-          <div class="g-thumb" onclick="si(this,'images/product-4.jpg','https://i.ibb.co/TMdwjKrb/Main-main-1-4.png')"><img src="images/product-4.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt=""/></div>
-        </div>
+  <div class="rline"></div>
+  <div style="max-width:960px;margin:0 auto 64px;text-align:center;">
+    <p class="eyebrow">Pro Series Collection</p>
+    <h2 class="s-title">The Core <span class="ac">Lock</span></h2>
+    <p class="s-sub">One lock. Four finishes. Zero compromises on security.</p>
+  </div>
+
+  <div class="product-wrap">
+    <div class="gallery">
+      <div class="g-main">
+        <div class="gbr"></div>
+        <img id="main-img" src="images/bwnd1i47zeki3d9axffwbi4igq2s.jpeg" alt="NeonShield Core Lock"/>
       </div>
-      <div>
-        <div class="p-badge">✦ Limited Stock</div>
-        <div class="p-name">Titan-G Series</div>
-        <div class="p-sub">Grade-5 Titanium — High-Security U-Lock</div>
-        <div class="p-stars"><span class="stars-row">★★★★★</span><span style="font-size:.82rem;color:var(--greyd)">4.9 (427 reviews)</span></div>
-        <div class="p-price">$89<span style="font-size:1.5rem">.00</span></div>
-        <div class="p-price-note">Free worldwide shipping · 30-day returns</div>
-        <div class="p-specs">
-          <div class="spec-item"><span class="spec-ico">🔒</span><div><div class="spec-lab">Security</div><div class="spec-val">Sold Secure Diamond</div></div></div>
-          <div class="spec-item"><span class="spec-ico">⚙️</span><div><div class="spec-lab">Lock Type</div><div class="spec-val">Disc Detainer</div></div></div>
-          <div class="spec-item"><span class="spec-ico">🔩</span><div><div class="spec-lab">Shackle</div><div class="spec-val">Grade-5 Titanium</div></div></div>
-          <div class="spec-item"><span class="spec-ico">📏</span><div><div class="spec-lab">Body</div><div class="spec-val">18mm Hardened Steel</div></div></div>
-          <div class="spec-item"><span class="spec-ico">⚖️</span><div><div class="spec-lab">Weight</div><div class="spec-val">1.4 kg</div></div></div>
-          <div class="spec-item"><span class="spec-ico">🛡️</span><div><div class="spec-lab">Guarantee</div><div class="spec-val">Lifetime</div></div></div>
-        </div>
-        <button class="p-order-btn" onclick="openOrder()">ORDER NOW — $89.00 →</button>
-        <div class="p-guarantee">🔒 Secure checkout · SSL encrypted · Powered by Stripe</div>
+      <div class="g-thumbs">
+        <div class="g-thumb active" onclick="si(this,'images/bwnd1i47zeki3d9axffwbi4igq2s.jpeg')"><img src="images/bwnd1i47zeki3d9axffwbi4igq2s.jpeg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'images/o2qmb5zq11otky1bmqfmna684kea.jpeg')"><img src="images/o2qmb5zq11otky1bmqfmna684kea.jpeg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'images/ohijo4r81dsm08awfm12amziz7e1.jpeg')"><img src="images/ohijo4r81dsm08awfm12amziz7e1.jpeg" alt=""/></div>
+        <div class="g-thumb" onclick="si(this,'images/uejvmymyuqixjqeh8kzu0ueovf3q.jpeg')"><img src="images/uejvmymyuqixjqeh8kzu0ueovf3q.jpeg" alt=""/></div>
+      </div>
+    </div>
+
+    <div class="prod-cta">
+      <a class="btn-order" href="#" onclick="openOrder();return false;">Secure Your Order →</a>
+      <div class="ship-note">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12H3l9-9 9 9h-2M5 12v7a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-7"/></svg>
+        Free standard shipping · Dispatched within 2 business days
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SECURITY ═══ -->
-<section id="security">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-eyebrow">Why ArmorLock</div>
-      <h2 class="sec-title">BUILT FOR THE REAL WORLD</h2>
-    </div>
-    <div class="features-grid">
-      <div class="feat"><div class="feat-ico">🏆</div><div class="feat-title">Sold Secure Diamond</div><div class="feat-desc">The highest independent security rating. Tested against angle grinders, bolt cutters, saws, and freeze attacks.</div></div>
-      <div class="feat"><div class="feat-ico">⚡</div><div class="feat-title">Anti-Drill Core</div><div class="feat-desc">Hardened steel anti-drill pins and reinforced keyway make drilling attacks futile against the Titan-G.</div></div>
-      <div class="feat"><div class="feat-ico">🔑</div><div class="feat-title">Disc Detainer Lock</div><div class="feat-desc">5-cylinder ABUS disc detainer mechanism — virtually impossible to pick without specialist tools.</div></div>
-      <div class="feat"><div class="feat-ico">🌧️</div><div class="feat-title">All-Weather Seal</div><div class="feat-desc">IP67 sealed keyway and UV-resistant body coating. Designed for year-round use in any climate.</div></div>
-      <div class="feat"><div class="feat-ico">🚀</div><div class="feat-title">Frame-Mount Ready</div><div class="feat-desc">Includes two frame mounts. Secure transport on any bike. Quick-release mechanism built in.</div></div>
-      <div class="feat"><div class="feat-ico">♾️</div><div class="feat-title">Lifetime Guarantee</div><div class="feat-desc">If the Titan-G ever fails due to materials or manufacturing, we replace it — no questions, no time limit.</div></div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══ ABOUT ═══ -->
 <section id="about">
-  <div class="wrap">
-    <div class="about-inner">
-      <div class="about-img-stack">
-        <img src="images/about-1.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt="ArmorLock in use"/>
-        <img src="images/about-2.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt="Lock detail"/>
-        <img src="images/about-3.jpg" onerror="this.src='https://i.ibb.co/TMdwjKrb/Main-main-1-4.png';this.onerror=null;" alt="Mounted"/>
+  <div class="rline"></div>
+  <div class="about-inner">
+    <div>
+      <p class="eyebrow" style="display:inline-flex;">The NeonShield Standard</p>
+      <h2 class="s-title" style="margin-bottom:24px;">Engineered for<br/><span class="ac">the Bold</span></h2>
+      <p class="about-p">NeonShield was built for riders who refuse to leave their bike's safety to chance. We design high-security locks that combine raw physical strength with precision-machined internals — protection that earns trust every single day.</p>
+      <p class="about-p">Small-batch production. Specialist facilities. Every lock stress-tested before it ships. If it doesn't meet our security threshold, it doesn't leave the floor.</p>
+      <div class="stats-grid">
+        <div class="stat-block"><div class="stat-n">Grade 5</div><div class="stat-l">Security Rating</div></div>
+        <div class="stat-block"><div class="stat-n">2,400+</div><div class="stat-l">Protected Rides</div></div>
+        <div class="stat-block"><div class="stat-n">12</div><div class="stat-l">Countries Shipped</div></div>
+        <div class="stat-block"><div class="stat-n">5 YR</div><div class="stat-l">Warranty Included</div></div>
       </div>
-      <div>
-        <div class="sec-eyebrow" style="margin-bottom:14px;">Our Promise</div>
-        <h2 class="sec-title" style="text-align:left;margin-bottom:24px;">ENGINEERED,<br>NOT ASSEMBLED</h2>
-        <p class="about-desc">We don't cut corners. Every Titan-G is precision-machined from aerospace-grade titanium. Each lock is individually tested before it leaves our facility.</p>
-        <div class="about-points">
-          <div class="ap"><div class="ap-dot"></div><div class="ap-text">Tested against 72 known attack vectors before release</div></div>
-          <div class="ap"><div class="ap-dot"></div><div class="ap-text">Peer-reviewed Sold Secure Diamond certification</div></div>
-          <div class="ap"><div class="ap-dot"></div><div class="ap-text">Ships within 24 hours with tracked worldwide delivery</div></div>
-          <div class="ap"><div class="ap-dot"></div><div class="ap-text">Lifetime replacement guarantee, no questions asked</div></div>
-        </div>
-        <button class="btn-pri" onclick="openOrder()">GET YOURS — $89.00</button>
-      </div>
+    </div>
+    <div class="img-cluster">
+      <div class="ci"><img src="images/uejvmymyuqixjqeh8kzu0ueovf3q.jpeg" alt=""/></div>
+      <div class="ci"><img src="images/o2qmb5zq11otky1bmqfmna684kea.jpeg" alt=""/></div>
+      <div class="ci"><img src="images/bwnd1i47zeki3d9axffwbi4igq2s.jpeg" alt=""/></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CTA ═══ -->
-<section id="cta">
-  <div class="wrap" style="position:relative;z-index:1;">
-    <div class="cta-eyebrow">Limited Time Offer</div>
-    <div class="cta-price">$89<span style="font-size:2rem">.00</span></div>
-    <div class="cta-price-note">Free worldwide shipping · Lifetime guarantee</div>
-    <h2 class="cta-title">SECURE YOUR BIKE TODAY</h2>
-    <p class="cta-sub">Join 12,000+ cyclists who trust ArmorLock.</p>
-    <button class="btn-pri" onclick="openOrder()" style="padding:18px 52px;font-size:.9rem;">ORDER NOW →</button>
-  </div>
-</section>
 
 <!-- ═══ CONTACT ═══ -->
 <section id="contact">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-eyebrow">Get in Touch</div>
-      <h2 class="sec-title">WE'RE HERE TO HELP</h2>
+  <div class="rline"></div>
+  <div style="max-width:1060px;margin:0 auto 70px;text-align:center;">
+    <p class="eyebrow">Reach Out</p>
+    <h2 class="s-title">Contact <span class="ac">Us</span></h2>
+    <p class="s-sub">Sizing, shipping, wholesale, or just want to talk security — we're here.</p>
+  </div>
+
+  <div class="contact-wrap">
+    <div>
+      <div class="cinfo">
+        <div class="cd"><p class="cd-lbl">Email</p><p class="cd-val"><a href="mailto:hello@neonshield.com">hello@neonshield.com</a></p></div>
+        <div class="cd"><p class="cd-lbl">Phone</p><p class="cd-val">+1 (555) 204-8830</p></div>
+        <div class="cd"><p class="cd-lbl">Business Hours</p><p class="cd-val">Mon – Fri, 9:00 AM – 6:00 PM EST</p></div>
+        <div class="cdiv"></div>
+        <div class="soc-row">
+          <a class="soc-btn" href="#" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a class="soc-btn" href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+          <a class="soc-btn" href="#" aria-label="TikTok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
+        </div>
+      </div>
     </div>
-    <div class="contact-grid">
-      <div class="contact-card"><div class="cc2-ico">📦</div><div class="cc2-title">Orders &amp; Shipping</div><div class="cc2-text">Questions about your order?<br><a class="cc2-link" href="mailto:support@armorlock.com">support@armorlock.com</a></div></div>
-      <div class="contact-card"><div class="cc2-ico">🛡️</div><div class="cc2-title">Warranty Claims</div><div class="cc2-text">Lifetime guarantee claims processed within 48 hours. No receipts needed.</div></div>
-      <div class="contact-card"><div class="cc2-ico">💬</div><div class="cc2-title">General Enquiries</div><div class="cc2-text">We typically reply within a few hours on business days.</div></div>
+
+    <div>
+      <div class="ccta">
+        <div class="ccta-inner">
+          <p class="eyebrow">Ready to Order?</p>
+          <h3 class="ccta-title">Lock What <span>Matters</span> Today</h3>
+          <p class="ccta-body">Browse the pro series, then place your order. We'll confirm and ship within 2 business days — fully tracked.</p>
+          <a class="btn-cshop" onclick="goto('product')">Shop the Drop →</a>
+          <div class="cta-stats">
+            <div><div class="cta-sn">$89</div><div class="cta-sl">Starting From</div></div>
+            <div class="cta-div"></div>
+            <div><div class="cta-sn">Free</div><div class="cta-sl">Shipping $80+</div></div>
+            <div class="cta-div"></div>
+            <div><div class="cta-sn">2 Days</div><div class="cta-sl">Dispatch Time</div></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
+
 <!-- ═══ FOOTER ═══ -->
 <footer>
-  <div class="wrap">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a class="logo" onclick="goto('home')">
-          <svg class="logo-mark" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" fill="#070b09"/><path d="M32,12 C24,12 18,18 18,26 L18,32 L14,32 L14,52 L50,52 L50,32 L46,32 L46,26 C46,18 40,12 32,12 Z M32,18 C36,18 40,22 40,26 L40,32 L24,32 L24,26 C24,22 28,18 32,18 Z" fill="none" stroke="#2ecc71" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="logo-text">ARMOR<em>LOCK</em></span>
-        </a>
-        <p>Premium bike security engineered for the urban environment. Built to last a lifetime.</p>
+  <div class="footer-top">
+    <div class="fbrand">
+      <a class="logo" onclick="goto('home')" style="display:inline-flex;">
+        <img class="logo-mark" src="images/icon.png" alt="NeonShield" style="width:26px;height:26px;border-radius:3px;"/>
+        <span class="logo-text" style="font-size:1.3rem;">NEON<em>SHIELD</em></span>
+      </a>
+      <p class="f-about">Premium bike security for riders who refuse to compromise. Engineered from hardened steel, tested in the real world, built to outlast every season.</p>
+      <div class="soc-row">
+        <a class="soc-btn" href="#" aria-label="Instagram"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/></svg></a>
+        <a class="soc-btn" href="#" aria-label="X"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+        <a class="soc-btn" href="#" aria-label="TikTok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5"/></svg></a>
       </div>
-      <div class="footer-col"><h4>Product</h4><a onclick="goto('product')">Titan-G Series</a><a onclick="goto('security')">Security Rating</a><a onclick="goto('about')">About</a></div>
-      <div class="footer-col"><h4>Security</h4><a>Sold Secure Diamond</a><a>Disc Detainer Tech</a><a>Anti-Drill Core</a></div>
-      <div class="footer-col"><h4>Support</h4><a>30-Day Returns</a><a>Lifetime Guarantee</a><a href="mailto:support@armorlock.com">Contact Us</a></div>
     </div>
-    <div class="footer-bottom">
-      <p>© 2025 ArmorLock. All rights reserved.</p>
-      <div class="footer-seals"><span class="seal">Sold Secure ✓</span><span class="seal">SSL Secure</span><span class="seal">Stripe ✓</span></div>
+    <div class="fcol"><h4>Shop</h4><ul><li><a onclick="goto('product')">Core Lock</a></li><li><a href="#">New Drops</a></li><li><a href="#">Sale</a></li><li><a href="#">Gift Cards</a></li></ul></div>
+    <div class="fcol"><h4>Support</h4><ul><li><a href="#">Size Guide</a></li><li><a href="#">Shipping Info</a></li><li><a href="#">Returns</a></li><li><a onclick="goto('contact')">Contact Us</a></li><li><a href="#">FAQ</a></li></ul></div>
+    <div class="fcol"><h4>Brand</h4><ul><li><a onclick="goto('about')">Our Story</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Wholesale</a></li><li><a href="#">Press</a></li></ul></div>
+  </div>
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="footer-bot">
+      <p class="fcopy">© 2025 NeonShield Security · All rights reserved.</p>
+      <div class="flegal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Cookie Settings</a></div>
     </div>
   </div>
 </footer>
 
-<!-- ═══ ORDER MODAL ═══ -->
+
+<!-- ═══ ORDER MODAL (4-step) ═══ -->
 <div id="ov">
   <div class="omodal">
     <div class="mhead">
-      <button id="mbk" onclick="goModalBack()" title="Back">←</button>
-      <div class="mhead-text">
+      <button id="mbk" onclick="goModalBack()" title="Back">&#8592;</button>
+      <div class="mhead-txt">
         <div id="modal-title">Secure Order</div>
-        <div id="modal-sub">ArmorLock Titan-G — $89.00</div>
+        <div id="modal-sub">NeonShield Pro Lock — $89.00</div>
       </div>
-      <button class="mclose" onclick="closeOrder()">✕</button>
+      <button class="mclose" onclick="closeOrder()">&#x2715;</button>
     </div>
     <div class="mprog">
       <div class="mp-step active" id="mp1">1</div><div class="mp-line" id="mpl1"></div>
@@ -540,18 +741,18 @@
 
       <!-- STEP 1: Country -->
       <div class="step active" id="step1">
-        <p class="step-intro">Where should we ship your ArmorLock?</p>
+        <p class="step-intro">Where should we ship your NeonShield?</p>
         <div class="form-row">
           <label>Country</label>
           <div class="cc-field-wrap">
             <div class="cc-field" id="cc-field" onclick="toggleCC(event)">
-              <span class="cc-flag-big" id="cc-flag">🌍</span>
-              <span class="cc-placeholder" id="cc-name">Select your country…</span>
-              <span class="cc-arrow">▾</span>
+              <span class="cc-flag-big" id="cc-flag">&#127758;</span>
+              <span class="cc-placeholder" id="cc-name">Select your country&hellip;</span>
+              <span class="cc-arrow">&#9660;</span>
             </div>
             <div class="cc-drop" id="cc-drop">
               <div class="cc-search-wrap">
-                <input class="cc-search" id="cc-search" type="text" placeholder="Search country…" oninput="filterCC(this.value)" onclick="event.stopPropagation()"/>
+                <input class="cc-search" id="cc-search" type="text" placeholder="Search country&hellip;" oninput="filterCC(this.value)" onclick="event.stopPropagation()"/>
               </div>
               <div class="cc-list" id="cc-list"></div>
             </div>
@@ -560,9 +761,9 @@
         <div class="err-msg" id="err1"></div>
         <div class="ship-notice">
           <p><strong>Free worldwide shipping</strong> on all orders.</p>
-          <p>Dispatched within 24 hours. UK: 2–3 days · International: 5–10 days.</p>
+          <p>Dispatched within 2 business days. UK: 2–3 days &middot; International: 5–10 days.</p>
         </div>
-        <button class="m-btn" onclick="s1Continue()">CONTINUE →</button>
+        <button class="m-btn" onclick="s1Continue()">CONTINUE &#8594;</button>
       </div>
 
       <!-- STEP 2: Address -->
@@ -593,11 +794,11 @@
           </div>
           <div class="form-row">
             <label>Delivery notes <span class="opt-label">(optional)</span></label>
-            <textarea id="f-notes" placeholder="e.g. Leave with neighbour, ring bell twice…"></textarea>
+            <textarea id="f-notes" placeholder="e.g. Leave with neighbour, ring bell twice&hellip;"></textarea>
           </div>
         </div>
         <div class="err-msg" id="err2"></div>
-        <button class="m-btn" id="s2-btn" onclick="s2Continue()" style="display:none;">CONTINUE →</button>
+        <button class="m-btn" id="s2-btn" onclick="s2Continue()" style="display:none;">CONTINUE &#8594;</button>
       </div>
 
       <!-- STEP 3: Details -->
@@ -613,46 +814,42 @@
           <div class="phone-hint-txt" id="phone-hint">Include country code if outside UK</div>
         </div>
         <div class="err-msg" id="err3"></div>
-        <button class="m-btn" onclick="s3Continue()">CONTINUE TO PAYMENT →</button>
+        <button class="m-btn" onclick="s3Continue()">CONTINUE TO PAYMENT &#8594;</button>
       </div>
 
       <!-- STEP 4: Payment -->
       <div class="step" id="step4">
         <div class="order-summary">
-          <div class="order-row"><span class="order-label">ArmorLock Titan-G</span><span class="order-val">$89.00</span></div>
-          <div class="order-row"><span class="order-label">Worldwide Shipping</span><span class="order-val" style="color:var(--hi)">FREE</span></div>
+          <div class="order-row"><span class="order-label">NeonShield Pro Lock</span><span class="order-val">$89.00</span></div>
+          <div class="order-row"><span class="order-label">Worldwide Shipping</span><span class="order-val" style="color:var(--green2)">FREE</span></div>
           <div class="order-row order-total"><span class="order-label">Total</span><span class="order-val">$89.00</span></div>
         </div>
         <div id="payment-element" style="min-height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
-          <span style="font-size:.82rem;color:var(--greyd)">Loading payment…</span>
+          <span style="font-size:.82rem;color:var(--greyd)">Loading payment&hellip;</span>
         </div>
         <div class="err-msg" id="err4"></div>
-        <button class="m-btn" id="pay-btn" onclick="processPayment()">PAY $89.00 — LOCK IN YOUR ORDER</button>
-        <div style="text-align:center;margin-top:10px;font-size:.68rem;color:var(--greyd);">🔒 Encrypted · Powered by Stripe · Apple Pay &amp; Google Pay</div>
+        <button class="m-btn" id="pay-btn" onclick="processPayment()">PAY $89.00 &#8212; LOCK IN YOUR ORDER</button>
+        <div style="text-align:center;margin-top:10px;font-size:.68rem;color:var(--greyd);">Encrypted &middot; Powered by Stripe &middot; Apple Pay &amp; Google Pay</div>
       </div>
 
       <!-- SUCCESS -->
       <div class="step" id="step-success">
         <div class="success-wrap">
-          <div class="success-icon">✅</div>
+          <div class="success-icon">&#10003;</div>
           <div class="success-title">Order Confirmed!</div>
-          <p id="success-msg">Your ArmorLock is on its way. A confirmation has been sent to your email.</p>
+          <p id="success-msg">Your NeonShield is on its way. A confirmation has been sent to your email.</p>
         </div>
       </div>
 
-    </div><!-- /mscroll -->
-  </div><!-- /omodal -->
-</div><!-- /ov -->
+    </div>
+  </div>
+</div>
+
 
 <!-- Scripts at end so page renders first -->
 <script src="https://js.stripe.com/v3/"></script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-/* ═══════════════════════════════════════════════════════
-   ARMORLOCK — Full JS
-   Stripe + EmailJS APIs, checkout modal, banner timer
-═══════════════════════════════════════════════════════ */
-
 // ── CONFIG ──────────────────────────────────────────────
 var STRIPE_KEY       = 'pk_live_51T6aG7AYAdBa4MYxE2JmRVj9odK3dPdsXFYBuVeE2JuBuOjCDb5afSfGXlSNllb2iH5Q6Wzqf9pQAh8vB8i2oWql00Un3gJ7qC';
 var EMAILJS_SERVICE  = 'service_5ndqmxf';
@@ -661,15 +858,11 @@ var EMAILJS_KEY_VAL  = 'nZpslawaT163Wayua';
 var NOTIFY_EMAIL     = 'caspi.ready.spam@gmail.com';
 var PRICE_CENTS      = 8900;
 var HEADER_H         = 106; // 38px banner + 68px header
-// Get a FREE key at getaddress.io (100 lookups/day, no card needed)
-// Without a key, postcode still validates but won't show individual addresses
-var GETADDRESS_KEY   = '';
+var GETADDRESS_KEY   = ''; // free key from getaddress.io (100/day, no card)
 
 // ── NAVIGATION ──────────────────────────────────────────
 function goto(id) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  closeMM();
+  var el = document.getElementById(id); if (!el) return; closeMM();
   var top = el.getBoundingClientRect().top + window.pageYOffset - HEADER_H;
   window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
 }
@@ -681,22 +874,19 @@ function closeMM() {
   document.getElementById('mmenu').classList.remove('open');
   document.getElementById('hbg').classList.remove('open');
 }
+function mg(id) { closeMM(); setTimeout(function(){ goto(id); }, 80); }
 document.addEventListener('click', function(e) {
   var m = document.getElementById('mmenu'), b = document.getElementById('hbg');
   if (m && b && m.classList.contains('open') && !m.contains(e.target) && !b.contains(e.target)) closeMM();
 });
 
 // ── GALLERY ─────────────────────────────────────────────
-function si(thumb, local, fb) {
-  document.querySelectorAll('.g-thumb').forEach(function(x) { x.classList.remove('active'); });
+function si(thumb, src) {
+  document.querySelectorAll('.g-thumb').forEach(function(x){ x.classList.remove('active'); });
   thumb.classList.add('active');
   var img = document.getElementById('main-img');
   img.style.opacity = '0';
-  setTimeout(function() {
-    img.onerror = function() { img.src = fb; img.onerror = null; };
-    img.src = local;
-    img.style.opacity = '1';
-  }, 200);
+  setTimeout(function(){ img.src = src; img.style.opacity = '1'; }, 200);
 }
 
 // ── BANNER + 2-HOUR PERSISTENT TIMER ────────────────────
@@ -714,14 +904,12 @@ function getSaleEnd() {
     return ne;
   } catch(x) { return Date.now() + SALE_DUR; }
 }
-
 function fmtTime(ms) {
   if (ms <= 0) return '00:00:00';
   var s = Math.floor(ms / 1000);
   var h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
-  return ('0'+h).slice(-2) + ':' + ('0'+m).slice(-2) + ':' + ('0'+sec).slice(-2);
+  return ('0'+h).slice(-2)+':'+('0'+m).slice(-2)+':'+('0'+sec).slice(-2);
 }
-
 function getBannerMsg(idx) {
   var msgs = [
     '15% OFF ALL ORDERS — USE CODE: LOCK15',
@@ -731,168 +919,131 @@ function getBannerMsg(idx) {
   ];
   return msgs[idx % msgs.length];
 }
-
 function rotateBanner() {
   if (!bannerEl) return;
   bannerEl.style.opacity = '0';
   bannerEl.style.transform = 'translateY(-8px)';
-  setTimeout(function() {
+  setTimeout(function(){
     bannerIdx = (bannerIdx + 1) % 4;
     bannerEl.textContent = getBannerMsg(bannerIdx);
     bannerEl.style.transform = 'translateY(8px)';
-    setTimeout(function() {
-      bannerEl.style.opacity = '1';
-      bannerEl.style.transform = 'translateY(0)';
-    }, 40);
+    setTimeout(function(){ bannerEl.style.opacity='1'; bannerEl.style.transform='translateY(0)'; }, 40);
   }, 280);
 }
-
 function initBanner() {
-  bannerEl = document.getElementById('banner-txt');
-  if (!bannerEl) return;
+  bannerEl = document.getElementById('banner-txt'); if (!bannerEl) return;
   bannerEl.textContent = getBannerMsg(0);
-  setInterval(rotateBanner, 4500);          // cycle message every 4.5s
-  setInterval(function() {                  // keep live countdown while showing it
-    if (bannerIdx === 2 && bannerEl) bannerEl.textContent = getBannerMsg(2);
-  }, 1000);
+  setInterval(rotateBanner, 4500);
+  setInterval(function(){ if (bannerIdx === 2 && bannerEl) bannerEl.textContent = getBannerMsg(2); }, 1000);
 }
 
 // ── COUNTRIES ────────────────────────────────────────────
 var COUNTRIES = [
-  {code:'GB',flag:'🇬🇧',name:'United Kingdom'},
-  {code:'US',flag:'🇺🇸',name:'United States'},
-  {code:'CA',flag:'🇨🇦',name:'Canada'},
-  {code:'AU',flag:'🇦🇺',name:'Australia'},
-  {code:'NZ',flag:'🇳🇿',name:'New Zealand'},
-  {code:'IE',flag:'🇮🇪',name:'Ireland'},
-  {code:'DE',flag:'🇩🇪',name:'Germany'},
-  {code:'FR',flag:'🇫🇷',name:'France'},
-  {code:'NL',flag:'🇳🇱',name:'Netherlands'},
-  {code:'SE',flag:'🇸🇪',name:'Sweden'},
-  {code:'NO',flag:'🇳🇴',name:'Norway'},
-  {code:'DK',flag:'🇩🇰',name:'Denmark'},
-  {code:'FI',flag:'🇫🇮',name:'Finland'},
-  {code:'BE',flag:'🇧🇪',name:'Belgium'},
-  {code:'CH',flag:'🇨🇭',name:'Switzerland'},
-  {code:'AT',flag:'🇦🇹',name:'Austria'},
-  {code:'ES',flag:'🇪🇸',name:'Spain'},
-  {code:'IT',flag:'🇮🇹',name:'Italy'},
-  {code:'PT',flag:'🇵🇹',name:'Portugal'},
-  {code:'PL',flag:'🇵🇱',name:'Poland'},
-  {code:'CZ',flag:'🇨🇿',name:'Czech Republic'},
-  {code:'UA',flag:'🇺🇦',name:'Ukraine'},
-  {code:'SG',flag:'🇸🇬',name:'Singapore'},
-  {code:'JP',flag:'🇯🇵',name:'Japan'},
+  {code:'GB',flag:'🇬🇧',name:'United Kingdom'},{code:'US',flag:'🇺🇸',name:'United States'},
+  {code:'CA',flag:'🇨🇦',name:'Canada'},{code:'AU',flag:'🇦🇺',name:'Australia'},
+  {code:'NZ',flag:'🇳🇿',name:'New Zealand'},{code:'IE',flag:'🇮🇪',name:'Ireland'},
+  {code:'DE',flag:'🇩🇪',name:'Germany'},{code:'FR',flag:'🇫🇷',name:'France'},
+  {code:'NL',flag:'🇳🇱',name:'Netherlands'},{code:'SE',flag:'🇸🇪',name:'Sweden'},
+  {code:'NO',flag:'🇳🇴',name:'Norway'},{code:'DK',flag:'🇩🇰',name:'Denmark'},
+  {code:'FI',flag:'🇫🇮',name:'Finland'},{code:'BE',flag:'🇧🇪',name:'Belgium'},
+  {code:'CH',flag:'🇨🇭',name:'Switzerland'},{code:'AT',flag:'🇦🇹',name:'Austria'},
+  {code:'ES',flag:'🇪🇸',name:'Spain'},{code:'IT',flag:'🇮🇹',name:'Italy'},
+  {code:'PT',flag:'🇵🇹',name:'Portugal'},{code:'PL',flag:'🇵🇱',name:'Poland'},
+  {code:'CZ',flag:'🇨🇿',name:'Czech Republic'},{code:'UA',flag:'🇺🇦',name:'Ukraine'},
+  {code:'SG',flag:'🇸🇬',name:'Singapore'},{code:'JP',flag:'🇯🇵',name:'Japan'},
   {code:'other',flag:'🌍',name:'Other country'}
 ];
 var selectedCC = '';
 
 function buildCCList(q) {
-  var list = document.getElementById('cc-list');
-  if (!list) return;
+  var list = document.getElementById('cc-list'); if (!list) return;
   list.innerHTML = '';
-  var items = q
-    ? COUNTRIES.filter(function(c) { return c.name.toLowerCase().indexOf(q.toLowerCase()) !== -1; })
-    : COUNTRIES;
-  items.forEach(function(c) {
+  var items = q ? COUNTRIES.filter(function(c){ return c.name.toLowerCase().indexOf(q.toLowerCase())!==-1; }) : COUNTRIES;
+  items.forEach(function(c){
     var d = document.createElement('div');
     d.className = 'cc-opt' + (c.code === selectedCC ? ' sel' : '');
-    d.innerHTML = '<span class="cc-opt-flag">' + c.flag + '</span><span>' + c.name + '</span>';
-    d.onclick = function(e) { e.stopPropagation(); selectCountry(c); };
+    d.innerHTML = '<span class="cc-opt-flag">'+c.flag+'</span><span>'+c.name+'</span>';
+    d.onclick = function(e){ e.stopPropagation(); selectCountry(c); };
     list.appendChild(d);
   });
 }
-
 function selectCountry(c) {
   selectedCC = c.code;
-  var flagEl = document.getElementById('cc-flag');
-  var nameEl = document.getElementById('cc-name');
+  var flagEl = document.getElementById('cc-flag'), nameEl = document.getElementById('cc-name');
   if (flagEl) flagEl.textContent = c.flag;
   if (nameEl) { nameEl.textContent = c.name; nameEl.className = 'cc-name-txt'; }
-  closeCC();
-  updatePhoneHint(c.code);
+  closeCC(); updatePhoneHint(c.code);
 }
-
 function toggleCC(e) {
   e.stopPropagation();
   var drop = document.getElementById('cc-drop'), field = document.getElementById('cc-field');
   if (!drop) return;
   if (drop.classList.contains('open')) { closeCC(); return; }
-  drop.classList.add('open');
-  if (field) field.classList.add('open');
+  drop.classList.add('open'); if (field) field.classList.add('open');
   buildCCList('');
-  setTimeout(function() { var s = document.getElementById('cc-search'); if (s) s.focus(); }, 80);
+  setTimeout(function(){ var s = document.getElementById('cc-search'); if (s) s.focus(); }, 80);
 }
-
 function closeCC() {
   var drop = document.getElementById('cc-drop'), field = document.getElementById('cc-field');
-  if (drop) drop.classList.remove('open');
-  if (field) field.classList.remove('open');
+  if (drop) drop.classList.remove('open'); if (field) field.classList.remove('open');
   var s = document.getElementById('cc-search'); if (s) s.value = '';
 }
-
 function filterCC(q) { buildCCList(q); }
-
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function(e){
   var d = document.getElementById('cc-drop'), f = document.getElementById('cc-field');
   if (d && f && d.classList.contains('open') && !d.contains(e.target) && !f.contains(e.target)) closeCC();
 });
 
 // ── PHONE VALIDATION ─────────────────────────────────────
 var PHONE_CFG = {
-  GB: { ph:'07XXX XXXXXX',        hint:'UK: 11 digits starting 07 or 01',    min:10, max:11 },
-  US: { ph:'(555) 000-0000',      hint:'US: 10 digits (no country code)',     min:10, max:10 },
-  CA: { ph:'(555) 000-0000',      hint:'Canada: 10 digits (no country code)', min:10, max:10 },
-  AU: { ph:'04XX XXX XXX',        hint:'AU: 10 digits starting 04',           min:9,  max:10 },
-  NZ: { ph:'+64 XX XXX XXXX',     hint:'New Zealand: 9 digits',               min:8,  max:10 },
-  IE: { ph:'08X XXX XXXX',        hint:'Ireland: 10 digits',                  min:9,  max:10 },
-  DE: { ph:'+49 1XX XXXXXXX',     hint:'Germany: include +49 country code',   min:10, max:12 },
-  FR: { ph:'+33 6 XX XX XX XX',   hint:'France: 10 digits or with +33',       min:9,  max:11 },
-  NL: { ph:'+31 6 XXXX XXXX',     hint:'Netherlands: 10 digits',              min:9,  max:10 },
-  SE: { ph:'+46 7X XXX XXXX',     hint:'Sweden: include +46',                 min:9,  max:11 },
-  NO: { ph:'+47 XXX XX XXX',      hint:'Norway: 8 digits',                    min:8,  max:8  },
-  DK: { ph:'+45 XX XX XX XX',     hint:'Denmark: 8 digits',                   min:8,  max:8  },
-  FI: { ph:'+358 4X XXX XXXX',    hint:'Finland: include +358',               min:9,  max:11 },
-  BE: { ph:'+32 4XX XX XX XX',    hint:'Belgium: 9-10 digits',                min:9,  max:10 },
-  CH: { ph:'+41 7X XXX XX XX',    hint:'Switzerland: 10 digits',              min:9,  max:10 },
-  AT: { ph:'+43 6XX XXXXXXX',     hint:'Austria: include +43',                min:9,  max:11 },
-  ES: { ph:'+34 6XX XXX XXX',     hint:'Spain: 9 digits',                     min:9,  max:9  },
-  IT: { ph:'+39 3XX XXX XXXX',    hint:'Italy: 10 digits',                    min:9,  max:11 },
-  PT: { ph:'+351 9XX XXX XXX',    hint:'Portugal: 9 digits',                  min:9,  max:9  },
-  PL: { ph:'+48 XXX XXX XXX',     hint:'Poland: 9 digits',                    min:9,  max:9  },
-  CZ: { ph:'+420 XXX XXX XXX',    hint:'Czech Republic: 9 digits',            min:9,  max:9  },
-  UA: { ph:'+380 XX XXX XXXX',    hint:'Ukraine: 9 digits with +380',         min:9,  max:10 },
-  SG: { ph:'+65 XXXX XXXX',       hint:'Singapore: 8 digits',                 min:8,  max:8  },
-  JP: { ph:'+81 XX XXXX XXXX',    hint:'Japan: 10-11 digits with +81',        min:10, max:11 },
+  GB:{ph:'07XXX XXXXXX',hint:'UK: 11 digits starting 07 or 01',min:10,max:11},
+  US:{ph:'(555) 000-0000',hint:'US: 10 digits (no country code)',min:10,max:10},
+  CA:{ph:'(555) 000-0000',hint:'Canada: 10 digits (no country code)',min:10,max:10},
+  AU:{ph:'04XX XXX XXX',hint:'AU: 10 digits starting 04',min:9,max:10},
+  NZ:{ph:'+64 XX XXX XXXX',hint:'New Zealand: 9 digits',min:8,max:10},
+  IE:{ph:'08X XXX XXXX',hint:'Ireland: 10 digits',min:9,max:10},
+  DE:{ph:'+49 1XX XXXXXXX',hint:'Germany: include +49 country code',min:10,max:12},
+  FR:{ph:'+33 6 XX XX XX XX',hint:'France: 10 digits or with +33',min:9,max:11},
+  NL:{ph:'+31 6 XXXX XXXX',hint:'Netherlands: 10 digits',min:9,max:10},
+  SE:{ph:'+46 7X XXX XXXX',hint:'Sweden: include +46',min:9,max:11},
+  NO:{ph:'+47 XXX XX XXX',hint:'Norway: 8 digits',min:8,max:8},
+  DK:{ph:'+45 XX XX XX XX',hint:'Denmark: 8 digits',min:8,max:8},
+  FI:{ph:'+358 4X XXX XXXX',hint:'Finland: include +358',min:9,max:11},
+  BE:{ph:'+32 4XX XX XX XX',hint:'Belgium: 9-10 digits',min:9,max:10},
+  CH:{ph:'+41 7X XXX XX XX',hint:'Switzerland: 10 digits',min:9,max:10},
+  AT:{ph:'+43 6XX XXXXXXX',hint:'Austria: include +43',min:9,max:11},
+  ES:{ph:'+34 6XX XXX XXX',hint:'Spain: 9 digits',min:9,max:9},
+  IT:{ph:'+39 3XX XXX XXXX',hint:'Italy: 10 digits',min:9,max:11},
+  PT:{ph:'+351 9XX XXX XXX',hint:'Portugal: 9 digits',min:9,max:9},
+  PL:{ph:'+48 XXX XXX XXX',hint:'Poland: 9 digits',min:9,max:9},
+  CZ:{ph:'+420 XXX XXX XXX',hint:'Czech Republic: 9 digits',min:9,max:9},
+  UA:{ph:'+380 XX XXX XXXX',hint:'Ukraine: 9 digits with +380',min:9,max:10},
+  SG:{ph:'+65 XXXX XXXX',hint:'Singapore: 8 digits',min:8,max:8},
+  JP:{ph:'+81 XX XXXX XXXX',hint:'Japan: 10-11 digits with +81',min:10,max:11}
 };
-
 function updatePhoneHint(cc) {
-  var cfg = PHONE_CFG[cc] || { ph:'+X XXX XXX XXXX', hint:'Include country code' };
+  var cfg = PHONE_CFG[cc] || {ph:'+X XXX XXX XXXX',hint:'Include country code'};
   var ph = document.getElementById('f-phone'); if (ph) ph.placeholder = cfg.ph;
   var ht = document.getElementById('phone-hint'); if (ht) ht.textContent = cfg.hint;
   var lbl = document.getElementById('pc-label');
-  if (lbl) lbl.textContent = (cc === 'US' || cc === 'CA') ? 'ZIP Code' : 'Postcode';
+  if (lbl) lbl.textContent = (cc==='US'||cc==='CA') ? 'ZIP Code' : 'Postcode';
   var pcf = document.getElementById('f-postcode');
   if (pcf) {
-    if (cc === 'US') pcf.placeholder = 'e.g. 10001';
-    else if (cc === 'CA') pcf.placeholder = 'e.g. M5V 2T6';
-    else if (cc === 'AU') pcf.placeholder = 'e.g. 2000';
-    else pcf.placeholder = 'e.g. SW1A 2AA';
+    if (cc==='US') pcf.placeholder='e.g. 10001';
+    else if (cc==='CA') pcf.placeholder='e.g. M5V 2T6';
+    else if (cc==='AU') pcf.placeholder='e.g. 2000';
+    else pcf.placeholder='e.g. SW1A 2AA';
   }
 }
-
-function fmtPhone(input) { input.value = input.value.replace(/[^\d+\s()-.]/g, ''); }
-
+function fmtPhone(input) { input.value = input.value.replace(/[^\d+\s()-.]/g,''); }
 function validatePhone(phone, cc) {
-  var d = phone.replace(/\D/g, '');
-  if (cc === 'GB') { var c = d.replace(/^44/, '0'); return /^0[1-9]\d{9}$/.test(c); }
-  if (cc === 'US' || cc === 'CA') { return /^\d{10}$/.test(d.replace(/^1/, '')); }
-  if (cc === 'AU') { return /^\d{9,10}$/.test(d.replace(/^61/, '')); }
-  if (cc === 'IE') { return /^\d{9,10}$/.test(d.replace(/^353/, '')); }
-  // Use min/max from PHONE_CFG for all other countries
-  var cfg = PHONE_CFG[cc];
-  if (cfg) { return d.length >= cfg.min && d.length <= cfg.max; }
-  return d.length >= 6 && d.length <= 15;
+  var d = phone.replace(/\D/g,'');
+  if (cc==='GB') { var c = d.replace(/^44/,'0'); return /^0[1-9]\d{9}$/.test(c); }
+  if (cc==='US'||cc==='CA') { return /^\d{10}$/.test(d.replace(/^1/,'')); }
+  if (cc==='AU') { return /^\d{9,10}$/.test(d.replace(/^61/,'')); }
+  if (cc==='IE') { return /^\d{9,10}$/.test(d.replace(/^353/,'')); }
+  var cfg = PHONE_CFG[cc]; if (cfg) return d.length>=cfg.min && d.length<=cfg.max;
+  return d.length>=6 && d.length<=15;
 }
 
 // ── POSTCODE LOOKUP ──────────────────────────────────────
@@ -900,141 +1051,117 @@ var pcConfirmed = false;
 
 function onPcInput() {
   pcConfirmed = false;
-  var af = document.getElementById('addr-fields'); if (af) af.style.display = 'none';
-  var sb = document.getElementById('s2-btn'); if (sb) sb.style.display = 'none';
-  var pr = document.getElementById('pc-result'); if (pr) pr.innerHTML = '';
+  var af = document.getElementById('addr-fields'); if (af) af.style.display='none';
+  var sb = document.getElementById('s2-btn');      if (sb) sb.style.display='none';
+  var pr = document.getElementById('pc-result');   if (pr) pr.innerHTML='';
 }
 
 async function lookupPostcode() {
   var pcEl = document.getElementById('f-postcode');
   var pc = pcEl ? pcEl.value.trim() : '';
-  if (!pc) { showErr('err2', 'Please enter your postcode first.'); return; }
+  if (!pc) { showErr('err2','Please enter your postcode first.'); return; }
   var btn = document.getElementById('pc-btn');
-  if (btn) { btn.textContent = '…'; btn.disabled = true; }
-  var pr = document.getElementById('pc-result'); if (pr) pr.innerHTML = '';
+  if (btn) { btn.textContent='…'; btn.disabled=true; }
+  var pr = document.getElementById('pc-result'); if (pr) pr.innerHTML='';
   hideErr('err2');
-
   if (selectedCC === 'GB') {
     try {
-      // Step 1: validate with postcodes.io (free, no key)
-      var r = await fetch('https://api.postcodes.io/postcodes/' + encodeURIComponent(pc.replace(/\s/g,'').toUpperCase()));
+      var r = await fetch('https://api.postcodes.io/postcodes/'+encodeURIComponent(pc.replace(/\s/g,'').toUpperCase()));
       var d = await r.json();
-      if (d.status !== 200 || !d.result) { showPCCard(pc, '', '', false); if (btn) { btn.textContent = 'Find'; btn.disabled = false; } return; }
+      if (d.status!==200||!d.result) { showPCCard(pc,'','',false); if(btn){btn.textContent='Find';btn.disabled=false;} return; }
       if (pcEl) pcEl.value = d.result.postcode;
       var city   = d.result.admin_district || d.result.region || '';
       var county = d.result.admin_county   || d.result.region || '';
-
-      // Step 2: try getaddress.io for individual addresses (needs free API key)
       if (GETADDRESS_KEY) {
         try {
-          var ar = await fetch('https://api.getaddress.io/find/' + encodeURIComponent(d.result.postcode.replace(/\s/g,'')) + '?api-key=' + GETADDRESS_KEY + '&expand=true');
+          var ar = await fetch('https://api.getaddress.io/find/'+encodeURIComponent(d.result.postcode.replace(/\s/g,''))+'?api-key='+GETADDRESS_KEY+'&expand=true');
           var ad = await ar.json();
-          if (ad.addresses && ad.addresses.length > 0) {
+          if (ad.addresses && ad.addresses.length>0) {
             showAddressDropdown(d.result.postcode, city, county, ad.addresses);
-            if (btn) { btn.textContent = 'Find'; btn.disabled = false; }
+            if(btn){btn.textContent='Find';btn.disabled=false;}
             return;
           }
-        } catch(e2) { /* fall through to area card */ }
+        } catch(e2){}
       }
-
-      // Fallback: show area confirmation card
       showPCCard(d.result.postcode, city, county, true);
-    } catch(e) { showPCCard(pc, '', '', false); }
+    } catch(e) { showPCCard(pc,'','',false); }
   } else { showNonUKFields(); }
-
-  if (btn) { btn.textContent = 'Find'; btn.disabled = false; }
+  if (btn) { btn.textContent='Find'; btn.disabled=false; }
 }
 
 function showAddressDropdown(postcode, city, county, addresses) {
   var div = document.getElementById('pc-result'); if (!div) return;
-  var html = '<div class="pc-card">' +
-    '<div class="pc-card-sub">&#10003; ' + postcode + ' — ' + (city || 'United Kingdom') + '</div>' +
+  var html = '<div class="pc-card"><div class="pc-card-sub">&#10003; '+postcode+' &mdash; '+(city||'United Kingdom')+'</div>' +
     '<div class="pc-card-area" style="font-size:.8rem;color:var(--greyl);margin-bottom:10px;">Select your address:</div>' +
     '<div class="addr-list">';
-  addresses.forEach(function(a, i) {
-    var line1 = a.line_1 || '';
-    var line2 = [a.line_2, a.town_or_city || city].filter(Boolean).join(', ');
-    html += '<div class="addr-opt" onclick="selectAddress(' + i + ')">' +
-      '<div>' + line1 + '</div>' +
-      (line2 ? '<div class="addr-opt-sub">' + line2 + '</div>' : '') +
-      '</div>';
+  addresses.forEach(function(a,i){
+    var line1 = a.line_1||'';
+    var line2 = [a.line_2, a.town_or_city||city].filter(Boolean).join(', ');
+    html += '<div class="addr-opt" onclick="selectAddress('+i+')"><div>'+line1+'</div>'+(line2?'<div class="addr-opt-sub">'+line2+'</div>':'')+'</div>';
   });
-  html += '</div>' +
-    '<div class="addr-manual-link" onclick="showManualUK()">Not listed — enter manually</div>' +
-    '</div>';
+  html += '</div><div class="addr-manual-link" onclick="showManualUK()">Not listed &mdash; enter manually</div></div>';
   div.innerHTML = html;
-  // Store addresses for selectAddress()
-  window._addrCache = { postcode: postcode, city: city, county: county, addresses: addresses };
+  window._addrCache = { postcode:postcode, city:city, county:county, addresses:addresses };
 }
 
 function selectAddress(idx) {
   var cache = window._addrCache; if (!cache) return;
   var a = cache.addresses[idx];
-  var houseEl  = document.getElementById('f-house');
-  var streetEl = document.getElementById('f-street');
-  var cityEl   = document.getElementById('f-city-uk');
-  var countyEl = document.getElementById('f-county');
-  // line_1 is usually "10 Trinity Hall Close" — split house number from street
-  var line1 = a.line_1 || '';
-  var match = line1.match(/^(\S+)\s+(.+)$/);
+  var houseEl=document.getElementById('f-house'), streetEl=document.getElementById('f-street');
+  var cityEl=document.getElementById('f-city-uk'), countyEl=document.getElementById('f-county');
+  var line1 = a.line_1||'', match = line1.match(/^(\S+)\s+(.+)$/);
   if (houseEl)  houseEl.value  = match ? match[1] : line1;
-  if (streetEl) streetEl.value = match ? match[2] : (a.line_2 || '');
+  if (streetEl) streetEl.value = match ? match[2] : (a.line_2||'');
   if (cityEl)   cityEl.value   = a.town_or_city || cache.city;
   if (countyEl) countyEl.value = a.county || cache.county;
-  document.getElementById('uk-fields').style.display   = 'block';
+  document.getElementById('uk-fields').style.display    = 'block';
   document.getElementById('other-fields').style.display = 'none';
   document.getElementById('addr-fields').style.display  = 'block';
   document.getElementById('s2-btn').style.display       = 'block';
   pcConfirmed = true;
   var div = document.getElementById('pc-result');
-  if (div) div.innerHTML = '<div class="pc-card"><div class="pc-card-sub">&#10003; Address selected</div><div class="pc-card-area">' + line1 + ', ' + (a.town_or_city || cache.city) + '</div></div>';
+  if (div) div.innerHTML = '<div class="pc-card"><div class="pc-card-sub">&#10003; Address selected</div><div class="pc-card-area">'+line1+', '+(a.town_or_city||cache.city)+'</div></div>';
 }
 
 function showPCCard(pc, city, county, found) {
   var div = document.getElementById('pc-result'); if (!div) return;
   if (found) {
-    var area = city ? city + (county && county !== city ? ', ' + county : '') : 'United Kingdom';
-    div.innerHTML =
-      '<div class="pc-card">' +
-        '<div class="pc-card-sub">Postcode confirmed</div>' +
-        '<div class="pc-card-area">' + area + '</div>' +
-        '<div class="pc-card-actions">' +
-          '<button class="pc-act pc-act-confirm" onclick="confirmUKArea(\'' + pc.replace(/'/g,"\\'") + '\',\'' + city.replace(/'/g,"\\'") + '\',\'' + county.replace(/'/g,"\\'") + '\')">&#10003; Confirm — fill in street</button>' +
-          '<button class="pc-act pc-act-manual" onclick="showManualUK()">Enter manually</button>' +
-        '</div>' +
-      '</div>';
+    var area = city ? city+(county&&county!==city?', '+county:'') : 'United Kingdom';
+    div.innerHTML = '<div class="pc-card"><div class="pc-card-sub">Postcode confirmed</div>' +
+      '<div class="pc-card-area">'+area+'</div>' +
+      '<div class="pc-card-actions">' +
+        '<button class="pc-act pc-act-confirm" onclick="confirmUKArea(\''+pc.replace(/'/g,"\\'")+'\',\''+city.replace(/'/g,"\\'")+'\',\''+county.replace(/'/g,"\\'")+'\')">&#10003; Confirm &mdash; fill in street</button>' +
+        '<button class="pc-act pc-act-manual" onclick="showManualUK()">Enter manually</button>' +
+      '</div></div>';
   } else {
-    div.innerHTML =
-      '<div class="pc-card" style="border-color:rgba(231,76,60,.3);background:rgba(231,76,60,.05);">' +
-        '<div class="pc-card-sub" style="color:#e74c3c;">Postcode not found</div>' +
-        '<div class="pc-card-area" style="font-size:.85rem;color:var(--greyl);">Enter your address manually below</div>' +
-        '<div class="pc-card-actions"><button class="pc-act pc-act-confirm" onclick="showManualUK()">Enter manually</button></div>' +
-      '</div>';
+    div.innerHTML = '<div class="pc-card" style="border-color:rgba(231,76,60,.3);background:rgba(231,76,60,.05);">' +
+      '<div class="pc-card-sub" style="color:#e74c3c;">Postcode not found</div>' +
+      '<div class="pc-card-area" style="font-size:.85rem;color:var(--greyl);">Enter your address manually below</div>' +
+      '<div class="pc-card-actions"><button class="pc-act pc-act-confirm" onclick="showManualUK()">Enter manually</button></div></div>';
   }
 }
 
 function confirmUKArea(pc, city, county) {
-  var cityEl = document.getElementById('f-city-uk'); if (cityEl) cityEl.value = city;
-  var coEl   = document.getElementById('f-county');  if (coEl)   coEl.value   = county;
+  var cityEl=document.getElementById('f-city-uk'); if (cityEl) cityEl.value=city;
+  var coEl=document.getElementById('f-county');    if (coEl)   coEl.value=county;
   document.getElementById('uk-fields').style.display    = 'block';
   document.getElementById('other-fields').style.display = 'none';
   document.getElementById('addr-fields').style.display  = 'block';
   document.getElementById('s2-btn').style.display       = 'block';
   pcConfirmed = true;
   var div = document.getElementById('pc-result');
-  if (div) div.innerHTML = '<div class="pc-card"><div class="pc-card-sub">&#10003; ' + pc + ' confirmed</div><div class="pc-card-area">' + (city || 'United Kingdom') + '</div></div>';
+  if (div) div.innerHTML='<div class="pc-card"><div class="pc-card-sub">&#10003; '+pc+' confirmed</div><div class="pc-card-area">'+(city||'United Kingdom')+'</div></div>';
 }
 
 function showManualUK() {
-  var cityEl = document.getElementById('f-city-uk'); if (cityEl) cityEl.value = '';
-  var coEl   = document.getElementById('f-county');  if (coEl)   coEl.value   = '';
+  var cityEl=document.getElementById('f-city-uk'); if (cityEl) cityEl.value='';
+  var coEl=document.getElementById('f-county');    if (coEl)   coEl.value='';
   document.getElementById('uk-fields').style.display    = 'block';
   document.getElementById('other-fields').style.display = 'none';
   document.getElementById('addr-fields').style.display  = 'block';
   document.getElementById('s2-btn').style.display       = 'block';
   pcConfirmed = true;
-  // Clear the postcode card — no need to show it again after choosing manual entry
-  var div = document.getElementById('pc-result'); if (div) div.innerHTML = '';
+  var div = document.getElementById('pc-result'); if (div) div.innerHTML='';
 }
 
 function showNonUKFields() {
@@ -1044,35 +1171,30 @@ function showNonUKFields() {
   document.getElementById('s2-btn').style.display       = 'block';
   pcConfirmed = true;
   var div = document.getElementById('pc-result');
-  if (div) div.innerHTML = '<div class="pc-card"><div class="pc-card-sub">ZIP / Postal code set</div><div class="pc-card-area">Enter your street address below</div></div>';
+  if (div) div.innerHTML='<div class="pc-card"><div class="pc-card-sub">ZIP / Postal code set</div><div class="pc-card-area">Enter your street address below</div></div>';
 }
 
 function buildAddress() {
-  var pc = ((document.getElementById('f-postcode') || {}).value || '').trim();
-  var cn = (COUNTRIES.find(function(x) { return x.code === selectedCC; }) || { name: selectedCC }).name;
-  if (selectedCC === 'GB') {
-    var h  = ((document.getElementById('f-house')  || {}).value || '').trim();
-    var st = ((document.getElementById('f-street') || {}).value || '').trim();
-    var ci = ((document.getElementById('f-city-uk')|| {}).value || '').trim();
-    var co = ((document.getElementById('f-county') || {}).value || '').trim();
-    return [h + (st ? ' ' + st : ''), ci, co, pc, 'United Kingdom'].filter(Boolean).join(', ');
+  var pc = ((document.getElementById('f-postcode')||{}).value||'').trim();
+  var cn = (COUNTRIES.find(function(x){return x.code===selectedCC;})||{name:selectedCC}).name;
+  if (selectedCC==='GB') {
+    var h=((document.getElementById('f-house')||{}).value||'').trim();
+    var st=((document.getElementById('f-street')||{}).value||'').trim();
+    var ci=((document.getElementById('f-city-uk')||{}).value||'').trim();
+    var co=((document.getElementById('f-county')||{}).value||'').trim();
+    return [h+(st?' '+st:''),ci,co,pc,'United Kingdom'].filter(Boolean).join(', ');
   } else {
-    var st = ((document.getElementById('f-street-other') || {}).value || '').trim();
-    var ci = ((document.getElementById('f-city-other')   || {}).value || '').trim();
-    var s  = ((document.getElementById('f-state')        || {}).value || '').trim();
-    return [st, ci, s, pc, cn].filter(Boolean).join(', ');
+    var st=((document.getElementById('f-street-other')||{}).value||'').trim();
+    var ci=((document.getElementById('f-city-other')||{}).value||'').trim();
+    var s=((document.getElementById('f-state')||{}).value||'').trim();
+    return [st,ci,s,pc,cn].filter(Boolean).join(', ');
   }
 }
 
 function validateAddress() {
   if (!pcConfirmed) return false;
-  if (selectedCC === 'GB') {
-    return ((document.getElementById('f-house')   || {}).value || '').trim() &&
-           ((document.getElementById('f-street')  || {}).value || '').trim() &&
-           ((document.getElementById('f-city-uk') || {}).value || '').trim();
-  }
-  return ((document.getElementById('f-street-other') || {}).value || '').trim() &&
-         ((document.getElementById('f-city-other')   || {}).value || '').trim();
+  if (selectedCC==='GB') return ((document.getElementById('f-house')||{}).value||'').trim() && ((document.getElementById('f-street')||{}).value||'').trim() && ((document.getElementById('f-city-uk')||{}).value||'').trim();
+  return ((document.getElementById('f-street-other')||{}).value||'').trim() && ((document.getElementById('f-city-other')||{}).value||'').trim();
 }
 
 // ── MODAL FLOW ───────────────────────────────────────────
@@ -1081,192 +1203,159 @@ var stripeObj, stripeElements, pmClientSecret, modalStep = 1;
 function openOrder() {
   closeMM();
   document.getElementById('ov').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
   setModalStep(1);
 }
 function closeOrder() {
   document.getElementById('ov').classList.remove('open');
-  document.body.style.overflow = '';
+  document.body.style.overflow='';
   closeCC();
 }
-
-document.getElementById('ov').addEventListener('click', function(e) { if (e.target === this) closeOrder(); });
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') { closeOrder(); closeMM(); } });
+document.getElementById('ov').addEventListener('click', function(e){ if(e.target===this) closeOrder(); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeOrder(); closeMM(); } });
 
 function setModalStep(n) {
   modalStep = n;
-  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
-  var el = document.getElementById(n >= 99 ? 'step-success' : 'step' + n);
-  if (el) el.classList.add('active');
-  var ms = document.querySelector('.mscroll'); if (ms) ms.scrollTop = 0;
-  [1,2,3,4].forEach(function(i) {
-    var dot = document.getElementById('mp' + i), line = document.getElementById('mpl' + i);
-    if (dot)  dot.className  = 'mp-step'  + (i === n ? ' active' : i < n ? ' done' : '');
-    if (line) line.className = 'mp-line'  + (i < n ? ' done' : '');
+  document.querySelectorAll('.step').forEach(function(s){ s.classList.remove('active'); });
+  var el = document.getElementById(n>=99?'step-success':'step'+n); if (el) el.classList.add('active');
+  var ms = document.querySelector('.mscroll'); if (ms) ms.scrollTop=0;
+  [1,2,3,4].forEach(function(i){
+    var dot=document.getElementById('mp'+i), line=document.getElementById('mpl'+i);
+    if (dot)  dot.className  = 'mp-step' +(i===n?' active':i<n?' done':'');
+    if (line) line.className = 'mp-line' +(i<n?' done':'');
   });
-  var mbk = document.getElementById('mbk');
-  if (mbk) mbk.style.display = (n > 1 && n < 99) ? 'block' : 'none';
-  var titles = { 1:'Secure Order', 2:'Shipping Address', 3:'Your Details', 4:'Payment' };
-  var t = document.getElementById('modal-title'); if (t && titles[n]) t.textContent = titles[n];
-  var sub = document.getElementById('modal-sub'); if (sub) sub.textContent = 'ArmorLock Titan-G — $89.00';
+  var mbk = document.getElementById('mbk'); if (mbk) mbk.style.display=(n>1&&n<99)?'block':'none';
+  var titles={1:'Secure Order',2:'Shipping Address',3:'Your Details',4:'Payment'};
+  var t=document.getElementById('modal-title'); if (t&&titles[n]) t.textContent=titles[n];
+  var sub=document.getElementById('modal-sub'); if (sub) sub.textContent='NeonShield Pro Lock — $89.00';
 }
+function goModalBack() { if (modalStep>1) setModalStep(modalStep-1); }
 
-function goModalBack() { if (modalStep > 1) setModalStep(modalStep - 1); }
+function showErr(id,msg){ var e=document.getElementById(id); if(e){e.textContent=msg;e.style.display='block';} }
+function hideErr(id)    { var e=document.getElementById(id); if(e) e.style.display='none'; }
 
-function showErr(id, msg) { var e = document.getElementById(id); if (e) { e.textContent = msg; e.style.display = 'block'; } }
-function hideErr(id)      { var e = document.getElementById(id); if (e) e.style.display = 'none'; }
-
-// Step 1 → 2
 function s1Continue() {
-  if (!selectedCC) { showErr('err1', 'Please select your country.'); return; }
+  if (!selectedCC) { showErr('err1','Please select your country.'); return; }
   hideErr('err1'); closeCC();
-  pcConfirmed = false;
-  var af = document.getElementById('addr-fields'); if (af) af.style.display = 'none';
-  var sb = document.getElementById('s2-btn'); if (sb) sb.style.display = 'none';
-  var pr = document.getElementById('pc-result'); if (pr) pr.innerHTML = '';
-  var pf = document.getElementById('f-postcode'); if (pf) pf.value = '';
+  pcConfirmed=false;
+  var af=document.getElementById('addr-fields'); if(af) af.style.display='none';
+  var sb=document.getElementById('s2-btn');      if(sb) sb.style.display='none';
+  var pr=document.getElementById('pc-result');   if(pr) pr.innerHTML='';
+  var pf=document.getElementById('f-postcode');  if(pf) pf.value='';
   setModalStep(2);
 }
 
-// Step 2 → 3
 function s2Continue() {
-  if (!pcConfirmed) { showErr('err2', 'Please look up and confirm your postcode first.'); return; }
-  if (!validateAddress()) { showErr('err2', 'Please fill in your street address.'); return; }
-  hideErr('err2');
-  setModalStep(3);
+  if (!pcConfirmed) { showErr('err2','Please look up and confirm your postcode first.'); return; }
+  if (!validateAddress()) { showErr('err2','Please fill in your street address.'); return; }
+  hideErr('err2'); setModalStep(3);
 }
 
-// Step 3 → 4
 async function s3Continue() {
-  var fn = ((document.getElementById('f-fname') || {}).value || '').trim();
-  var ln = ((document.getElementById('f-lname') || {}).value || '').trim();
-  var em = ((document.getElementById('f-email') || {}).value || '').trim();
-  var ph = ((document.getElementById('f-phone') || {}).value || '').trim();
-  if (!fn || !ln) { showErr('err3', 'Please enter your full name.'); return; }
-  if (!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { showErr('err3', 'Please enter a valid email address.'); return; }
-  if (ph && !validatePhone(ph, selectedCC)) {
-    var cfg = PHONE_CFG[selectedCC] || {};
-    showErr('err3', 'Phone number invalid. ' + (cfg.hint || 'Check the format.')); return;
+  var fn=((document.getElementById('f-fname')||{}).value||'').trim();
+  var ln=((document.getElementById('f-lname')||{}).value||'').trim();
+  var em=((document.getElementById('f-email')||{}).value||'').trim();
+  var ph=((document.getElementById('f-phone')||{}).value||'').trim();
+  if (!fn||!ln) { showErr('err3','Please enter your full name.'); return; }
+  if (!em||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { showErr('err3','Please enter a valid email address.'); return; }
+  if (ph && !validatePhone(ph,selectedCC)) {
+    var cfg=PHONE_CFG[selectedCC]||{}; showErr('err3','Phone number invalid. '+(cfg.hint||'Check the format.')); return;
   }
-  hideErr('err3');
-  setModalStep(4);
-  await initPayment();
+  hideErr('err3'); setModalStep(4); await initPayment();
 }
 
-// Stripe Payment Element
 async function initPayment() {
-  var payEl = document.getElementById('payment-element');
-  if (!payEl) return;
-  payEl.innerHTML = '<div style="text-align:center;padding:24px;color:var(--greyd)">Loading payment options…</div>';
+  var payEl = document.getElementById('payment-element'); if (!payEl) return;
+  payEl.innerHTML='<div style="text-align:center;padding:24px;color:var(--greyd)">Loading payment options&hellip;</div>';
   try {
     if (!stripeObj) stripeObj = Stripe(STRIPE_KEY);
-    var resp = await fetch('/create-payment-intent.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: PRICE_CENTS })
+    var resp = await fetch('/create-payment-intent.php',{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({amount:PRICE_CENTS})
     });
-    if (!resp.ok) throw new Error('Server error ' + resp.status);
+    if (!resp.ok) throw new Error('Server error '+resp.status);
     var data = await resp.json();
     if (data.error) throw new Error(data.error);
     pmClientSecret = data.clientSecret;
     stripeElements = stripeObj.elements({
-      appearance: {
-        theme: 'night',
-        variables: {
-          colorPrimary:'#2ecc71', colorBackground:'#0d1512',
-          colorText:'#eef5f2', colorDanger:'#e74c3c',
-          fontFamily:'Barlow, sans-serif', borderRadius:'4px',
-          colorTextPlaceholder:'#4a5f55'
-        }
+      appearance:{
+        theme:'night',
+        variables:{colorPrimary:'#2ecc71',colorBackground:'#0d1512',colorText:'#e8f0ec',colorDanger:'#e74c3c',fontFamily:'Barlow, sans-serif',borderRadius:'4px',colorTextPlaceholder:'#4a6058'}
       },
       clientSecret: pmClientSecret
     });
-    payEl.innerHTML = '';
-    stripeElements.create('payment', {
-      layout: { type:'accordion', defaultCollapsed:false, radios:false, spacedAccordionItems:true },
-      wallets: { applePay:'auto', googlePay:'auto' }
+    payEl.innerHTML='';
+    stripeElements.create('payment',{
+      layout:{type:'accordion',defaultCollapsed:false,radios:false,spacedAccordionItems:true},
+      wallets:{applePay:'auto',googlePay:'auto'}
     }).mount('#payment-element');
   } catch(e) {
-    payEl.innerHTML =
-      '<div style="color:#e74c3c;padding:12px;font-size:.82rem;border:1px solid rgba(231,76,60,.2);border-radius:4px;">' +
-      'Payment could not load: ' + (e.message || 'Please try again.') +
-      '<br><small style="color:var(--greyd);font-size:.75em;display:block;margin-top:6px;">Stripe requires a hosted server — works fine when deployed.</small>' +
-      '</div>';
+    payEl.innerHTML='<div style="color:#e74c3c;padding:12px;font-size:.82rem;border:1px solid rgba(231,76,60,.2);border-radius:4px;">Payment could not load: '+(e.message||'Please try again.')+'<br><small style="color:var(--greyd);font-size:.75em;display:block;margin-top:6px;">Stripe requires a hosted server &mdash; works fine when deployed.</small></div>';
   }
 }
 
 async function processPayment() {
-  var btn = document.getElementById('pay-btn');
+  var btn=document.getElementById('pay-btn');
   hideErr('err4');
-  if (!stripeElements) { showErr('err4', 'Payment not ready — please wait a moment.'); return; }
-  if (btn) { btn.textContent = 'Processing…'; btn.disabled = true; }
-  var name  = ((document.getElementById('f-fname') || {}).value || '').trim() + ' ' + ((document.getElementById('f-lname') || {}).value || '').trim();
-  var email = ((document.getElementById('f-email') || {}).value || '').trim();
-  var phone = ((document.getElementById('f-phone') || {}).value || '').trim();
-  var address = buildAddress();
-  var notes   = ((document.getElementById('f-notes') || {}).value || '').trim();
-  var result  = await stripeObj.confirmPayment({
-    elements: stripeElements,
-    confirmParams: {
-      return_url: window.location.href,
-      payment_method_data: { billing_details: { name: name, email: email, phone: phone } }
-    },
-    redirect: 'if_required'
+  if (!stripeElements) { showErr('err4','Payment not ready — please wait a moment.'); return; }
+  if (btn) { btn.textContent='Processing…'; btn.disabled=true; }
+  var name  = ((document.getElementById('f-fname')||{}).value||'').trim()+' '+((document.getElementById('f-lname')||{}).value||'').trim();
+  var email = ((document.getElementById('f-email')||{}).value||'').trim();
+  var phone = ((document.getElementById('f-phone')||{}).value||'').trim();
+  var address = buildAddress(), notes = ((document.getElementById('f-notes')||{}).value||'').trim();
+  var result = await stripeObj.confirmPayment({
+    elements:stripeElements,
+    confirmParams:{ return_url:window.location.href, payment_method_data:{billing_details:{name:name,email:email,phone:phone}} },
+    redirect:'if_required'
   });
   if (result.error) {
-    showErr('err4', result.error.message);
-    if (btn) { btn.textContent = 'PAY $89.00 — LOCK IN YOUR ORDER'; btn.disabled = false; }
+    showErr('err4',result.error.message);
+    if (btn) { btn.textContent='PAY $89.00 — LOCK IN YOUR ORDER'; btn.disabled=false; }
     return;
   }
   await sendOrderEmail(name, email, phone, address, notes, result.paymentIntent.id);
-  var sm = document.getElementById('success-msg');
-  if (sm) sm.textContent = 'Your ArmorLock Titan-G is on its way to ' + address + '. Confirmation sent to ' + email + '. Dispatched within 24 hours.';
-  var mt = document.getElementById('modal-title'); if (mt) mt.textContent = 'Order Confirmed!';
-  var mb = document.getElementById('mbk'); if (mb) mb.style.display = 'none';
-  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
-  var ss = document.getElementById('step-success'); if (ss) ss.classList.add('active');
-  [1,2,3,4].forEach(function(i) {
-    var d = document.getElementById('mp' + i); if (d) d.className = 'mp-step done';
-    var l = document.getElementById('mpl' + i); if (l) l.className = 'mp-line done';
+  var sm=document.getElementById('success-msg');
+  if (sm) sm.textContent='Your NeonShield Pro Lock is on its way to '+address+'. Confirmation sent to '+email+'. Dispatched within 2 business days.';
+  var mt=document.getElementById('modal-title'); if(mt) mt.textContent='Order Confirmed!';
+  var mb=document.getElementById('mbk'); if(mb) mb.style.display='none';
+  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});
+  var ss=document.getElementById('step-success'); if(ss) ss.classList.add('active');
+  [1,2,3,4].forEach(function(i){
+    var d=document.getElementById('mp'+i); if(d) d.className='mp-step done';
+    var l=document.getElementById('mpl'+i); if(l) l.className='mp-line done';
   });
 }
 
-// EmailJS order notification to caspi.ready.spam@gmail.com
 async function sendOrderEmail(name, email, phone, address, notes, payId) {
   var msg =
-    'NEW ARMORLOCK ORDER — $89.00\n\n' +
-    'Product: ArmorLock Titan-G Series\nPrice: $89.00\n\n' +
+    'NEW NEONSHIELD ORDER — $89.00\n\n' +
+    'Product: NeonShield Pro Lock\nPrice: $89.00\n\n' +
     '-- CUSTOMER --\n' +
-    'Name: ' + name + '\nEmail: ' + email + '\nPhone: ' + (phone || '—') + '\n\n' +
-    '-- SHIPPING ADDRESS --\n' + address + '\n\n' +
-    (notes ? '-- DELIVERY NOTES --\n' + notes + '\n\n' : '') +
+    'Name: '+name+'\nEmail: '+email+'\nPhone: '+(phone||'—')+'\n\n' +
+    '-- SHIPPING ADDRESS --\n'+address+'\n\n' +
+    (notes?'-- DELIVERY NOTES --\n'+notes+'\n\n':'') +
     '-- PAYMENT --\n' +
-    'Stripe ID: ' + payId + ' — PAID\n' +
-    'Date: ' + new Date().toLocaleString('en-GB');
+    'Stripe ID: '+payId+' — PAID\n' +
+    'Date: '+new Date().toLocaleString('en-GB');
   try {
-    await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
-      to_email: NOTIFY_EMAIL, from_name: name, message: msg
-    });
-  } catch(e) { console.error('EmailJS error:', e); }
+    await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {to_email:NOTIFY_EMAIL, from_name:name, message:msg});
+  } catch(e) { console.error('EmailJS error:',e); }
 }
 
-// ── IP COUNTRY AUTO-DETECT ───────────────────────────────
 async function detectCountry() {
   try {
-    var ctrl = new AbortController();
-    var tid  = setTimeout(function() { ctrl.abort(); }, 4000);
-    var r    = await fetch('https://ipapi.co/json/', { signal: ctrl.signal });
-    clearTimeout(tid);
-    var d    = await r.json();
-    var found = COUNTRIES.find(function(x) { return x.code === (d.country_code || ''); });
+    var ctrl=new AbortController(), tid=setTimeout(function(){ctrl.abort();},4000);
+    var r=await fetch('https://ipapi.co/json/',{signal:ctrl.signal}); clearTimeout(tid);
+    var d=await r.json();
+    var found=COUNTRIES.find(function(x){return x.code===(d.country_code||'');});
     if (found) selectCountry(found);
-  } catch(e) { /* user picks manually */ }
+  } catch(e){}
 }
 
 // ── INIT ─────────────────────────────────────────────────
-try { if (typeof emailjs !== 'undefined') emailjs.init(EMAILJS_KEY_VAL); } catch(e) {}
-try { initBanner(); } catch(e) {}
-try { var _mbk = document.getElementById('mbk'); if (_mbk) _mbk.style.display = 'none'; } catch(e) {}
+try { if (typeof emailjs!=='undefined') emailjs.init(EMAILJS_KEY_VAL); } catch(e){}
+try { initBanner(); } catch(e){}
+try { var _mbk=document.getElementById('mbk'); if(_mbk) _mbk.style.display='none'; } catch(e){}
 detectCountry();
 </script>
 </body>
