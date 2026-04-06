@@ -1,9 +1,11 @@
 [build]
-  publish = "."
-  command = ""
+  publish   = "."
+  command   = ""
   functions = "netlify/functions"
 
+# Redirect PHP endpoint to the serverless function — index.html needs no changes
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from   = "/create-payment-intent.php"
+  to     = "/.netlify/functions/create-payment-intent"
   status = 200
+  force  = true
