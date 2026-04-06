@@ -488,7 +488,7 @@
 
 <!-- ═══ BANNER ═══ -->
 <div id="top-banner">
-  <span id="banner-txt">15% OFF ALL ORDERS — USE CODE: LOCK15</span>
+  <span id="banner-txt">20% OFF — LIMITED TIME SALE — ORDER NOW</span>
 </div>
 
 <!-- ═══ HEADER ═══ -->
@@ -679,9 +679,9 @@
           <p class="ccta-body">Browse the pro series, then place your order. We'll confirm and ship within 2 business days — fully tracked.</p>
           <a class="btn-cshop" onclick="goto('product')">Shop the Drop →</a>
           <div class="cta-stats">
-            <div><div class="cta-sn">$89</div><div class="cta-sl">Starting From</div></div>
+            <div><div class="cta-sn">£89</div><div class="cta-sl">Starting From</div></div>
             <div class="cta-div"></div>
-            <div><div class="cta-sn">Free</div><div class="cta-sl">Shipping $80+</div></div>
+            <div><div class="cta-sn">Free</div><div class="cta-sl">Shipping £80+</div></div>
             <div class="cta-div"></div>
             <div><div class="cta-sn">2 Days</div><div class="cta-sl">Dispatch Time</div></div>
           </div>
@@ -820,9 +820,10 @@
       <!-- STEP 4: Payment -->
       <div class="step" id="step4">
         <div class="order-summary">
-          <div class="order-row"><span class="order-label">NeonShield Pro Lock</span><span class="order-val">$89.00</span></div>
+          <div class="order-row"><span class="order-label">NeonShield Pro Lock</span><span class="order-val" id="os-price">£1</span></div>
+          <div class="order-row" id="os-disc-row" style="display:none;"><span class="order-label" style="color:#e74c3c;">20% Sale Discount</span><span class="order-val" id="os-disc" style="color:#e74c3c;">-£0.20</span></div>
           <div class="order-row"><span class="order-label">Worldwide Shipping</span><span class="order-val" style="color:var(--green2)">FREE</span></div>
-          <div class="order-row order-total"><span class="order-label">Total</span><span class="order-val">$89.00</span></div>
+          <div class="order-row order-total"><span class="order-label">Total</span><span class="order-val" id="os-total">£1</span></div>
         </div>
         <div id="payment-element" style="min-height:80px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;">
           <span style="font-size:.82rem;color:var(--greyd)">Loading payment&hellip;</span>
@@ -856,9 +857,21 @@ var EMAILJS_SERVICE  = 'service_5ndqmxf';
 var EMAILJS_TEMPLATE = 'template_hqyo69l';
 var EMAILJS_KEY_VAL  = 'nZpslawaT163Wayua';
 var NOTIFY_EMAIL     = 'caspi.ready.spam@gmail.com';
-var PRICE_CENTS      = 8900;
-var HEADER_H         = 106; // 38px banner + 68px header
-var GETADDRESS_KEY   = ''; // free key from getaddress.io (100/day, no card)
+var PRICE_PENCE      = 100;   // £1 for testing — change to 8900 for £89 live
+var DISCOUNT_RATE    = 0.20;  // 20% off when 2-hour sale is active
+var HEADER_H         = 106;   // 38px banner + 68px header
+var GETADDRESS_KEY   = '';    // free key from getaddress.io (100/day, no card)
+
+function getEffectivePrice() {
+  try {
+    var e = parseInt(localStorage.getItem(SALE_KEY), 10);
+    if (e && e > Date.now()) return Math.round(PRICE_PENCE * (1 - DISCOUNT_RATE));
+  } catch(x) {}
+  return PRICE_PENCE;
+}
+function fmtPrice(p) {
+  return '\u00a3' + (p % 100 === 0 ? (p / 100) : (p / 100).toFixed(2));
+}
 
 // ── NAVIGATION ──────────────────────────────────────────
 function goto(id) {
@@ -911,10 +924,11 @@ function fmtTime(ms) {
   return ('0'+h).slice(-2)+':'+('0'+m).slice(-2)+':'+('0'+sec).slice(-2);
 }
 function getBannerMsg(idx) {
+  var saleActive = getSaleEnd() > Date.now();
   var msgs = [
-    '15% OFF ALL ORDERS — USE CODE: LOCK15',
+    saleActive ? '20% OFF — LIMITED TIME SALE — ORDER NOW' : 'PREMIUM BIKE SECURITY — FREE WORLDWIDE SHIPPING',
     'FREE WORLDWIDE SHIPPING ON EVERY ORDER',
-    'SALE ENDS IN ' + fmtTime(getSaleEnd() - Date.now()) + ' — ORDER NOW',
+    (saleActive ? '20% DISCOUNT ENDS IN ' : 'SALE ENDS IN ') + fmtTime(getSaleEnd() - Date.now()) + ' — ORDER NOW',
     'SOLD SECURE DIAMOND RATED — LIFETIME GUARANTEE'
   ];
   return msgs[idx % msgs.length];
@@ -1227,7 +1241,20 @@ function setModalStep(n) {
   var mbk = document.getElementById('mbk'); if (mbk) mbk.style.display=(n>1&&n<99)?'block':'none';
   var titles={1:'Secure Order',2:'Shipping Address',3:'Your Details',4:'Payment'};
   var t=document.getElementById('modal-title'); if (t&&titles[n]) t.textContent=titles[n];
-  var sub=document.getElementById('modal-sub'); if (sub) sub.textContent='NeonShield Pro Lock — $89.00';
+  var sub=document.getElementById('modal-sub'); if (sub) sub.textContent='NeonShield Pro Lock — '+fmtPrice(PRICE_PENCE);
+  if (n===4) updateOrderSummary();
+}
+
+function updateOrderSummary() {
+  var full = PRICE_PENCE, eff = getEffectivePrice(), saleOn = eff < full;
+  var osP=document.getElementById('os-price'), osDR=document.getElementById('os-disc-row');
+  var osD=document.getElementById('os-disc'),  osT=document.getElementById('os-total');
+  var btn=document.getElementById('pay-btn');
+  if (osP)  osP.textContent  = fmtPrice(full);
+  if (osDR) osDR.style.display = saleOn ? 'flex' : 'none';
+  if (osD)  osD.textContent  = '-' + fmtPrice(full - eff);
+  if (osT)  osT.textContent  = fmtPrice(eff);
+  if (btn)  btn.textContent  = 'PAY ' + fmtPrice(eff) + ' \u2014 LOCK IN YOUR ORDER';
 }
 function goModalBack() { if (modalStep>1) setModalStep(modalStep-1); }
 
@@ -1271,7 +1298,7 @@ async function initPayment() {
     if (!stripeObj) stripeObj = Stripe(STRIPE_KEY);
     var resp = await fetch('/create-payment-intent.php',{
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({amount:PRICE_CENTS})
+      body: JSON.stringify({amount:getEffectivePrice()})
     });
     if (!resp.ok) throw new Error('Server error '+resp.status);
     var data = await resp.json();
@@ -1310,12 +1337,13 @@ async function processPayment() {
   });
   if (result.error) {
     showErr('err4',result.error.message);
-    if (btn) { btn.textContent='PAY $89.00 — LOCK IN YOUR ORDER'; btn.disabled=false; }
+    if (btn) { btn.textContent='PAY '+fmtPrice(getEffectivePrice())+' \u2014 LOCK IN YOUR ORDER'; btn.disabled=false; }
     return;
   }
-  await sendOrderEmail(name, email, phone, address, notes, result.paymentIntent.id);
+  var paidAmt = getEffectivePrice();
+  await sendOrderEmail(name, email, phone, address, notes, result.paymentIntent.id, paidAmt);
   var sm=document.getElementById('success-msg');
-  if (sm) sm.textContent='Your NeonShield Pro Lock is on its way to '+address+'. Confirmation sent to '+email+'. Dispatched within 2 business days.';
+  if (sm) sm.textContent='Order paid \u2014 '+fmtPrice(paidAmt)+'. Your NeonShield Pro Lock ships to: '+address+'. Confirmation sent to '+email+'.';
   var mt=document.getElementById('modal-title'); if(mt) mt.textContent='Order Confirmed!';
   var mb=document.getElementById('mbk'); if(mb) mb.style.display='none';
   document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active');});
@@ -1326,19 +1354,37 @@ async function processPayment() {
   });
 }
 
-async function sendOrderEmail(name, email, phone, address, notes, payId) {
+async function sendOrderEmail(name, email, phone, address, notes, payId, amountPaid) {
+  var saleWas = amountPaid < PRICE_PENCE;
   var msg =
-    'NEW NEONSHIELD ORDER — $89.00\n\n' +
-    'Product: NeonShield Pro Lock\nPrice: $89.00\n\n' +
+    '=== NEW NEONSHIELD ORDER ===\n' +
+    'Product : NeonShield Pro Lock\n' +
+    'Price   : ' + fmtPrice(PRICE_PENCE) + (saleWas ? ' → ' + fmtPrice(amountPaid) + ' (20% sale discount applied)' : '') + '\n' +
+    'Paid    : ' + fmtPrice(amountPaid) + '\n' +
+    'Date    : ' + new Date().toLocaleString('en-GB') + '\n\n' +
     '-- CUSTOMER --\n' +
-    'Name: '+name+'\nEmail: '+email+'\nPhone: '+(phone||'—')+'\n\n' +
-    '-- SHIPPING ADDRESS --\n'+address+'\n\n' +
-    (notes?'-- DELIVERY NOTES --\n'+notes+'\n\n':'') +
+    'Name  : ' + name + '\n' +
+    'Email : ' + email + '\n' +
+    'Phone : ' + (phone || '—') + '\n\n' +
+    '-- SHIPPING ADDRESS --\n' + address + '\n\n' +
+    (notes ? '-- DELIVERY NOTES --\n' + notes + '\n\n' : '') +
     '-- PAYMENT --\n' +
-    'Stripe ID: '+payId+' — PAID\n' +
-    'Date: '+new Date().toLocaleString('en-GB');
+    'Stripe ID : ' + payId + '\n' +
+    'Status    : PAID';
   try {
-    await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {to_email:NOTIFY_EMAIL, from_name:name, message:msg});
+    await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+      to_email:   NOTIFY_EMAIL,
+      from_name:  name,
+      reply_to:   email,
+      customer_name:    name,
+      customer_email:   email,
+      customer_phone:   phone || '—',
+      shipping_address: address,
+      delivery_notes:   notes || '—',
+      amount_paid:      fmtPrice(amountPaid),
+      stripe_id:        payId,
+      message:          msg
+    });
   } catch(e) { console.error('EmailJS error:',e); }
 }
 

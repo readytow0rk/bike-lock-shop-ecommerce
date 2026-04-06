@@ -14,9 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-$amount = isset($input['amount']) ? round(floatval($input['amount']) * 100) : 0;
+// JS sends amount already in pence (smallest currency unit), pass directly to Stripe
+$amount = isset($input['amount']) ? intval($input['amount']) : 0;
 
-if ($amount < 100) {
+if ($amount < 30) {
     http_response_code(400);
     echo json_encode(['error' => 'Invalid amount']);
     exit;
