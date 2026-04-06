@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = json_decode(file_get_contents('php://input'), true);
-// JS sends amount already in pence (smallest currency unit), pass directly to Stripe
+// JS sends amount already in pence — do NOT multiply by 100
 $amount = isset($input['amount']) ? intval($input['amount']) : 0;
 
 if ($amount < 30) {
