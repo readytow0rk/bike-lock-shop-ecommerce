@@ -2,7 +2,7 @@
 
 A fully custom, single-page food ordering storefront built from scratch in vanilla JavaScript. No frameworks, no dependencies — everything from the cart logic to the discount timer was written by hand.
 
-Live website link - [LIVE]([https://readytow0rk.github.io/bike-lock-shop/](https://readytow0rk.github.io/bike-lock-shop-ecommerce/)
+Live website link - [LIVE]([https://readytow0rk.github.io/bike-lock-shop/](https://readytow0rk.github.io/bike-lock-shop-ecommerce/])
 ---
 
 ## What It Does
